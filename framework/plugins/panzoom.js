@@ -6,6 +6,7 @@
  *
  *   data-width / data-height    size of the viewport: any CSS length. data-height="fill" takes the rest of the slide.
  *   data-aspect="16/9"          derive the height from the width instead
+ *   data-bleed                  take the whole slide area below the title bar, edge to edge (use it alone on a slide)
  *   data-fit="contain"          first view: contain (default) | cover | width | height
  *   data-max-zoom="4"           largest zoom, as a multiple of the picture's own size (default 4 = 400 %)
  *   data-content-width/-height  picture size in px when it cannot be read (default: image size, SVG viewBox)
@@ -43,7 +44,8 @@
       el.prepend(stage);
       el.tabIndex = 0;
       if (d.width) el.style.width = d.width;
-      if (d.height === "fill") el.classList.add("is-fill");
+      if (d.bleed !== undefined) el.classList.add("is-bleed", "is-fill");
+      else if (d.height === "fill") el.classList.add("is-fill");
       else if (d.height) el.style.height = d.height;
       if (d.aspect) { el.style.aspectRatio = d.aspect; if (!d.height) el.style.height = "auto"; }
 

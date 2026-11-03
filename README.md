@@ -191,6 +191,7 @@ The viewport size is yours: `data-width` / `data-height` take any CSS length, `d
 
 | Attribute | Meaning |
 |---|---|
+| `data-bleed` | take the whole slide area under the title bar, edge to edge; use it alone on a slide |
 | `data-fit="contain\|cover\|width\|height"` | the first view (default `contain`) |
 | `data-max-zoom="4"` | largest zoom as a multiple of the picture's size (default 4) |
 | `data-views="A=x,y,w,h; …"` | named details as rectangles in picture pixels; keys `1`–`9` or the badge buttons fly there |

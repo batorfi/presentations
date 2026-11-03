@@ -255,3 +255,4 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
 .s-pz-hint { position: absolute; left: 50%; top: 14px; translate: -50% 0; padding: 10px 16px; border-radius: 10px; font-size: 18px; white-space: nowrap; opacity: 0; transition: opacity .2s; pointer-events: none; }
 .s-panzoom.is-exploring .s-pz-hint { opacity: 1; }
 @container (max-width: 820px) { .s-pz-badge .pz-lbl { display: none; } .s-pz-badge { max-width: calc(100% - 200px); } }
+.s-panzoom.is-bleed { margin: calc(-1 * var(--deck-pad-top)) calc(-1 * var(--deck-pad-x)) calc(-1 * var(--deck-pad-bottom)); width: auto; border: 0; border-radius: 0; }
