@@ -204,6 +204,37 @@ The viewport size is yours: `data-width` / `data-height` take any CSS length, `d
 explore with the keyboard: arrows pan (Shift = faster), `+` `−` zoom, `0` fit, `O` 100 %, `1`–`9` views, Esc or `E` leaves.
 Every slide change starts again from the fitted view. With reduced motion the fly-to moves are instant.
 
+### Typewriter
+
+Text that types itself, character by character, with a cursor: for the slide where the words are the message (a quote, a
+principle, a short statement). Load `plugins/typewriter.js`, then:
+
+```html
+<div class="s-typewriter" data-size="l" data-cps="16" data-width="62%" data-style="bar">
+  <p>Code is cheap now. **Judgement** is not.</p>
+  <p>A second paragraph, or a line<br>break inside one.</p>
+  <cite>Someone Wise, Somewhere</cite>
+</div>
+```
+
+| Attribute | Meaning |
+|---|---|
+| `data-size="s\|m\|l\|xl"` | text size 36 / 48 / 68 / 96 px (default `m`); `data-font-size="56"` sets exact pixels |
+| `data-cps="16"` | typing speed in characters per second (2 to 120) |
+| `data-rhythm="steady"` | an even pace; the default `natural` varies each key a little and pauses at commas, full stops, line breaks and paragraphs (the same every time, so it can be rehearsed) |
+| `data-width="62%"` | width of the text panel, any CSS length; `data-align="center"` centres it, `data-text-align` aligns the text inside |
+| `data-font="serif\|sans\|mono"` | typeface; `data-style="bar\|panel\|rail"` frames the text |
+| `data-delay="400"` | pause in ms after the slide has settled before the first key |
+| `data-cursor="bar\|block\|underscore\|none"` | cursor shape; `data-cursor-end="hide"` removes it when done |
+| `data-replay="off"` | show the finished text when the slide is revisited; `data-skip="off"` stops the next-key from finishing early |
+
+Emphasis: `**double stars**`, `<em>`, `<strong>`, `<mark>` stay emphasised and are never typed as characters. A `<cite>`,
+`<footer>` or `class="s-tw-by"` is the attribution, typed last in a smaller style. Several typewriters on a slide type one
+after another, and only the last keeps its cursor. Typing starts on its own once the slide has settled. The next-key
+(→, space, Page Down, Enter) finishes the text at once, the next press moves on; `Y` types it again. The whole text is laid out
+from the start (the untyped part is only invisible), so nothing reflows or jumps. Screen readers get the full text, and
+reduced motion shows it finished.
+
 ### Logo in the header
 
 `Deck.configure({ logo: { src: "assets/logo.svg", alt: "Company", height: 40 } })` puts an SVG or PNG at the left of the
