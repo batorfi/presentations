@@ -90,6 +90,7 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
   white-space: nowrap; transition: color 300ms;
 }
 .deck-tb-section.is-current .deck-tb-label { color: var(--deck-on-rail); font-weight: 600; }
+.deck-tb-right { display: flex; align-items: center; gap: 32px; }
 .deck-tb-count { font-variant-numeric: tabular-nums; font-size: 22px; color: var(--deck-muted-on-rail); white-space: nowrap; }
 .deck-tb-count b { color: var(--deck-on-rail); font-weight: 600; margin-right: 6px; }
 .deck-tb-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }

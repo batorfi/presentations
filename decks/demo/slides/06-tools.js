@@ -13,10 +13,12 @@ Deck.slide({
       <div class="s-card">
         <div class="demo-keys">
           <kbd>L</kbd><span>Laser pointer</span>
-          <kbd>D</kbd><span>Draw · 1 circle · 2 rect · 3 line · 4 arrow</span>
+          <kbd>D</kbd><span>Draw · 1 circle · 2 rect · 3 line · 4 arrow · 5 curve</span>
           <kbd>C</kbd><span>Next drawing colour</span>
           <kbd>X</kbd><span>Clear · <b>U</b> undo</span>
           <kbd>Z</kbd><span>Lens · wheel or [ ] size · Shift+wheel or + − zoom</span>
+          <kbd>S</kbd><span>Spotlight · Shift+S shape</span>
+          <kbd>P</kbd><span>Timer · Shift+P stop · R restart</span>
           <kbd>G</kbd><span>Storyline</span>
           <kbd>T</kbd><span>Light / dark</span>
           <kbd>F</kbd><span>Fullscreen</span>

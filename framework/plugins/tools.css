@@ -43,7 +43,8 @@ body.lens-on { cursor: none; }
 /* ---------- spotlight ---------- */
 .deck-spot { position: fixed; inset: 0; z-index: 44; pointer-events: none !important; }
 .deck-spot .sp { position: absolute; left: 0; top: 0; width: 1px; height: 1px; background: rgba(6, 14, 13, var(--spot-dim, 0.7)); transform-origin: 0 0; will-change: transform; }
-.deck-spot .sp.win { background: transparent; clip-path: inset(0); } /* its shadow only fills the corners of a round window */
+.deck-spot .sp-win { position: absolute; left: 0; top: 0; overflow: visible; transform-origin: 0 0; will-change: transform; } /* dims the corners of a round window */
+.deck-spot .sp-win path { fill: rgb(6, 14, 13); fill-opacity: var(--spot-dim, 0.7); }
 .deck-spot-ring { position: fixed; left: 0; top: 0; z-index: 44; pointer-events: none !important; will-change: transform; }
 .deck-spot-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .deck-spot-ring rect { fill: none; stroke-width: 3; }
@@ -132,3 +133,27 @@ body.spot-on { cursor: none; }
 .deck-help dt { display: flex; gap: 4px; flex-wrap: wrap; }
 .deck-help dd { margin: 0; color: var(--deck-text-2); }
 .deck-help kbd { font-size: 15px; padding: 4px 8px; }
+
+/* ---------- timer (header) ---------- */
+.deck-tb-timer { display: flex; align-items: center; gap: 14px; --tm: var(--deck-accent-on-rail); }
+.deck-tb-timer[hidden] { display: none; }
+.deck-tb-timer svg { width: 50px; height: 50px; transform: rotate(-90deg); flex: none; }
+.deck-tb-timer circle { fill: none; stroke-width: 5; }
+.deck-tb-timer .trk { stroke: var(--deck-rail-raised); }
+.deck-tb-timer .arc { stroke: var(--tm); stroke-linecap: round; transition: stroke-dashoffset 1s linear, stroke 400ms; }
+.deck-tb-timer .t { font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; color: var(--deck-on-rail); min-width: 3.1ch; transition: color 400ms; }
+.deck-tb-timer .st { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--deck-muted-on-rail); }
+.deck-tb-timer[data-level="warn"] { --tm: #F2B24A; }
+.deck-tb-timer[data-level="crit"], .deck-tb-timer[data-level="over"] { --tm: #F59E92; }
+.deck-tb-timer[data-level="crit"] .t, .deck-tb-timer[data-level="over"] .t { color: #F59E92; }
+.deck-tb-timer[data-level="over"] svg { animation: timer-pulse 1.4s ease-in-out infinite; }
+.deck-tb-timer[data-status="paused"] .t { opacity: 0.65; }
+.deck-tb-timer[data-status="paused"] .arc { stroke-dasharray: 6 5 !important; }
+@keyframes timer-pulse { 50% { opacity: 0.45; } }
+.deck-timer-float {
+  position: absolute; z-index: 6; top: 24px; right: var(--deck-pad-x); gap: 12px; padding: 8px 22px 8px 10px;
+  border-radius: 999px; background: var(--deck-rail); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+html[data-reduced-motion] .deck-tb-timer .arc { transition: none; }
+html[data-reduced-motion] .deck-tb-timer svg { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .deck-tb-timer .arc { transition: none; } .deck-tb-timer svg { animation: none !important; } }

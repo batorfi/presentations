@@ -122,6 +122,7 @@
     },
     configure(cfg) {
       Object.assign(config, cfg);
+      Deck.config = config; // read by plugins (e.g. config.timer.minutes)
     },
   });
 
@@ -398,7 +399,7 @@
           )
           .join("")}
       </nav>
-      <div class="deck-tb-count"><b></b><span>/ ${slides.length}</span></div>
+      <div class="deck-tb-right"><div class="deck-tb-timer" hidden></div><div class="deck-tb-count"><b></b><span>/ ${slides.length}</span></div></div>
       <div class="deck-tb-bar"><i></i></div>`;
     tb.addEventListener("click", (e) => {
       const tick = e.target.closest(".deck-tb-tick");

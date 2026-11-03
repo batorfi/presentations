@@ -46,7 +46,7 @@
           <div class="deck-menu-title">Tools</div>
           ${item("laser", "Laser pointer", "L", laser.active)}
           ${item("draw", "Draw", "D", draw.active)}
-          ${seg("inkShape", s.inkShape, [["ellipse", "◯ 1"], ["rect", "▭ 2"], ["line", "╱ 3"], ["arrow", "→ 4"]])}
+          ${seg("inkShape", s.inkShape, [["ellipse", "◯ 1"], ["rect", "▭ 2"], ["line", "╱ 3"], ["arrow", "→ 4"], ["curve", "↷ 5"]])}
           ${item("lens", "Zoom lens", "Z", lens.active)}
           ${spot ? item("spot", "Spotlight", "S", spot.active) : ""}
           ${item("clear", "Clear drawings", "X")}
@@ -70,9 +70,17 @@
         ${spot ? `<div class="deck-menu-group">
           <div class="deck-menu-title">Spotlight</div>
           <div class="deck-menu-row"><span>Size</span>${seg("spotPreset", spotPreset, [["s", "S"], ["m", "M"], ["l", "L"]])}</div>
-          <div class="deck-menu-row"><span>Shape</span>${seg("spotShape", spot.shapes.includes(s.spotShape) ? s.spotShape : "rect", [["rect", "Rectangle"], ["circle", "Circle"]])}</div>
+          <div class="deck-menu-row"><span>Shape</span>${seg("spotShape", spot.shapes.includes(s.spotShape) ? s.spotShape : "circle", [["circle", "Circle"], ["rect", "Rectangle"]])}</div>
           <div class="deck-menu-row"><span>Border</span>${seg("spotBorder", s.spotBorder === "static" ? "static" : "animated", [["animated", "Animated"], ["static", "Static"]])}</div>
           <div class="deck-menu-row"><span>Dimming</span>${seg("spotDim", s.spotDim || 0.7, [[0.5, "Light"], [0.7, "Medium"], [0.88, "Heavy"]])}</div>
+        </div>` : ""}
+        ${T().timer ? `<div class="deck-menu-group">
+          <div class="deck-menu-title">Timer</div>
+          <div class="deck-menu-row"><span>Length, min</span>${seg("timerPreset", T().timer.presets.includes(T().timer.minutes) ? T().timer.minutes : "", T().timer.presets.map((v) => [v, v]))}</div>
+          <div class="deck-menu-row"><span>${T().timer.minutes} min</span><div class="deck-menu-seg"><button data-act="tm-5">− 5</button><button data-act="tm+5">+ 5</button></div></div>
+          ${item("tstart", T().timer.status === "running" ? "Pause timer" : T().timer.status === "paused" ? "Resume timer" : "Start timer", "P")}
+          ${item("trestart", "Restart timer", "R")}
+          ${item("tstop", "Stop timer", "Shift+P")}
         </div>` : ""}
         <div class="deck-menu-group">
           <div class="deck-menu-title">View</div>
@@ -107,6 +115,7 @@
         const key = b.dataset.set, v = parse(b.dataset.value);
         if (key === "theme") Deck.setTheme(v);
         else if (key === "lensPreset") Deck.setSetting("lensWidth", T().lens.presets[v]);
+        else if (key === "timerPreset") { Deck.setSetting("timerMinutes", +v); T().timer.adjust(0); }
         else if (key === "spotPreset") Deck.setSetting("spotWidth", T().spotlight.presets[v]);
         else if (key === "inkShape") T().draw.pick(v);
         else Deck.setSetting(key, v);
@@ -115,6 +124,7 @@
         return;
       }
       const act = b.dataset.act;
+      if (act === "tm-5" || act === "tm+5") { T().timer.adjust(act === "tm-5" ? -5 : 5); renderMenu(); return; }
       closeMenu();
       ({
         next: () => Deck.next(),
@@ -126,6 +136,9 @@
         draw: () => T().draw.toggle(),
         lens: () => T().lens.toggle(),
         spot: () => T().spotlight.toggle(),
+        tstart: () => T().timer.toggle(),
+        trestart: () => T().timer.restart(),
+        tstop: () => T().timer.stop(),
         clear: () => T().draw.clear(),
         fullscreen: () => Deck.toggleFullscreen(),
         help: () => toggleHelp(),
@@ -146,7 +159,7 @@
     Deck.el.ui.append(help);
     const pretty = (k) =>
       ({ " ": "Space", "Shift+ ": "Shift+Space", ArrowRight: "→", ArrowLeft: "←", ArrowUp: "↑", ArrowDown: "↓", PageDown: "PgDn", PageUp: "PgUp", "Mod+z": "Ctrl/⌘+Z" }[k] || (k.length === 1 ? k.toUpperCase() : k));
-    const ORDER = ["Navigate", "Tools", "Draw", "Zoom lens", "View"];
+    const ORDER = ["Navigate", "Tools", "Draw", "Zoom lens", "Spotlight", "Timer", "View"];
     const order = (g) => (ORDER.indexOf(g) + 1 || 99);
     function renderHelp() {
       const groups = {};

@@ -3,7 +3,7 @@
  * change the size. Works together with the laser; switches the zoom lens off.
  * Settings: spotWidth / spotSize (s | m | l), spotShape (rect | circle), spotDim (0.5 – 0.9),
  * spotBorder (animated | static): marching dashes and a soft pulse on the boundary, off under reduced motion.
- * The dimmed area is one big box-shadow around the window, which moves with translate3d. */
+ * The dimmed area is four panels plus a corner path around the window; all move with translate3d. */
 (function () {
   "use strict";
   const PRESETS = { s: 380, m: 600, l: 880 }; // window width in screen pixels
@@ -14,7 +14,7 @@
     // Dim layer = four translucent panels around the window. They are 1 x 1 px boxes that only move and
     // scale (transform), so moving the spotlight never repaints. Every edge is snapped to a whole device pixel
     // and neighbours share the exact same coordinate, so there is no seam and no double-dimmed overlap.
-    const dimLayer = h("div", { class: "deck-spot", hidden: true, "aria-hidden": "true" }, '<i class="sp t"></i><i class="sp b"></i><i class="sp l"></i><i class="sp r"></i><i class="sp win"></i>');
+    const dimLayer = h("div", { class: "deck-spot", hidden: true, "aria-hidden": "true" }, '<i class="sp t"></i><i class="sp b"></i><i class="sp l"></i><i class="sp r"></i><svg class="sp-win" aria-hidden="true"><path fill-rule="evenodd"/></svg>');
     // The boundary: a solid teal outline, white dashes marching along it, and a soft pulse radiating out.
     const ring = h("div", { class: "deck-spot-ring", hidden: true, "aria-hidden": "true" },
       '<svg aria-hidden="true"><rect class="base"/><rect class="ants"/></svg>');
@@ -27,7 +27,7 @@
     let raf = 0;
 
     const width = () => Deck.settings.spotWidth || PRESETS[Deck.settings.spotSize] || PRESETS.m;
-    const shape = () => (SHAPES.includes(Deck.settings.spotShape) ? Deck.settings.spotShape : "rect");
+    const shape = () => (SHAPES.includes(Deck.settings.spotShape) ? Deck.settings.spotShape : "circle");
     const dim = () => clamp(+Deck.settings.spotDim || 0.7, 0.3, 0.95);
 
     let lastKey = "";
@@ -46,20 +46,25 @@
       T(pb, 0, y1, W, H - y1);
       T(pl, 0, y0, x0, hgt);
       T(pr, x1, y0, W - x1, hgt);
-      // The window itself only dims the corners left outside a circle / rounded rectangle:
-      // its shadow is clipped to its own box.
       const d = dim();
       const key = `${w}x${hgt}${circle}${d}`;
       if (key !== lastKey) {
         lastKey = key;
         const r = circle ? "50%" : "18px";
-        for (const el of [hole, ring]) {
+        for (const el of [ring]) {
           el.style.width = w + "px";
           el.style.height = hgt + "px";
           el.style.borderRadius = r;
         }
+        // The window dims only the corners left outside a circle / rounded rectangle: a path with the
+        // window's own box as the outer edge and the round shape cut out (even-odd), so nothing needs clipping.
+        const rad = circle ? w / 2 : 18;
+        const rr = Math.min(rad, w / 2, hgt / 2);
+        hole.setAttribute("width", w);
+        hole.setAttribute("height", hgt);
+        hole.firstElementChild.setAttribute("d",
+          `M0 0H${w}V${hgt}H0Z M${rr} 0H${w - rr}A${rr} ${rr} 0 0 1 ${w} ${rr}V${hgt - rr}A${rr} ${rr} 0 0 1 ${w - rr} ${hgt}H${rr}A${rr} ${rr} 0 0 1 0 ${hgt - rr}V${rr}A${rr} ${rr} 0 0 1 ${rr} 0Z`);
         dimLayer.style.setProperty("--spot-dim", d);
-        hole.style.boxShadow = `0 0 0 ${Math.ceil(w)}px rgba(6, 14, 13, ${d})`;
         const sw = 3; // stroke width; the outline sits just inside the window's edge
         for (const r of ringRects) {
           r.setAttribute("x", sw / 2);
@@ -90,7 +95,7 @@
       schedule();
     }
     function toggleShape() {
-      Deck.setSetting("spotShape", shape() === "rect" ? "circle" : "rect");
+      Deck.setSetting("spotShape", shape() === "circle" ? "rect" : "circle");
       if (!on) set(true);
       schedule();
     }

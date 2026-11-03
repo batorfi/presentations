@@ -1,11 +1,11 @@
-/* Drawing — D toggles; 1 circle, 2 rectangle, 3 line, 4 arrow; C cycles colour; X clears; U undoes.
- * Drag to draw. Shift makes a circle round, a rectangle square, and snaps lines to 45°.
+/* Drawing — D toggles; 1 circle, 2 rectangle, 3 line, 4 arrow, 5 curved arrow; C cycles colour; X clears; U undoes.
+ * Drag to draw. Shift makes a circle round, a rectangle square, snaps lines to 45° and flips the bend of a curved arrow.
  * Shapes are SVG in stage coordinates, so they stay sharp, scale with the window and show in the lens.
  * Drawings belong to the moment: they clear when you leave the slide. */
 (function () {
   "use strict";
   const WIDTHS = { s: 4, m: 7, l: 12 };
-  const SHAPES = ["ellipse", "rect", "line", "arrow"];
+  const SHAPES = ["ellipse", "rect", "line", "arrow", "curve"];
   const NS = "http://www.w3.org/2000/svg";
 
   Deck.on("ready", () => {
@@ -40,14 +40,14 @@
     }
 
     function make(tag) {
-      const el = document.createElementNS(NS, tag === "arrow" ? "line" : tag);
+      const el = document.createElementNS(NS, tag === "arrow" ? "line" : tag === "curve" ? "path" : tag);
       el.setAttribute("stroke", color());
       el.setAttribute("stroke-width", width());
       el.setAttribute("fill", "none");
       el.setAttribute("stroke-linecap", "round");
       el.setAttribute("stroke-linejoin", "round");
       if (tag === "rect") el.setAttribute("rx", 6);
-      if (tag === "arrow") el.setAttribute("marker-end", `url(#${arrowMarker(color())})`);
+      if (tag === "arrow" || tag === "curve") el.setAttribute("marker-end", `url(#${arrowMarker(color())})`);
       return el;
     }
 
@@ -90,6 +90,12 @@
           el.setAttribute("width", w);
           el.setAttribute("height", hgt);
         }
+      } else if (kind === "curve") {
+        // A quadratic arc from the start to the pointer; the bend is a third of the length, Shift flips it.
+        const len = Math.hypot(dx, dy) || 1;
+        const k = (square ? -1 : 1) * 0.3;
+        const cx = a.x + dx / 2 - (dy / len) * len * k, cy = a.y + dy / 2 + (dx / len) * len * k;
+        el.setAttribute("d", `M${a.x} ${a.y} Q${cx} ${cy} ${a.x + dx} ${a.y + dy}`);
       } else {
         if (square) {
           const ang = Math.round(Math.atan2(dy, dx) / (Math.PI / 4)) * (Math.PI / 4);
@@ -156,6 +162,7 @@
     Deck.addKeys(["2"], () => pick("rect"), "Rectangle (Shift = square)", "Draw");
     Deck.addKeys(["3"], () => pick("line"), "Line (Shift = 45° snap)", "Draw");
     Deck.addKeys(["4"], () => pick("arrow"), "Arrow", "Draw");
+    Deck.addKeys(["5"], () => pick("curve"), "Curved arrow (Shift = bend the other way)", "Draw");
     Deck.addKeys(["c"], cycleColor, "Next colour", "Draw");
     Deck.addKeys(["x"], clear, "Clear drawings", "Draw");
     Deck.addKeys(["u", "Mod+z"], undo, "Undo last shape", "Draw");

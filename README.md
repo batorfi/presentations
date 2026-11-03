@@ -7,7 +7,7 @@ No server, no build step — open a deck's `index.html` in a desktop browser (Ch
 framework/                 the engine — shared by every deck
   deck.js                  core: stage, navigation, steps, transitions, title bar, hotkeys
   deck.css                 layout, title bar and the slide content kit (s-* classes)
-  plugins/                 laser, draw, lens (zoom), storyline, menu (+ help), shared tool styles
+  plugins/                 laser, draw, lens (zoom), spotlight, timer, storyline, menu (+ help), shared tool styles
   themes/kiln/             the KILN design system as a theme
     tokens/                design tokens, copied from batorfi/kiln (.specify/memory/design-system/tokens)
     tokens.css             CSS variables generated from tokens/ (light + dark)
@@ -31,10 +31,11 @@ tools/
 | F | fullscreen |
 | T | light / dark theme |
 | L | laser pointer |
-| D | draw · 1 circle · 2 rectangle · 3 line · 4 arrow · Shift = round / square / 45° |
+| D | draw · 1 circle · 2 rectangle · 3 line · 4 arrow · 5 curved arrow · Shift = round / square / 45° |
 | C · X · U | next ink colour · clear drawings · undo last shape |
 | Z | zoom lens · wheel or `[` `]` size · Shift+wheel or `+` `−` zoom |
 | S | spotlight: dims everything except a window that follows the mouse · Shift+S rectangle / circle · wheel or `[` `]` size |
+| P · Shift+P · R | timer: start / pause / resume · stop · restart |
 | ? or H | all shortcuts |
 | Esc | close a popup, or turn tools off |
 | Right-click | menu: navigation, tools, laser / ink / lens settings, theme, motion |
@@ -115,10 +116,18 @@ The steps are counted for you, ← walks back through them, and re-entering a sl
 ### Spotlight
 
 `S` dims the whole slide except a window under the mouse, which has an animated boundary (teal outline, marching white
-dashes, a soft outward pulse) so its edge is always clear. Settings in the right-click menu: size, shape (rectangle or
-circle), dimming (light, medium, heavy) and border (animated or static). The animation is off under reduced motion.
+dashes, a soft outward pulse) so its edge is always clear. Settings in the right-click menu: size, shape (circle by default,
+or rectangle), dimming (light, medium, heavy) and border (animated or static). The animation is off under reduced motion.
 It works together with the laser; turning on the zoom lens turns it off.
 Going back reverses each step. Reduced motion (system setting or the menu) turns all motion off.
+
+### Timer
+
+Set the talk length in the right-click menu (20 / 30 / 45 / 50 / 60 / 90 minutes, or −5 / +5), or per deck:
+`Deck.configure({ timer: { minutes: 50 } })`. `P` starts the countdown, pauses and resumes it, `Shift+P` stops it and `R`
+restarts it from the full length. While it runs, the header shows the time left beside the slide counter with a ring
+that drains clockwise (teal, amber for the last 20 %, red for the last 5 %); past zero it counts the overrun in red.
+On slides without a title bar a small chip shows the same clock. A running timer survives a reload.
 
 ### Images and SVG
 
