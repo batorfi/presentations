@@ -1,6 +1,6 @@
 Deck.slide({
   id: "skeleton",
-  section: "branding",
+  section: "headline",
   title: "What a skeleton slide looks like",
   html: `
     <p class="s-kicker">Skeleton</p>

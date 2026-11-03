@@ -154,6 +154,28 @@ restarts it from the full length. While it runs, the header shows the time left 
 that drains clockwise (teal, amber for the last 20 %, red for the last 5 %); past zero it counts the overrun in red.
 On slides without a title bar a small chip shows the same clock. A running timer survives a reload.
 
+### Scrolling headline (marquee)
+
+A large headline that scrolls sideways at a pace a person can read. Load `plugins/marquee.js`, then put it in any slide:
+
+```html
+<div class="s-marquee" data-size="xl" data-wpm="120">Agents write the code. Engineers own the outcome.</div>
+```
+
+| Attribute | Meaning |
+|---|---|
+| `data-size="s\|m\|l\|xl"` | text size 56 / 88 / 136 / 208 px (default `m`) |
+| `data-wpm="120"` | reading pace in words per minute (default 120); the speed follows from the text and is kept between 60 and 260 px/s |
+| `data-width="60%"` | width of the visible window: any CSS length, or `bleed` for the full stage width (default: the container) |
+| `data-height="150px"` | height of the window (default: fits the text) |
+| `data-align="center"` | centre a narrower window |
+| `data-direction="ltr"` | scroll to the right (default: to the left) |
+| `data-gap="2"` | space between repeats in em; `data-fade="none"` for hard edges |
+| `class="is-rail"` / `is-accent` | dark band with light text / accent-coloured text |
+
+It loops without a seam, restarts from the first word whenever its slide is shown, and runs only while its slide is on
+screen (a compositor-only transform animation). With reduced motion it shows the text still and wrapped.
+
 ### Logo in the header
 
 `Deck.configure({ logo: { src: "assets/logo.svg", alt: "Company", height: 40 } })` puts an SVG or PNG at the left of the
