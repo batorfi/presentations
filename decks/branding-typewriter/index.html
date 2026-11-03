@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Framework demo · Branding & Typewriter</title>
+
+  <!-- Theme: the KILN design system (tokens generated from the design system, fonts embedded). -->
+  <link rel="stylesheet" href="../../framework/themes/kiln/fonts.css">
+  <link rel="stylesheet" href="../../framework/themes/kiln/tokens.css">
+  <link rel="stylesheet" href="../../framework/themes/kiln/theme.css">
+  <!-- Engine and tools. -->
+  <link rel="stylesheet" href="../../framework/deck.css">
+  <link rel="stylesheet" href="../../framework/plugins/tools.css">
+  <link rel="stylesheet" href="deck.css">
+
+  <script src="../../framework/deck.js"></script>
+  <script src="../../framework/plugins/tools.js"></script>
+  <script src="../../framework/plugins/laser.js"></script>
+  <script src="../../framework/plugins/draw.js"></script>
+  <script src="../../framework/plugins/lens.js"></script>
+  <script src="../../framework/plugins/spotlight.js"></script>
+  <script src="../../framework/plugins/timer.js"></script>
+  <script src="../../framework/plugins/marquee.js"></script>
+  <script src="../../framework/plugins/typewriter.js"></script>
+  <script src="../../framework/plugins/storyline.js"></script>
+  <script src="../../framework/plugins/menu.js"></script>
+
+  <script>
+    Deck.configure({
+      title: "Framework demo · Branding & Typewriter",
+      theme: "light",
+      transition: "slide",
+      timer: { minutes: 10 },
+      logo: { src: "assets/newco-logo.svg", alt: "NewCo", height: 40 }, // placeholder: { placeholder: true }
+      sections: [
+        { id: "branding", label: "Branding" },
+        { id: "headline", label: "Marquee" },
+        { id: "typewriter", label: "Typewriter" },
+      ],
+    });
+  </script>
+
+  <!-- One file per slide, in order. -->
+  <script src="slides/01-title.js"></script>
+  <script src="slides/02-logo.js"></script>
+  <script src="slides/03-marquee-sizes.js"></script>
+  <script src="slides/04-marquee-windows.js"></script>
+  <script src="slides/05-typewriter-quote.js"></script>
+  <script src="slides/06-typewriter-sizes.js"></script>
+  <script src="slides/07-typewriter-rhythm.js"></script>
+  <script src="slides/08-typewriter-frames.js"></script>
+</head>
+<body></body>
+</html>

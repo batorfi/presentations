@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 56" width="232" height="56" role="img" aria-label="NewCo">
+  <title>NewCo</title>
+  <!-- Sample logo for a dark header bar. A mark and a monoline wordmark drawn as paths, so it needs no fonts. -->
+  <rect width="56" height="56" rx="14" fill="#F2B24A"/>
+  <path d="M17 40V16L39 40V16" fill="none" stroke="#12201E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#F4F1EA">
+      <path d="M78 40V16L100 40V16"/>
+      <path d="M113 32H131A9 9 0 1 0 128.9 37.8"/>
+      <path d="M139 24L146 40L155.5 26L165 40L172 24"/>
+    </g>
+    <g stroke="#F2B24A">
+      <path d="M202 20A12 12 0 1 0 202 36"/>
+      <circle cx="218" cy="32" r="8"/>
+    </g>
+  </g>
+</svg>

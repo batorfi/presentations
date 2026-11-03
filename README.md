@@ -14,7 +14,9 @@ framework/                 the engine — shared by every deck
     fonts.css              Inter and Charter, embedded (generated from fonts/)
     theme.css              maps the design system onto the deck's --deck-* roles
 decks/
-  demo/                    a feature demo — every capability on a few slides
+  basic-tools/             demo 1: steps, images and SVG, custom visuals, tools, timer, pan & zoom
+  focus-morphs/            demo 2: line-by-line focus, spotlight, shared-element morphs
+  branding-typewriter/     demo 3: header logo, scrolling headline, typewriter
 tools/
   tokens-to-css.mjs        regenerate a theme's tokens.css from DTCG token files
   embed-fonts.mjs          regenerate a theme's fonts.css from fonts/fonts.json
@@ -46,7 +48,7 @@ The address keeps your place (`index.html#/7.2` = slide 7, step 2), so a reload 
 ## Making a deck
 
 A deck is a folder with an `index.html`, an optional `deck.css`, `slides/` (one script per slide) and `assets/`.
-Copy `decks/demo/` to start. In `index.html`, configure the sections and list the slides in order:
+Copy `decks/basic-tools/` to start. In `index.html`, configure the sections and list the slides in order:
 
 ```js
 Deck.configure({
@@ -241,7 +243,7 @@ reduced motion shows it finished.
 title bar, with a thin divider before the slide title. `height` defaults to 44 px, `maxWidth` (default 240 px) caps the
 width. The bar is dark in both themes, so use a logo that reads on a dark background. Until you have one,
 `logo: { placeholder: true, label: "LOGO" }` marks the spot with a dashed box. A missing file removes the logo instead
-of showing a broken image. The demo deck ships a sample (`decks/demo/assets/newco-logo.svg` and `.png`).
+of showing a broken image. The demos ship a sample (`decks/branding-typewriter/assets/newco-logo.svg` and `.png`).
 
 ### Images and SVG
 
@@ -255,7 +257,7 @@ Inline SVG is the way to animate; files are fine for static pictures (`file://` 
 Hooks get a `ctx`: `ctx.el`, `ctx.$(sel)`, `ctx.$$(sel)`, `ctx.step`, `ctx.animate(el, preset, "in"|"out")`,
 `ctx.play(el, keyframes, options)` (a tracked Web Animation that navigation can fast-forward),
 `ctx.wait(ms)`, `ctx.reduced()` and `ctx.cleanup(fn)` to stop timers or loops when the slide is left.
-See `decks/demo/slides/05-custom.js`.
+See `decks/basic-tools/slides/05-custom.js`.
 
 ### Content kit
 

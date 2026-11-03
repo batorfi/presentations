@@ -1,0 +1,16 @@
+/* Styles that belong to this deck only. */
+
+
+.demo-title { justify-content: center; gap: 28px; }
+.demo-title .s-hero { max-width: 15em; }
+.demo-title::after {
+  content: ""; position: absolute; right: -180px; bottom: -220px; width: 760px; height: 760px; border-radius: 50%;
+  border: 90px solid var(--deck-accent-subtle); pointer-events: none;
+}
+
+/* logo demo */
+.demo-logo-split { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; margin-top: 32px; align-items: start; }
+.demo-code-block { margin: 0; font: 500 24px/1.5 var(--deck-font-mono); white-space: pre; color: var(--deck-text); }
+.demo-logo-samples { gap: 24px; }
+.demo-logo-card { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 36px; border-radius: var(--deck-radius); background: var(--deck-rail); color: var(--deck-muted-on-rail); font-size: 20px; }
+.demo-logo-card img { height: 56px; width: auto; display: block; }
