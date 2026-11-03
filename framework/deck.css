@@ -102,7 +102,7 @@ body.deck-idle:not(.tool-active) { cursor: none; }
   max-width: 1680px; max-height: 920px; overflow: auto;
   padding: 48px 56px;
 }
-.deck-panel h2 { font-family: var(--deck-font-display); font-weight: 700; font-size: 44px; line-height: 1.2; margin: 0 0 8px; }
+.deck-panel h2 { font-family: var(--deck-font-display); font-weight: 700; font-size: 44px; line-height: 1.2; margin: 0 0 14px; }
 .deck-panel .deck-panel-sub { color: var(--deck-muted); font-size: 20px; margin: 0 0 32px; }
 
 /* ---------- content kit for slides ---------- */

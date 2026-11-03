@@ -33,7 +33,7 @@
                 <ol>${s.slides
                   .map(
                     (i) => `<li><button data-index="${i}" class="${i < cur ? "is-done" : i === cur ? "is-current" : ""}">
-                      <span class="n">${i + 1}</span><span class="t">${esc(Deck.slides[i].navTitle || Deck.slides[i].title)}</span>
+                      <span class="n">${i + 1}</span><span class="t">${esc(Deck.slides[i].title)}</span>
                     </button></li>`
                   )
                   .join("")}</ol>

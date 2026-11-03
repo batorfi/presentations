@@ -1,0 +1,7 @@
+/* Styles that belong to ADLC Part 1 only. Shared patterns move to framework/deck.css once a second deck needs them. */
+
+.p1-title-slide { justify-content: center; }
+.p1-title { font-size: var(--deck-fs-hero); max-width: 14em; }
+.p1-title-meta { flex: 0 0 auto; min-height: 160px; max-width: 900px; }
+
+.p1-outline { max-width: 40em; }
