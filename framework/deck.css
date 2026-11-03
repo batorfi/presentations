@@ -41,6 +41,16 @@ body.deck-idle:not(.tool-active) { cursor: none; }
 .deck-slide.no-titlebar { padding-top: var(--deck-pad-bottom); }
 .deck-stage.is-transitioning .deck-slide:not([hidden]) { will-change: transform, opacity; }
 
+/* Line-by-line focus (data-focus): the focused point stays sharp, the others recede.
+   Only opacity and transform change, so it runs on the compositor. */
+.deck-focus-item { transition: opacity 420ms var(--deck-ease-out), transform 420ms var(--deck-ease-out); }
+.deck-focus-item.is-dim { opacity: 0.26; }
+.deck-focus-item.is-future { opacity: 0; transform: translate3d(0, 24px, 0); pointer-events: none; }
+.deck-focus-item.is-current { opacity: 1; transform: none; }
+.is-focusing > .deck-focus-item.is-current { transform: translate3d(10px, 0, 0); }
+html[data-reduced-motion] .deck-focus-item { transition: none; }
+@media (prefers-reduced-motion: reduce) { .deck-focus-item { transition: none; } }
+
 /* Hidden state of stepped / animated elements. Animations always end on the CSS state. */
 .deck-hidden { opacity: 0 !important; visibility: hidden; }
 

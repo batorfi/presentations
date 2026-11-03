@@ -3,8 +3,13 @@
   "use strict";
   Deck.tools = {
     update() {
-      const any = ["laser", "draw", "lens"].some((n) => Deck.tools[n] && Deck.tools[n].active);
+      const any = ["laser", "draw", "lens", "spotlight"].some((n) => Deck.tools[n] && Deck.tools[n].active);
       document.body.classList.toggle("tool-active", any);
+    },
+    /** [ and ] resize whichever sizeable tool (lens or spotlight) is on. */
+    resize(factor) {
+      const t = ["lens", "spotlight"].map((n) => Deck.tools[n]).find((x) => x && x.active);
+      if (t) t.resize(factor);
     },
     /** Named colours for menus: [name, value] from the theme's --deck-palette. */
     palette() {

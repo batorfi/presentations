@@ -40,9 +40,31 @@ body.laser-on, body.laser-on * { cursor: none !important; }
 }
 body.lens-on { cursor: none; }
 
+/* ---------- spotlight ---------- */
+.deck-spot { position: fixed; inset: 0; z-index: 44; pointer-events: none !important; }
+.deck-spot .sp { position: absolute; left: 0; top: 0; width: 1px; height: 1px; background: rgba(6, 14, 13, var(--spot-dim, 0.7)); transform-origin: 0 0; will-change: transform; }
+.deck-spot .sp.win { background: transparent; clip-path: inset(0); } /* its shadow only fills the corners of a round window */
+.deck-spot-ring { position: fixed; left: 0; top: 0; z-index: 44; pointer-events: none !important; will-change: transform; }
+.deck-spot-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.deck-spot-ring rect { fill: none; stroke-width: 3; }
+.deck-spot-ring .base { stroke: var(--deck-accent-on-rail); }
+.deck-spot-ring .ants { stroke: #fff; stroke-dasharray: 14 12; animation: spot-march 0.9s linear infinite; }
+.deck-spot-ring::after { /* soft pulse radiating outward from the boundary; transform + opacity only */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid var(--deck-accent-on-rail);
+  opacity: 0; animation: spot-pulse 2.4s ease-out infinite; will-change: transform, opacity;
+}
+@keyframes spot-march { to { stroke-dashoffset: -26; } }
+@keyframes spot-pulse { 0% { opacity: 0.85; transform: scale(1); } 100% { opacity: 0; transform: scale(1.07); } }
+.deck-spot-ring.is-static .ants, .deck-spot-ring.is-static::after { animation: none; }
+.deck-spot-ring.is-static .ants { display: none; }
+html[data-reduced-motion] .deck-spot-ring .ants, html[data-reduced-motion] .deck-spot-ring::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { .deck-spot-ring .ants, .deck-spot-ring::after { animation: none; } }
+.deck-spot[hidden], .deck-spot-ring[hidden] { display: none; }
+body.spot-on { cursor: none; }
+
 /* ---------- context menu (screen space) ---------- */
 .deck-menu {
-  position: fixed; left: 0; top: 0; z-index: 60; width: 300px; max-height: calc(100vh - 16px); overflow: auto;
+  position: fixed; left: 0; top: 0; z-index: 60; width: 600px; max-height: calc(100vh - 16px); overflow: auto; columns: 2; column-gap: 6px;
   padding: 6px; border-radius: 10px;
   background: var(--deck-raised); color: var(--deck-text); border: 1px solid var(--deck-border);
   box-shadow: var(--deck-shadow-menu);
@@ -50,8 +72,8 @@ body.lens-on { cursor: none; }
   user-select: none;
 }
 .deck-menu[hidden] { display: none; }
-.deck-menu-head { padding: 8px 10px 10px; font-size: 12px; color: var(--deck-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-bottom: 1px solid var(--deck-border); }
-.deck-menu-group { padding: 6px 0; border-bottom: 1px solid var(--deck-border); display: flex; flex-direction: column; gap: 2px; }
+.deck-menu-head { column-span: all; padding: 8px 10px 10px; font-size: 12px; color: var(--deck-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-bottom: 1px solid var(--deck-border); }
+.deck-menu-group { break-inside: avoid; padding: 6px 0; border-bottom: 1px solid var(--deck-border); display: flex; flex-direction: column; gap: 2px; }
 .deck-menu-group:last-child { border-bottom: 0; }
 .deck-menu-title { padding: 4px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--deck-muted); }
 .deck-menu button { font: inherit; color: inherit; cursor: pointer; }

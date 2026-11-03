@@ -78,6 +78,7 @@
     function set(state) {
       on = state;
       lens.hidden = !on;
+      if (on && Deck.tools.spotlight?.active) Deck.tools.spotlight.set(false);
       document.body.classList.toggle("lens-on", on);
       Deck.tools.update();
       clearInterval(timer);
@@ -117,10 +118,10 @@
     Deck.on("settings", ({ key }) => key.startsWith("lens") && on && schedule());
     Deck.on("escape", () => on && set(false));
 
-    Deck.tools.lens = { get active() { return on; }, set, toggle: () => set(!on), presets: PRESETS, zooms: ZOOMS };
+    Deck.tools.lens = { get active() { return on; }, set, toggle: () => set(!on), resize, presets: PRESETS, zooms: ZOOMS };
     Deck.addKeys(["z"], () => set(!on), "Zoom lens on / off", "Zoom lens");
-    Deck.addKeys(["]"], () => on && resize(1.12), "Bigger lens (or mouse wheel)", "Zoom lens", { allowRepeat: true });
-    Deck.addKeys(["["], () => on && resize(1 / 1.12), "Smaller lens", "Zoom lens", { allowRepeat: true });
+    Deck.addKeys(["]"], () => Deck.tools.resize(1.12), "Bigger lens or spotlight (or mouse wheel)", "Zoom lens", { allowRepeat: true });
+    Deck.addKeys(["["], () => Deck.tools.resize(1 / 1.12), "Smaller lens or spotlight", "Zoom lens", { allowRepeat: true });
     Deck.addKeys(["+", "="], () => on && rezoom(1), "More zoom (or Shift + wheel)", "Zoom lens");
     Deck.addKeys(["-"], () => on && rezoom(-1), "Less zoom", "Zoom lens");
   });

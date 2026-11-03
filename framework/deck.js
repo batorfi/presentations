@@ -70,8 +70,10 @@
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify(settings));
     } catch (_) {}
+    if (key === "reducedMotion") document.documentElement.toggleAttribute("data-reduced-motion", !!value);
     emit("settings", { key, value });
   }
+  document.documentElement.toggleAttribute("data-reduced-motion", !!settings.reducedMotion);
 
   // ---------- keyboard registry (plugins add their keys; the help overlay lists them) ----------
   const keymap = []; // { keys: [..], fn, label, group, allowRepeat }
@@ -268,7 +270,39 @@
     for (const el of $$("[data-step],[data-out-step]", slideEls[index])) {
       max = Math.max(max, +el.dataset.step || 0, +el.dataset.outStep || 0);
     }
+    // Focus groups add one step per item (plus one to release the dimming, if asked).
+    for (const g of $$("[data-focus]", slideEls[index])) {
+      max = Math.max(max, focusFrom(g) + focusItems(g).length - 1 + (g.hasAttribute("data-focus-release") ? 1 : 0));
+    }
     return max;
+  }
+
+  // ---------- line-by-line focus ----------
+  // <ul data-focus> — each direct child is a point; every press of → focuses the next one and dims the rest.
+  //   data-focus="reveal"     points that have not come yet stay hidden; passed ones dim
+  //   data-focus-from="2"     the step at which the first point is focused (default 1)
+  //   data-focus-release      one extra step at the end that un-dims everything
+  //   data-focus-items=".x"   pick the points with a selector instead of the direct children
+  // Before the first focus step (default mode) everything is shown normally.
+  const focusFrom = (g) => Math.max(1, +g.dataset.focusFrom || 1);
+  const focusItems = (g) => (g.dataset.focusItems ? $$(g.dataset.focusItems, g) : Array.from(g.children));
+
+  function applyFocus(index, step) {
+    for (const g of $$("[data-focus]", slideEls[index])) {
+      const items = focusItems(g);
+      const reveal = g.dataset.focus === "reveal";
+      const k = step - focusFrom(g); // index of the focused item; < 0 before the group starts
+      const released = g.hasAttribute("data-focus-release") && k >= items.length;
+      const cur = Math.min(k, items.length - 1);
+      const active = k >= 0 && !released;
+      items.forEach((el, i) => {
+        el.classList.add("deck-focus-item");
+        el.classList.toggle("is-current", active && i === cur);
+        el.classList.toggle("is-dim", active && i !== cur && (!reveal || i < cur));
+        el.classList.toggle("is-future", reveal && !released && (k < 0 || i > cur));
+      });
+      g.classList.toggle("is-focusing", active);
+    }
   }
 
   function build() {
@@ -415,6 +449,7 @@
       const outAt = el.dataset.outStep !== undefined ? +el.dataset.outStep : Infinity;
       el.classList.toggle("deck-hidden", !(step >= inAt && step < outAt));
     }
+    applyFocus(index, step);
   }
 
   // Elements that animate in on their own when the slide is entered (no data-step).
@@ -448,6 +483,7 @@
       for (const e of $$(`[data-out-step="${from}"]`, el)) jobs.push(animateEl(e, e.dataset.out || e.dataset.anim || "fade", "in", { duration: 450 }));
     }
     Deck.state.step = to;
+    applyFocus(index, to); // focus moves are CSS transitions on opacity/transform: compositor-only
     slides[index].onStep?.(to, dir, contexts[index]);
     emit("stepchange", { index, step: to, dir });
     writeHash();

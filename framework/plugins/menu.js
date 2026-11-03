@@ -25,12 +25,14 @@
 
     function renderMenu() {
       const s = Deck.settings;
-      const laser = T().laser, draw = T().draw, lens = T().lens;
+      const laser = T().laser, draw = T().draw, lens = T().lens, spot = T().spotlight;
       const inkColor = s.inkColor || Deck.helpers.cssList("--deck-ink-default")[0];
       const laserColor = s.laserColor || Deck.helpers.cssList("--deck-laser-default")[0];
       const dark = document.documentElement.dataset.theme === "dark";
       const lensW = s.lensWidth || lens.presets[s.lensSize] || lens.presets.m;
       const lensPreset = Object.entries(lens.presets).reduce((best, [k, v]) => (Math.abs(v - lensW) < Math.abs(lens.presets[best] - lensW) ? k : best), "m");
+      const spotW = spot ? (s.spotWidth || spot.presets[s.spotSize] || spot.presets.m) : 0;
+      const spotPreset = spot ? Object.entries(spot.presets).reduce((best, [k, v]) => (Math.abs(v - spotW) < Math.abs(spot.presets[best] - spotW) ? k : best), "m") : "m";
       menu.innerHTML = `
         <div class="deck-menu-head">${esc(String(Deck.state.index + 1))} / ${Deck.slides.length} · ${esc(Deck.slides[Deck.state.index].title)}</div>
         <div class="deck-menu-group">
@@ -46,6 +48,7 @@
           ${item("draw", "Draw", "D", draw.active)}
           ${seg("inkShape", s.inkShape, [["ellipse", "◯ 1"], ["rect", "▭ 2"], ["line", "╱ 3"], ["arrow", "→ 4"]])}
           ${item("lens", "Zoom lens", "Z", lens.active)}
+          ${spot ? item("spot", "Spotlight", "S", spot.active) : ""}
           ${item("clear", "Clear drawings", "X")}
         </div>
         <div class="deck-menu-group">
@@ -64,6 +67,13 @@
           <div class="deck-menu-row"><span>Size</span>${seg("lensPreset", lensPreset, [["s", "S"], ["m", "M"], ["l", "L"]])}</div>
           <div class="deck-menu-row"><span>Zoom</span>${seg("lensZoom", s.lensZoom, [[2, "2×"], [2.5, "2.5×"], [3, "3×"], [4, "4×"]])}</div>
         </div>
+        ${spot ? `<div class="deck-menu-group">
+          <div class="deck-menu-title">Spotlight</div>
+          <div class="deck-menu-row"><span>Size</span>${seg("spotPreset", spotPreset, [["s", "S"], ["m", "M"], ["l", "L"]])}</div>
+          <div class="deck-menu-row"><span>Shape</span>${seg("spotShape", spot.shapes.includes(s.spotShape) ? s.spotShape : "rect", [["rect", "Rectangle"], ["circle", "Circle"]])}</div>
+          <div class="deck-menu-row"><span>Border</span>${seg("spotBorder", s.spotBorder === "static" ? "static" : "animated", [["animated", "Animated"], ["static", "Static"]])}</div>
+          <div class="deck-menu-row"><span>Dimming</span>${seg("spotDim", s.spotDim || 0.7, [[0.5, "Light"], [0.7, "Medium"], [0.88, "Heavy"]])}</div>
+        </div>` : ""}
         <div class="deck-menu-group">
           <div class="deck-menu-title">View</div>
           <div class="deck-menu-row"><span>Theme</span>${seg("theme", dark ? "dark" : "light", [["light", "Light"], ["dark", "Dark"]])}</div>
@@ -97,6 +107,7 @@
         const key = b.dataset.set, v = parse(b.dataset.value);
         if (key === "theme") Deck.setTheme(v);
         else if (key === "lensPreset") Deck.setSetting("lensWidth", T().lens.presets[v]);
+        else if (key === "spotPreset") Deck.setSetting("spotWidth", T().spotlight.presets[v]);
         else if (key === "inkShape") T().draw.pick(v);
         else Deck.setSetting(key, v);
         if (key === "inkColor" && !T().draw.active) T().draw.set(true);
@@ -114,6 +125,7 @@
         laser: () => T().laser.toggle(),
         draw: () => T().draw.toggle(),
         lens: () => T().lens.toggle(),
+        spot: () => T().spotlight.toggle(),
         clear: () => T().draw.clear(),
         fullscreen: () => Deck.toggleFullscreen(),
         help: () => toggleHelp(),

@@ -34,6 +34,7 @@ tools/
 | D | draw · 1 circle · 2 rectangle · 3 line · 4 arrow · Shift = round / square / 45° |
 | C · X · U | next ink colour · clear drawings · undo last shape |
 | Z | zoom lens · wheel or `[` `]` size · Shift+wheel or `+` `−` zoom |
+| S | spotlight: dims everything except a window that follows the mouse · Shift+S rectangle / circle · wheel or `[` `]` size |
 | ? or H | all shortcuts |
 | Esc | close a popup, or turn tools off |
 | Right-click | menu: navigation, tools, laser / ink / lens settings, theme, motion |
@@ -90,6 +91,33 @@ Deck.slide({
 | `data-out="fade"` (no step) | leave just before the slide does |
 
 Presets: `fade up down left right zoom pop rise wipe wipe-down blur draw` (`draw` traces SVG strokes).
+
+### Line-by-line focus
+
+Put `data-focus` on a list (or any container) and each → focuses the next child while the others recede:
+
+```html
+<ul class="s-list" data-focus data-focus-release>
+  <li>First point</li><li>Second point</li><li>Third point</li>
+</ul>
+```
+
+| Attribute | Meaning |
+|---|---|
+| `data-focus` | each child is a point; before the first focus step everything shows normally |
+| `data-focus="reveal"` | points that have not come yet stay hidden; passed ones dim |
+| `data-focus-from="2"` | the step at which the first point is focused (default 1), to combine with other `data-step`s |
+| `data-focus-release` | one extra step at the end that brings everything back |
+| `data-focus-items=".point"` | choose the points with a selector instead of the direct children |
+
+The steps are counted for you, ← walks back through them, and re-entering a slide restores the right state.
+
+### Spotlight
+
+`S` dims the whole slide except a window under the mouse, which has an animated boundary (teal outline, marching white
+dashes, a soft outward pulse) so its edge is always clear. Settings in the right-click menu: size, shape (rectangle or
+circle), dimming (light, medium, heavy) and border (animated or static). The animation is off under reduced motion.
+It works together with the laser; turning on the zoom lens turns it off.
 Going back reverses each step. Reduced motion (system setting or the menu) turns all motion off.
 
 ### Images and SVG
