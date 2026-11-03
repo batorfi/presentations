@@ -7,6 +7,7 @@
  *
  *   Themes: constellation · flow · aurora · ripples · grid · orbits · waves · circuit · contours · bokeh
  *           network · hexgrid · metro · lattice · branches
+ *           pcb · facets · radar · zodiac · lanes
  *   intensity (default 1)   how visible: 0.3 whisper … 2 clearly present      speed (default 1)   the pace of the motion
  *   seed                    another random layout, the same every time          colors   one to three CSS colours (default: the theme's accent colours)
  *
@@ -469,6 +470,127 @@
           },
         };
       },
+      pcb(e) {
+        const G = 48, dX = [1, 0, -1, 0], dY = [0, 1, 0, -1], tr = [];
+        for (let k = 0; k < 11; k++) {
+          let x = ((e.rand() * (W / G)) | 0) * G, y = ((e.rand() * (H / G)) | 0) * G, d = (e.rand() * 4) | 0; const pts = [[x, y]];
+          for (let s = 0; s < 6; s++) { const len = (2 + ((e.rand() * 6) | 0)) * G, nx = x + dX[d] * len, ny = y + dY[d] * len; if (nx < 0 || nx > W || ny < 0 || ny > H) { d = (d + (e.rand() < 0.5 ? 1 : 3)) % 4; continue; } x = nx; y = ny; pts.push([x, y]); d = (d + (e.rand() < 0.5 ? 1 : 3)) % 4; }
+          if (pts.length < 3) { k--; continue; }
+          const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.abs(pts[i][0] - pts[i - 1][0]) + Math.abs(pts[i][1] - pts[i - 1][1]));
+          tr.push({ pts, cum, L: cum[cum.length - 1] });
+        }
+        const at = (T, dd) => { dd = clamp(dd, 0, T.L); for (let i = 1; i < T.pts.length; i++) if (T.cum[i] >= dd) { const f = (dd - T.cum[i - 1]) / (T.cum[i] - T.cum[i - 1] || 1); return [T.pts[i - 1][0] + (T.pts[i][0] - T.pts[i - 1][0]) * f, T.pts[i - 1][1] + (T.pts[i][1] - T.pts[i - 1][1]) * f]; } return T.pts[T.pts.length - 1]; };
+        const pulses = []; let t = 0, next = 0;
+        return {
+          res: 0.5,
+          step(dt) {
+            t += dt;
+            if (t > next && pulses.length < 9) { pulses.push({ T: tr[(e.rand() * tr.length) | 0], d: 0, v: 190 + e.rand() * 140, c: e.rand() < 0.7 ? e.col.a : e.col.b }); next = t + 0.35 + e.rand() * 0.7; }
+            for (let i = pulses.length - 1; i >= 0; i--) { pulses[i].d += pulses[i].v * dt; if (pulses[i].d > pulses[i].T.L + 140) pulses.splice(i, 1); }
+          },
+          draw(c) {
+            c.lineJoin = "round"; c.lineCap = "round"; c.lineWidth = 2.4; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.2); c.beginPath();
+            for (const T of tr) { c.moveTo(T.pts[0][0], T.pts[0][1]); for (let i = 1; i < T.pts.length; i++) c.lineTo(T.pts[i][0], T.pts[i][1]); } c.stroke();
+            c.fillStyle = e.col.a; c.globalAlpha = e.al(0.4); c.beginPath();
+            for (const T of tr) for (const q of [T.pts[0], T.pts[T.pts.length - 1]]) { c.moveTo(q[0] + 6, q[1]); c.arc(q[0], q[1], 6, 0, TAU); } c.fill();
+            for (const p of pulses) {
+              c.strokeStyle = c.fillStyle = p.c;
+              for (let k = 4; k >= 1; k--) { const a = at(p.T, p.d - k * 28), b = at(p.T, p.d - (k - 1) * 28); c.globalAlpha = e.al(0.14 * (5 - k)); c.lineWidth = 3.4; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+              if (p.d <= p.T.L) { const h = at(p.T, p.d); c.globalAlpha = e.al(0.9); c.beginPath(); c.arc(h[0], h[1], 5.5, 0, TAU); c.fill(); }
+            }
+          },
+        };
+      },
+
+      facets(e) {
+        const C = 17, R = 10, SX = W / (C - 1), SY = H / (R - 1), P = new Float32Array(C * R * 2), B = [], tri = []; let t = 0;
+        for (let k = 0; k < C * R; k++) B.push([e.rand() * TAU, e.rand() * TAU]);
+        for (let j = 0; j < R - 1; j++) for (let i = 0; i < C - 1; i++) { const a = j * C + i, b = a + 1, d = a + C, f = d + 1; tri.push([a, b, d, e.rand() * TAU], [b, f, d, e.rand() * TAU]); }
+        const place = () => { for (let j = 0; j < R; j++) for (let i = 0; i < C; i++) { const k = j * C + i; P[k * 2] = i * SX + 22 * Math.sin(t * 0.35 + B[k][0]); P[k * 2 + 1] = j * SY + 22 * Math.cos(t * 0.3 + B[k][1]); } };
+        place();
+        return {
+          res: 0.5,
+          step(dt) { t += dt; place(); },
+          draw(c) {
+            for (let n = 0; n < tri.length; n++) {
+              const T = tri[n], v = Math.sin(t * 0.45 + T[3]), q = v > 0.55 ? (v - 0.55) / 0.45 : 0; if (q < 0.02) continue;
+              c.fillStyle = n & 1 ? e.col.b : e.col.a; c.globalAlpha = e.al(0.32 * q * q);
+              c.beginPath(); c.moveTo(P[T[0] * 2], P[T[0] * 2 + 1]); c.lineTo(P[T[1] * 2], P[T[1] * 2 + 1]); c.lineTo(P[T[2] * 2], P[T[2] * 2 + 1]); c.closePath(); c.fill();
+            }
+            c.lineWidth = 1.5; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.24); c.beginPath();
+            for (const T of tri) { c.moveTo(P[T[0] * 2], P[T[0] * 2 + 1]); c.lineTo(P[T[1] * 2], P[T[1] * 2 + 1]); c.lineTo(P[T[2] * 2], P[T[2] * 2 + 1]); c.closePath(); }
+            c.stroke();
+          },
+        };
+      },
+
+      radar(e) {
+        const cx = W * 0.8, cy = H * 0.7, blips = []; let a = e.rand() * TAU;
+        for (let i = 0; i < 16; i++) { const r = 160 + e.rand() * 900, an = e.rand() * TAU; blips.push({ x: cx + Math.cos(an) * r, y: cy + Math.sin(an) * r, an, r: 4 + e.rand() * 3, c: e.rand() < 0.7 ? 0 : 1 }); }
+        return {
+          res: 0.5,
+          step(dt) { a = (a + 0.55 * dt) % TAU; },
+          draw(c) {
+            c.lineWidth = 1.6; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.2);
+            for (let r = 160; r < 1500; r += 200) { c.beginPath(); c.arc(cx, cy, r, 0, TAU); c.stroke(); }
+            c.beginPath(); c.moveTo(cx - 1600, cy); c.lineTo(cx + 1600, cy); c.moveTo(cx, cy - 1200); c.lineTo(cx, cy + 1200); c.stroke();
+            c.lineWidth = 6;
+            for (let k = 0; k < 16; k++) { c.globalAlpha = e.al(0.3 * (1 - k / 16) * (1 - k / 16)); c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a - k * 0.03) * 1800, cy + Math.sin(a - k * 0.03) * 1800); c.stroke(); }
+            c.lineWidth = 2; c.globalAlpha = e.al(0.6); c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a) * 1800, cy + Math.sin(a) * 1800); c.stroke();
+            for (const b of blips) {
+              const since = (((a - b.an) % TAU) + TAU) % TAU, v = Math.exp(-since * 1.1);
+              c.fillStyle = c.strokeStyle = b.c ? e.col.b : e.col.a;
+              c.globalAlpha = e.al(0.1 + 0.8 * v); c.beginPath(); c.arc(b.x, b.y, b.r, 0, TAU); c.fill();
+              if (v > 0.15) { c.globalAlpha = e.al(0.5 * v); c.lineWidth = 2; c.beginPath(); c.arc(b.x, b.y, b.r + 12 * (1 - v) + 4, 0, TAU); c.stroke(); }
+            }
+          },
+        };
+      },
+
+      zodiac(e) {
+        const n = 56, st = []; for (let i = 0; i < n; i++) st.push({ x: 50 + e.rand() * (W - 100), y: 50 + e.rand() * (H - 100), r: 1.8 + e.rand() * 2.2, ph: e.rand() * TAU });
+        const figs = []; let t = 0, next = 0;
+        const make = () => {
+          const used = new Set(), path = [(e.rand() * n) | 0]; used.add(path[0]);
+          for (let k = 0; k < 7; k++) { const p = st[path[path.length - 1]]; let best = -1, bd = 1e9; for (let j = 0; j < n; j++) { if (used.has(j)) continue; const d = Math.hypot(st[j].x - p.x, st[j].y - p.y); if (d > 90 && d < 380 && d * (0.6 + e.rand() * 0.8) < bd) { bd = d; best = j; } } if (best < 0) break; path.push(best); used.add(best); }
+          return path.length > 3 ? { path, age: 0, c: e.rand() < 0.7 ? e.col.a : e.col.b } : null;
+        };
+        return {
+          res: 0.5,
+          step(dt) { t += dt; if (t > next && figs.length < 3) { const f = make(); if (f) figs.push(f); next = t + 1.8 + e.rand() * 2; } for (let i = figs.length - 1; i >= 0; i--) { figs[i].age += dt; if (figs[i].age > figs[i].path.length * 0.8 + 5.5) figs.splice(i, 1); } },
+          draw(c) {
+            c.fillStyle = e.col.a;
+            for (const s of st) { c.globalAlpha = e.al(0.3 + 0.2 * Math.sin(t * 0.8 + s.ph)); c.beginPath(); c.arc(s.x, s.y, s.r, 0, TAU); c.fill(); }
+            c.lineWidth = 2; c.lineCap = "round";
+            for (const f of figs) {
+              const segs = f.path.length - 1, prog = f.age / 0.8, fade = f.age < segs * 0.8 + 3 ? 1 : Math.max(0, 1 - (f.age - segs * 0.8 - 3) / 2.5);
+              c.strokeStyle = c.fillStyle = f.c; c.globalAlpha = e.al(0.55 * fade); c.beginPath();
+              for (let i = 0; i < segs && i < prog; i++) { const A = st[f.path[i]], B = st[f.path[i + 1]], u = Math.min(1, prog - i); c.moveTo(A.x, A.y); c.lineTo(A.x + (B.x - A.x) * u, A.y + (B.y - A.y) * u); }
+              c.stroke(); c.globalAlpha = e.al(0.8 * fade); c.beginPath();
+              for (let i = 0; i <= segs && i <= prog; i++) { const A = st[f.path[i]]; c.moveTo(A.x + A.r * 2.2, A.y); c.arc(A.x, A.y, A.r * 2.2, 0, TAU); }
+              c.fill();
+            }
+          },
+        };
+      },
+
+      lanes(e) {
+        const L = 15, ys = [], pk = [], links = [];
+        for (let i = 0; i < L; i++) ys.push(70 + i * ((H - 140) / (L - 1)));
+        for (let i = 0; i < L; i++) for (let k = 0; k < 1 + ((e.rand() * 2) | 0); k++) pk.push({ y: ys[i], x: e.rand() * W, len: 40 + e.rand() * 120, v: (e.rand() < 0.5 ? -1 : 1) * (50 + e.rand() * 170), c: e.rand() < 0.75 ? 0 : 1 });
+        for (let k = 0; k < 14; k++) { const i = (e.rand() * (L - 1)) | 0; links.push({ x: e.rand() * W, a: ys[i], b: ys[i + 1 + ((e.rand() * 2) | 0) % (L - 1 - i)] }); }
+        return {
+          res: 0.5,
+          step(dt) { for (const p of pk) { p.x += p.v * dt; if (p.v > 0 && p.x - p.len > W) p.x = -20; else if (p.v < 0 && p.x + p.len < 0) p.x = W + 20; } },
+          draw(c) {
+            c.lineWidth = 1.5; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.14); c.beginPath();
+            for (const y of ys) { c.moveTo(0, y); c.lineTo(W, y); } for (const l of links) { c.moveTo(l.x, l.a); c.lineTo(l.x, l.b); } c.stroke();
+            c.fillStyle = e.col.a; c.globalAlpha = e.al(0.45); c.beginPath(); for (const l of links) { c.moveTo(l.x + 5, l.a); c.arc(l.x, l.a, 5, 0, TAU); c.moveTo(l.x + 5, l.b); c.arc(l.x, l.b, 5, 0, TAU); } c.fill();
+            c.lineWidth = 4; c.lineCap = "round";
+            for (const p of pk) { c.strokeStyle = p.c ? e.col.b : e.col.a; c.globalAlpha = e.al(0.2); c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - Math.sign(p.v) * p.len, p.y); c.stroke(); c.globalAlpha = e.al(0.75); c.beginPath(); c.moveTo(p.x, p.y); c.lineTo(p.x - Math.sign(p.v) * Math.min(26, p.len), p.y); c.stroke(); }
+          },
+        };
+      },
     };
     const NAMES = Object.keys(THEMES);
 
@@ -507,7 +629,7 @@
     function build(spec, index) {
       palette(spec);
       env.rand = prng((spec.seed || 0) * 7919 + index * 104729 + 12345);
-      const GAIN = { constellation: 1.9, flow: 1.2, aurora: 0.55, ripples: 1.7, grid: 1.1, orbits: 1.8, waves: 1.7, circuit: 1.2, contours: 1.9, bokeh: 0.6, network: 1.5, hexgrid: 0.9, metro: 1.1, lattice: 0.95, branches: 1.5 };
+      const GAIN = { constellation: 1.9, flow: 1.2, aurora: 0.55, ripples: 1.7, grid: 1.1, orbits: 1.8, waves: 1.7, circuit: 1.2, contours: 1.9, bokeh: 0.6, network: 1.5, hexgrid: 0.9, metro: 1.1, lattice: 0.95, branches: 1.5, pcb: 1.3, facets: 0.65, radar: 1.5, zodiac: 1.5, lanes: 1.9 };
       const strength = Math.max(0.05, +spec.intensity || 1) * (GAIN[spec.theme] || 1) * (env.dark ? 0.9 : 1);
       env.al = (a) => clamp(a * strength, 0, 1);
       inst = THEMES[spec.theme](env);

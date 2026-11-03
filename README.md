@@ -217,7 +217,7 @@ Deck.slide({ ..., background: { theme: "flow", intensity: 1.4, speed: 0.7, seed:
 Deck.slide({ ..., background: "none" });                  // plain slide
 ```
 
-Themes: `constellation`, `flow`, `aurora`, `ripples`, `grid`, `orbits`, `waves`, `circuit`, `contours`, `bokeh`, `network`, `hexgrid`, `metro`, `lattice`, `branches`.
+Themes: `constellation`, `flow`, `aurora`, `ripples`, `grid`, `orbits`, `waves`, `circuit`, `contours`, `bokeh`, `network`, `hexgrid`, `metro`, `lattice`, `branches`, `pcb`, `facets`, `radar`, `zodiac`, `lanes`.
 The animation is strongest at the edges and corners and very low behind the content; colours follow the deck theme (light/dark).
 Right-click menu → View → Background (Animated / Still / Off), or press **B**. Reduced motion shows one still frame.
 Cost: half-resolution canvas (quarter for soft themes), 30 fps cap, pauses when the tab is hidden or a pointer tool is on;
