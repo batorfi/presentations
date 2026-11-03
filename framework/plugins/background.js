@@ -6,6 +6,7 @@
  *   Deck.slide({ ..., background: "none" });                      a still, plain slide
  *
  *   Themes: constellation · flow · aurora · ripples · grid · orbits · waves · circuit · contours · bokeh
+ *           network · hexgrid · metro · lattice · branches
  *   intensity (default 1)   how visible: 0.3 whisper … 2 clearly present      speed (default 1)   the pace of the motion
  *   seed                    another random layout, the same every time          colors   one to three CSS colours (default: the theme's accent colours)
  *
@@ -293,6 +294,181 @@
           },
         };
       },
+      network(e) {
+        const n = 36, nodes = [], edges = [], adj = Array.from({ length: n }, () => []);
+        for (let i = 0; i < n; i++) nodes.push({ x: 60 + e.rand() * (W - 120), y: 60 + e.rand() * (H - 120) });
+        for (let i = 0; i < n; i++) {
+          const d = nodes.map((p, j) => [j, (p.x - nodes[i].x) ** 2 + (p.y - nodes[i].y) ** 2]).filter((q) => q[0] !== i).sort((a, b) => a[1] - b[1]);
+          for (let k = 0; k < 3; k++) { const j = d[k][0]; if (d[k][1] < 420 * 420 && !adj[i].includes(j)) { adj[i].push(j); adj[j].push(i); edges.push([i, j]); } }
+        }
+        const pk = []; let t = 0, next = 0;
+        const launch = (from) => { const to = adj[from][(e.rand() * adj[from].length) | 0]; return { a: from, b: to, u: 0, v: 150 + e.rand() * 120, c: e.rand() < 0.7 ? 0 : 1 }; };
+        return {
+          res: 0.5,
+          step(dt) {
+            t += dt;
+            if (t > next && pk.length < 16) { const s = (e.rand() * n) | 0; if (adj[s].length) pk.push(launch(s)); next = t + 0.25 + e.rand() * 0.5; }
+            for (let i = pk.length - 1; i >= 0; i--) {
+              const p = pk[i], A = nodes[p.a], B = nodes[p.b], L = Math.hypot(B.x - A.x, B.y - A.y) || 1;
+              p.u += (p.v * dt) / L;
+              if (p.u >= 1) { const prev = p.a; let to = p.b; const opts = adj[to].filter((q) => q !== prev); if (!opts.length || e.rand() < 0.08) { pk.splice(i, 1); continue; } p.a = to; p.b = opts[(e.rand() * opts.length) | 0]; p.u = 0; }
+            }
+          },
+          draw(c) {
+            c.lineWidth = 1.6; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.2); c.beginPath();
+            for (const [i, j] of edges) { c.moveTo(nodes[i].x, nodes[i].y); c.lineTo(nodes[j].x, nodes[j].y); } c.stroke();
+            c.fillStyle = e.col.a; c.globalAlpha = e.al(0.5); c.beginPath();
+            for (const p of nodes) { c.moveTo(p.x + 5, p.y); c.arc(p.x, p.y, 5, 0, TAU); } c.fill();
+            c.lineWidth = 2.6; c.lineCap = "round";
+            for (const p of pk) {
+              const A = nodes[p.a], B = nodes[p.b], x = A.x + (B.x - A.x) * p.u, y = A.y + (B.y - A.y) * p.u, u0 = Math.max(0, p.u - 0.18);
+              c.strokeStyle = c.fillStyle = p.c ? e.col.b : e.col.a;
+              c.globalAlpha = e.al(0.4); c.beginPath(); c.moveTo(A.x + (B.x - A.x) * u0, A.y + (B.y - A.y) * u0); c.lineTo(x, y); c.stroke();
+              c.globalAlpha = e.al(0.85); c.beginPath(); c.arc(x, y, 5.5, 0, TAU); c.fill();
+            }
+          },
+        };
+      },
+
+      hexgrid(e) {
+        const R = 56, SQ = Math.sqrt(3), cols = Math.ceil(W / (1.5 * R)) + 2, rows = Math.ceil(H / (SQ * R)) + 2;
+        const lit = new Float32Array(cols * rows), q = []; let t = 0, next = 0.3;
+        const cx = (i) => i * 1.5 * R - R, cy = (i, j) => j * SQ * R + (i & 1) * SQ * R * 0.5 - SQ * R;
+        const nb = (i, j) => (i & 1 ? [[i + 1, j], [i + 1, j + 1], [i - 1, j], [i - 1, j + 1], [i, j - 1], [i, j + 1]] : [[i + 1, j - 1], [i + 1, j], [i - 1, j - 1], [i - 1, j], [i, j - 1], [i, j + 1]]);
+        const hex = (c, x, y) => { c.moveTo(x + R, y); for (let k = 1; k < 6; k++) c.lineTo(x + R * Math.cos((k * TAU) / 6), y + R * Math.sin((k * TAU) / 6)); c.closePath(); };
+        return {
+          res: 0.5,
+          step(dt) {
+            t += dt;
+            if (t > next) { q.push({ i: (e.rand() * cols) | 0, j: (e.rand() * rows) | 0, at: t, g: 0 }); next = t + 0.9 + e.rand() * 1.4; }
+            for (let k = q.length - 1; k >= 0; k--) {
+              const o = q[k]; if (o.at > t) continue; q.splice(k, 1);
+              if (o.i < 0 || o.j < 0 || o.i >= cols || o.j >= rows) continue;
+              lit[o.j * cols + o.i] = 1;
+              if (o.g < 5) for (const [a, b] of nb(o.i, o.j)) if (e.rand() < 0.4) q.push({ i: a, j: b, at: t + 0.35 + e.rand() * 0.3, g: o.g + 1 });
+            }
+            const f = Math.exp(-dt * 0.55); for (let k = 0; k < lit.length; k++) lit[k] *= f;
+          },
+          draw(c) {
+            c.lineWidth = 1.5; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.12); c.beginPath();
+            for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) hex(c, cx(i), cy(i, j));
+            c.stroke();
+            c.fillStyle = e.col.a;
+            for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) {
+              const v = lit[j * cols + i]; if (v < 0.03) continue;
+              c.beginPath(); hex(c, cx(i), cy(i, j)); c.globalAlpha = e.al(0.28 * v); c.fill();
+              c.strokeStyle = e.col.b; c.lineWidth = 2; c.globalAlpha = e.al(0.6 * v); c.stroke();
+            }
+          },
+        };
+      },
+
+      metro(e) {
+        const G = 54, DX = [1, 1, 0, -1, -1, -1, 0, 1], DY = [0, 1, 1, 1, 0, -1, -1, -1], lines = []; let t = 0, next = 0;
+        const make = () => {
+          let x = ((e.rand() * (W / G)) | 0) * G, y = ((e.rand() * (H / G)) | 0) * G, d = (e.rand() * 8) | 0;
+          const pts = [[x, y]];
+          for (let s = 0; s < 6; s++) {
+            const len = (2 + ((e.rand() * 5) | 0)) * G * (d & 1 ? 0.75 : 1), nx = x + DX[d] * len, ny = y + DY[d] * len;
+            if (nx < -G || nx > W + G || ny < -G || ny > H + G) { d = (d + (e.rand() < 0.5 ? 1 : 7)) % 8; continue; }
+            x = nx; y = ny; pts.push([x, y]); d = (d + (e.rand() < 0.5 ? 1 : 7)) % 8;
+          }
+          if (pts.length < 4) return null;
+          const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+          return { pts, cum, L: cum[cum.length - 1], age: 0, grow: cum[cum.length - 1] / 200, c: e.rand() < 0.7 ? e.col.a : e.col.b };
+        };
+        return {
+          res: 0.5,
+          step(dt) {
+            t += dt;
+            if (t > next && lines.length < 6) { const l = make(); if (l) lines.push(l); next = t + 0.8 + e.rand() * 1.2; }
+            for (let i = lines.length - 1; i >= 0; i--) { lines[i].age += dt; if (lines[i].age > lines[i].grow + 4.5) lines.splice(i, 1); }
+          },
+          draw(c) {
+            c.lineJoin = "round"; c.lineCap = "round";
+            for (const l of lines) {
+              const u = Math.min(1, l.age / l.grow), len = l.L * u, fade = l.age < l.grow + 2.4 ? 1 : Math.max(0, 1 - (l.age - l.grow - 2.4) / 2.1);
+              c.strokeStyle = l.c; c.globalAlpha = e.al(0.5 * fade); c.lineWidth = 5;
+              c.beginPath(); c.moveTo(l.pts[0][0], l.pts[0][1]);
+              let hx = l.pts[0][0], hy = l.pts[0][1];
+              for (let i = 1; i < l.pts.length; i++) {
+                if (l.cum[i] <= len) { c.lineTo(l.pts[i][0], l.pts[i][1]); hx = l.pts[i][0]; hy = l.pts[i][1]; }
+                else { const f = (len - l.cum[i - 1]) / (l.cum[i] - l.cum[i - 1]); hx = l.pts[i - 1][0] + (l.pts[i][0] - l.pts[i - 1][0]) * f; hy = l.pts[i - 1][1] + (l.pts[i][1] - l.pts[i - 1][1]) * f; c.lineTo(hx, hy); break; }
+              }
+              c.stroke();
+              c.lineWidth = 2.4; c.globalAlpha = e.al(0.8 * fade);
+              for (let i = 0; i < l.pts.length; i++) if (l.cum[i] <= len) { c.beginPath(); c.arc(l.pts[i][0], l.pts[i][1], 8, 0, TAU); c.stroke(); }
+            }
+          },
+        };
+      },
+
+      lattice(e) {
+        const S = 100, cols = Math.ceil(W / S) + 2, rows = Math.ceil(H / S) + 2, P = new Float32Array(cols * rows * 2), ph = [];
+        for (let k = 0; k < cols * rows; k++) ph.push(e.rand() * TAU);
+        let t = 0;
+        const place = () => { for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) { const k = j * cols + i; P[k * 2] = (i - 1) * S + 26 * Math.sin(t * 0.5 + ph[k] + j * 0.5); P[k * 2 + 1] = (j - 1) * S + 26 * Math.cos(t * 0.42 + ph[k] * 1.3 + i * 0.45); } };
+        place();
+        return {
+          res: 0.5,
+          step(dt) { t += dt; place(); },
+          draw(c) {
+            c.lineWidth = 1.5; c.lineJoin = "round"; c.strokeStyle = e.col.a; c.globalAlpha = e.al(0.28); c.beginPath();
+            for (let j = 0; j < rows; j++) { c.moveTo(P[j * cols * 2], P[j * cols * 2 + 1]); for (let i = 1; i < cols; i++) c.lineTo(P[(j * cols + i) * 2], P[(j * cols + i) * 2 + 1]); }
+            for (let i = 0; i < cols; i++) { c.moveTo(P[i * 2], P[i * 2 + 1]); for (let j = 1; j < rows; j++) c.lineTo(P[(j * cols + i) * 2], P[(j * cols + i) * 2 + 1]); }
+            c.stroke();
+            c.fillStyle = e.col.b; c.globalAlpha = e.al(0.6); c.beginPath();
+            for (let k = 0; k < cols * rows; k++) { c.moveTo(P[k * 2] + 4, P[k * 2 + 1]); c.arc(P[k * 2], P[k * 2 + 1], 4, 0, TAU); }
+            c.fill();
+          },
+        };
+      },
+
+      branches(e) {
+        const trees = []; let t = 0, next = 0;
+        const spawn = () => {
+          const side = (e.rand() * 4) | 0, f = 0.1 + e.rand() * 0.8;
+          const x = side === 0 ? f * W : side === 1 ? W : side === 2 ? f * W : 0, y = side === 0 ? 0 : side === 1 ? f * H : side === 2 ? H : f * H;
+          const base = [Math.PI / 2, Math.PI, -Math.PI / 2, 0][side];
+          return { age: 0, hold: 0, total: 1, c: e.rand() < 0.7 ? e.col.a : e.col.b, br: [{ pts: [x, y], x, y, a: base + (e.rand() - 0.5) * 0.8, d: 0, len: 0, max: 420 + e.rand() * 260, acc: 0, alive: true }] };
+        };
+        return {
+          res: 0.5,
+          step(dt) {
+            t += dt;
+            if (t > next && trees.length < 4) { trees.push(spawn()); next = t + 1.5 + e.rand() * 2.5; }
+            for (let k = trees.length - 1; k >= 0; k--) {
+              const tr = trees[k]; let alive = false;
+              for (const b of tr.br.slice()) {
+                if (!b.alive) continue;
+                const step = 135 * dt; b.a += (e.rand() - 0.5) * 2.2 * dt * 3; b.x += Math.cos(b.a) * step; b.y += Math.sin(b.a) * step; b.len += step; b.acc += step;
+                if (b.acc > 16) {
+                  b.acc = 0; b.pts.push(b.x, b.y);
+                  if (b.d < 4 && tr.total < 90 && e.rand() < 0.17) { tr.total++; tr.br.push({ pts: [b.x, b.y], x: b.x, y: b.y, a: b.a + (e.rand() < 0.5 ? -1 : 1) * (0.4 + e.rand() * 0.5), d: b.d + 1, len: 0, max: b.max * 0.6, acc: 0, alive: true }); }
+                }
+                if (b.len > b.max || b.x < -30 || b.x > W + 30 || b.y < -30 || b.y > H + 30) b.alive = false; else alive = true;
+              }
+              tr.age += dt; if (!alive) tr.hold += dt;
+              if (tr.hold > 3.2) trees.splice(k, 1);
+            }
+          },
+          draw(c) {
+            c.lineJoin = "round"; c.lineCap = "round";
+            for (const tr of trees) {
+              const fade = tr.hold < 1.2 ? 1 : Math.max(0, 1 - (tr.hold - 1.2) / 2);
+              c.strokeStyle = c.fillStyle = tr.c;
+              for (const b of tr.br) {
+                c.globalAlpha = e.al(0.55 * fade); c.lineWidth = 3.2 - b.d * 0.5; c.beginPath(); c.moveTo(b.pts[0], b.pts[1]);
+                for (let i = 2; i < b.pts.length; i += 2) c.lineTo(b.pts[i], b.pts[i + 1]);
+                if (b.alive) c.lineTo(b.x, b.y);
+                c.stroke();
+                if (!b.alive && b.d > 1) { c.globalAlpha = e.al(0.7 * fade); c.beginPath(); c.arc(b.x, b.y, 4, 0, TAU); c.fill(); }
+                if (b.alive) { c.globalAlpha = e.al(0.9); c.beginPath(); c.arc(b.x, b.y, 5, 0, TAU); c.fill(); }
+              }
+            }
+          },
+        };
+      },
     };
     const NAMES = Object.keys(THEMES);
 
@@ -331,7 +507,7 @@
     function build(spec, index) {
       palette(spec);
       env.rand = prng((spec.seed || 0) * 7919 + index * 104729 + 12345);
-      const GAIN = { constellation: 1.9, flow: 1.2, aurora: 0.55, ripples: 1.7, grid: 1.1, orbits: 1.8, waves: 1.7, circuit: 1.2, contours: 1.9, bokeh: 0.6 };
+      const GAIN = { constellation: 1.9, flow: 1.2, aurora: 0.55, ripples: 1.7, grid: 1.1, orbits: 1.8, waves: 1.7, circuit: 1.2, contours: 1.9, bokeh: 0.6, network: 1.5, hexgrid: 0.9, metro: 1.1, lattice: 0.95, branches: 1.5 };
       const strength = Math.max(0.05, +spec.intensity || 1) * (GAIN[spec.theme] || 1) * (env.dark ? 0.9 : 1);
       env.al = (a) => clamp(a * strength, 0, 1);
       inst = THEMES[spec.theme](env);
