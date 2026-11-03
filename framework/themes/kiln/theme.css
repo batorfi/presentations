@@ -1,0 +1,86 @@
+/* KILN theme — maps the KILN design system (tokens.css, generated) onto the deck's roles.
+   The framework only ever reads --deck-* variables, so another design system becomes a theme
+   by providing this one file plus its own tokens.css and fonts.css. */
+
+:root {
+  /* Type faces (F:typography): Charter for the one plain sentence, Inter for everything else. */
+  --deck-font-display: var(--font-family-display);
+  --deck-font-sans: var(--font-family-sans);
+  --deck-font-mono: var(--font-family-mono);
+
+  /* Surfaces (F:color): sand page, white raised, deep-teal rail. */
+  --deck-letterbox: var(--color-surface-rail);
+  --deck-bg: var(--color-surface-page);
+  --deck-raised: var(--color-surface-raised);
+  --deck-sunken: var(--color-surface-sunken);
+  --deck-rail: var(--color-surface-rail);
+  --deck-rail-raised: var(--color-surface-rail-raised);
+
+  --deck-text: var(--color-text-primary);
+  --deck-text-2: var(--color-text-secondary);
+  --deck-muted: var(--color-text-muted);
+  --deck-on-accent: var(--color-text-on-accent);
+  --deck-on-rail: var(--color-text-on-rail);
+  --deck-muted-on-rail: var(--color-text-muted-on-rail);
+
+  --deck-border: var(--color-border-default);
+  --deck-border-strong: var(--color-border-strong);
+
+  /* Teal is the only accent. */
+  --deck-accent: var(--color-action-primary);
+  --deck-accent-hover: var(--color-action-primary-hover);
+  --deck-accent-subtle: var(--color-action-subtle);
+  --deck-accent-on-rail: var(--color-action-on-rail);
+  --deck-focus: var(--color-focus-ring);
+
+  /* State roles — always paired with a word and a shape on slides too. */
+  --deck-wait: var(--color-status-wait-fg);      --deck-wait-bg: var(--color-status-wait-bg);
+  --deck-ok: var(--color-status-ok-fg);          --deck-ok-bg: var(--color-status-ok-bg);
+  --deck-delegated: var(--color-status-delegated-fg); --deck-delegated-bg: var(--color-status-delegated-bg);
+  --deck-info: var(--color-status-info-fg);      --deck-info-bg: var(--color-status-info-bg);
+  --deck-danger: var(--color-status-danger-fg);  --deck-danger-bg: var(--color-status-danger-bg);
+
+  /* Radii and elevation (F:elevation): flat, 1 px borders, one soft shadow for menus. */
+  --deck-radius-sm: 8px;
+  --deck-radius: 14px;
+  --deck-radius-lg: 22px;
+  --deck-radius-pill: var(--radius-pill);
+  --deck-shadow-menu: 0 12px 32px rgba(16, 32, 31, 0.22), 0 2px 6px rgba(16, 32, 31, 0.12);
+
+  /* The stage is 1920 x 1080; this is the design system's type scale enlarged for a room. */
+  --deck-titlebar-h: 96px;
+  --deck-pad-x: 120px;
+  --deck-pad-top: 64px;
+  --deck-pad-bottom: 72px;
+  --deck-fs-hero: 112px;
+  --deck-fs-h1: 76px;
+  --deck-fs-h2: 56px;
+  --deck-fs-h3: 40px;
+  --deck-fs-lead: 36px;
+  --deck-fs-body: 30px;
+  --deck-fs-small: 24px;
+  --deck-fs-caption: 20px;
+  --deck-lh-tight: var(--font-lineheight-tight);
+  --deck-lh-body: var(--font-lineheight-body);
+  --deck-gap: 32px;
+
+  /* Motion. KILN's UI motion is 120/200 ms; a stage needs longer, calmer moves.
+     Nothing loops to attract attention; reduced motion drops everything to 0 ms. */
+  --deck-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --deck-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --deck-slide-ms: 700;
+  --deck-el-ms: 600;
+
+  /* Tool colours: laser and ink. Picked to read on sand, white and deep teal alike. */
+  --deck-palette: #E5484D, #F59E0B, #14B8A6, #3B82F6, #8B5CF6, #14201F, #FFFFFF;
+  --deck-laser-default: #E5484D;
+  --deck-ink-default: #E5484D;
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --deck-letterbox: #070F0E;
+  --deck-shadow-menu: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}

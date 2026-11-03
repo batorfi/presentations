@@ -1,0 +1,190 @@
+/* deck.css — the engine's layout, chrome and content kit. Reads only --deck-* variables (see a theme's theme.css). */
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body.deck-body {
+  overflow: hidden;
+  background: var(--deck-letterbox);
+  color: var(--deck-text);
+  font-family: var(--deck-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01";
+}
+body.deck-body:not(.deck-ready) .deck-viewport { opacity: 0; }
+body.deck-idle:not(.tool-active) { cursor: none; }
+
+/* ---------- viewport and the 1920 x 1080 stage ---------- */
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; transition: opacity 200ms; }
+.deck-stage, .deck-ui {
+  position: absolute; left: 0; top: 0;
+  width: 1920px; height: 1080px;
+  transform-origin: 0 0;
+}
+.deck-stage { background: var(--deck-bg); overflow: hidden; contain: layout paint; }
+.deck-ui { pointer-events: none; z-index: 20; }
+.deck-ui > * { pointer-events: auto; }
+.deck-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.deck-overlay > * { pointer-events: auto; }
+
+.deck-slides { position: absolute; inset: 0; }
+.deck-slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  padding: calc(var(--deck-titlebar-h) + var(--deck-pad-top)) var(--deck-pad-x) var(--deck-pad-bottom);
+  gap: 28px;
+  background: var(--deck-bg);
+  backface-visibility: hidden;
+}
+.deck-slide[hidden] { display: none; }
+.deck-slide.no-titlebar { padding-top: var(--deck-pad-bottom); }
+.deck-stage.is-transitioning .deck-slide:not([hidden]) { will-change: transform, opacity; }
+
+/* Hidden state of stepped / animated elements. Animations always end on the CSS state. */
+.deck-hidden { opacity: 0 !important; visibility: hidden; }
+
+/* ---------- title bar ---------- */
+.deck-titlebar {
+  position: absolute; left: 0; right: 0; top: 0; height: var(--deck-titlebar-h);
+  z-index: 5;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 40px;
+  padding: 0 var(--deck-pad-x) 0 var(--deck-pad-x);
+  background: var(--deck-rail); color: var(--deck-on-rail);
+  transition: transform 450ms var(--deck-ease), opacity 300ms;
+}
+.deck-titlebar.is-hidden { transform: translate3d(0, -100%, 0); opacity: 0; pointer-events: none; }
+.deck-tb-left { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.deck-tb-kicker {
+  font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--deck-accent-on-rail); min-height: 18px;
+}
+.deck-tb-title { position: relative; height: 40px; overflow: hidden; }
+.deck-tb-title span {
+  position: absolute; left: 0; top: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+  font-size: 30px; font-weight: 600; line-height: 40px; letter-spacing: -0.01em;
+}
+.deck-tb-progress { display: flex; gap: 16px; align-items: flex-start; min-width: 560px; max-width: 960px; }
+.deck-tb-section { flex: 1 0 auto; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.deck-tb-ticks { display: flex; gap: 4px; height: 10px; }
+.deck-tb-tick {
+  flex: 1 1 0; min-width: 22px; height: 10px; border: 0; padding: 0; cursor: pointer;
+  border-radius: 3px; background: var(--deck-rail-raised);
+  transition: background-color 300ms, transform 300ms var(--deck-ease-out);
+}
+.deck-tb-tick.is-done { background: color-mix(in srgb, var(--deck-accent-on-rail) 45%, var(--deck-rail-raised)); }
+.deck-tb-tick.is-current { background: var(--deck-accent-on-rail); transform: scaleY(1.5); }
+.deck-tb-tick:hover { background: var(--deck-on-rail); }
+.deck-tb-label {
+  font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--deck-muted-on-rail);
+  white-space: nowrap; transition: color 300ms;
+}
+.deck-tb-section.is-current .deck-tb-label { color: var(--deck-on-rail); font-weight: 600; }
+.deck-tb-count { font-variant-numeric: tabular-nums; font-size: 22px; color: var(--deck-muted-on-rail); white-space: nowrap; }
+.deck-tb-count b { color: var(--deck-on-rail); font-weight: 600; margin-right: 6px; }
+.deck-tb-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: transparent; }
+.deck-tb-bar i {
+  display: block; height: 100%; background: var(--deck-accent-on-rail);
+  transform-origin: 0 50%; transform: scaleX(0); transition: transform 700ms var(--deck-ease);
+}
+
+/* ---------- popups in the scaled UI layer (storyline, help) ---------- */
+.deck-modal {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--deck-rail) 55%, transparent);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.deck-modal[hidden] { display: none; }
+.deck-panel {
+  background: var(--deck-raised); color: var(--deck-text);
+  border: 1px solid var(--deck-border); border-radius: var(--deck-radius-lg);
+  box-shadow: var(--deck-shadow-menu);
+  max-width: 1680px; max-height: 920px; overflow: auto;
+  padding: 48px 56px;
+}
+.deck-panel h2 { font-family: var(--deck-font-display); font-weight: 700; font-size: 44px; line-height: 1.2; margin: 0 0 8px; }
+.deck-panel .deck-panel-sub { color: var(--deck-muted); font-size: 20px; margin: 0 0 32px; }
+
+/* ---------- content kit for slides ---------- */
+.s-kicker {
+  font-size: var(--deck-fs-caption); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--deck-accent); margin: 0 0 16px;
+}
+.s-hero, .s-title, .s-h2, .s-h3 { font-family: var(--deck-font-display); font-weight: 700; line-height: var(--deck-lh-tight); margin: 0; letter-spacing: -0.01em; }
+.s-hero { font-size: var(--deck-fs-hero); letter-spacing: -0.02em; }
+.s-title { font-size: var(--deck-fs-h1); }
+.s-h2 { font-size: var(--deck-fs-h2); }
+.s-h3 { font-size: var(--deck-fs-h3); }
+.s-lead { font-size: var(--deck-fs-lead); line-height: 1.35; color: var(--deck-text-2); margin: 0; max-width: 42em; }
+/* Paragraph defaults have zero specificity, so any s-* class wins. */
+:where(.deck-slide) :where(p, li) { font-size: var(--deck-fs-body); line-height: var(--deck-lh-body); margin: 0; }
+.s-body { font-size: var(--deck-fs-body); line-height: var(--deck-lh-body); }
+.s-small { font-size: var(--deck-fs-small); }
+.s-caption { font-size: var(--deck-fs-caption); color: var(--deck-muted); }
+.s-mono { font-family: var(--deck-font-mono); }
+.s-muted { color: var(--deck-muted); }
+.s-accent { color: var(--deck-accent); }
+.deck-slide ul.s-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 20px; }
+.deck-slide ul.s-list > li { position: relative; padding-left: 40px; }
+.deck-slide ul.s-list > li::before {
+  content: ""; position: absolute; left: 4px; top: 0.55em; width: 14px; height: 14px; border-radius: 4px; background: var(--deck-accent);
+}
+
+.s-stack { display: flex; flex-direction: column; gap: var(--deck-gap); }
+.s-row { display: flex; gap: var(--deck-gap); align-items: center; }
+.s-grow { flex: 1 1 auto; min-height: 0; }
+.s-center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.s-grid { display: grid; gap: var(--deck-gap); }
+.s-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.s-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.s-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.s-split { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: center; }
+
+.s-card {
+  background: var(--deck-raised); border: 1px solid var(--deck-border); border-radius: var(--deck-radius);
+  padding: 32px 36px;
+}
+.s-card h3 { font-size: 32px; font-weight: 600; margin: 0 0 10px; }
+.s-card p { font-size: 24px; color: var(--deck-text-2); }
+.s-card.is-accent { border-color: var(--deck-accent); box-shadow: inset 0 0 0 1px var(--deck-accent); }
+.s-card.is-rail { background: var(--deck-rail); color: var(--deck-on-rail); border-color: var(--deck-rail); }
+.s-card.is-rail p { color: var(--deck-muted-on-rail); }
+
+.s-chip, .s-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 20px; font-weight: 600; padding: 6px 16px; border-radius: var(--deck-radius-pill);
+  background: var(--deck-accent-subtle); color: var(--deck-accent); white-space: nowrap;
+}
+.s-pill.is-wait { background: var(--deck-wait-bg); color: var(--deck-wait); }
+.s-pill.is-ok { background: var(--deck-ok-bg); color: var(--deck-ok); }
+.s-pill.is-delegated { background: var(--deck-delegated-bg); color: var(--deck-delegated); }
+.s-pill.is-info { background: var(--deck-info-bg); color: var(--deck-info); }
+.s-pill.is-danger { background: var(--deck-danger-bg); color: var(--deck-danger); }
+
+.s-figure { margin: 0; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+.s-figure img, .s-figure svg, .s-figure object { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+.s-figure figcaption { font-size: var(--deck-fs-caption); color: var(--deck-muted); }
+.s-frame { border: 1px solid var(--deck-border); border-radius: var(--deck-radius); overflow: hidden; background: var(--deck-raised); }
+
+/* Skeleton slides: a quiet frame that says what will go here. */
+.s-placeholder {
+  flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  border: 2px dashed var(--deck-border-strong); border-radius: var(--deck-radius-lg);
+  color: var(--deck-muted); font-size: 26px; text-align: center; padding: 40px;
+}
+.s-placeholder b { color: var(--deck-text-2); font-weight: 600; }
+
+/* SVG helpers: theme-aware strokes and fills for inline graphics. */
+.s-svg { overflow: visible; }
+.s-svg [data-anim], .s-svg [data-step] { transform-box: fill-box; transform-origin: center; }
+.s-svg .ink { stroke: var(--deck-text); }
+.s-svg .accent { stroke: var(--deck-accent); }
+.s-svg .fill-accent { fill: var(--deck-accent); }
+.s-svg .fill-raised { fill: var(--deck-raised); }
+.s-svg .fill-subtle { fill: var(--deck-accent-subtle); }
+.s-svg .line-muted { stroke: var(--deck-border-strong); }
+.s-svg text { fill: var(--deck-text); font-family: var(--deck-font-sans); }
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-titlebar, .deck-tb-tick, .deck-tb-bar i { transition: none; }
+}

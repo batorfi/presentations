@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Framework demo</title>
+
+  <!-- Theme: the KILN design system (tokens generated from the design system, fonts embedded). -->
+  <link rel="stylesheet" href="../../framework/themes/kiln/fonts.css">
+  <link rel="stylesheet" href="../../framework/themes/kiln/tokens.css">
+  <link rel="stylesheet" href="../../framework/themes/kiln/theme.css">
+  <!-- Engine and tools. -->
+  <link rel="stylesheet" href="../../framework/deck.css">
+  <link rel="stylesheet" href="../../framework/plugins/tools.css">
+  <link rel="stylesheet" href="deck.css">
+
+  <script src="../../framework/deck.js"></script>
+  <script src="../../framework/plugins/tools.js"></script>
+  <script src="../../framework/plugins/laser.js"></script>
+  <script src="../../framework/plugins/draw.js"></script>
+  <script src="../../framework/plugins/lens.js"></script>
+  <script src="../../framework/plugins/storyline.js"></script>
+  <script src="../../framework/plugins/menu.js"></script>
+
+  <script>
+    Deck.configure({
+      title: "Framework demo",
+      theme: "light",
+      transition: "slide",
+      sections: [
+        { id: "basics", label: "Basics" },
+        { id: "media", label: "Images & SVG" },
+        { id: "custom", label: "Custom visuals" },
+        { id: "tools", label: "Tools" },
+      ],
+    });
+  </script>
+
+  <!-- One file per slide, in order. -->
+  <script src="slides/01-title.js"></script>
+  <script src="slides/02-steps.js"></script>
+  <script src="slides/03-images.js"></script>
+  <script src="slides/04-svg.js"></script>
+  <script src="slides/05-custom.js"></script>
+  <script src="slides/06-tools.js"></script>
+  <script src="slides/07-skeleton.js"></script>
+</head>
+<body></body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" width="640" height="400">
+  <rect x="1" y="1" width="638" height="398" rx="24" fill="#FFFFFF" stroke="#DDD7CA" stroke-width="2"/>
+  <g fill="none" stroke-width="22" stroke-linecap="round">
+    <path d="M200 320 V170 a120 120 0 0 1 240 0 V320" stroke="#A9D3CC"/>
+    <path d="M240 320 V180 a80 80 0 0 1 160 0 V320" stroke="#5FAEA4"/>
+    <path d="M280 320 V190 a40 40 0 0 1 80 0 V320" stroke="#0F766E"/>
+  </g>
+  <text x="320" y="372" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#56625F">external .svg file shown with &lt;img&gt;</text>
+</svg>
