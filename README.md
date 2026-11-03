@@ -34,7 +34,7 @@ tools/
 | D | draw · 1 circle · 2 rectangle · 3 line · 4 arrow · 5 curved arrow · Shift = round / square / 45° |
 | C · X · U | next ink colour · clear drawings · undo last shape |
 | Z | zoom lens · wheel or `[` `]` size · Shift+wheel or `+` `−` zoom |
-| S | spotlight: dims everything except a window that follows the mouse · Shift+S rectangle / circle · wheel or `[` `]` size |
+| S | spotlight: dims everything except a window that follows the mouse · Shift+S circle / rectangle · wheel or `[` `]` size |
 | P · Shift+P · R | timer: start / pause / resume · stop · restart |
 | ? or H | all shortcuts |
 | Esc | close a popup, or turn tools off |
