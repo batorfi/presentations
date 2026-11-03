@@ -136,6 +136,7 @@ them (and back again with ←), while everything else transitions as usual:
 | `data-morph="key"` | pairing key; duplicates on a slide pair in document order |
 | `data-morph-fit="uniform"` | scale evenly and letterbox instead of stretching (pictures, SVG, text) |
 | `data-morph-duration="900"` | milliseconds (default: the slide transition time) |
+| `data-morph-delay="120"` | start later (ms); stagger a group for a cascade |
 
 Only elements visible at that moment morph; the old and new look crossfade while the box moves and resizes. Position, size
 and content can all differ. Load `plugins/morph.js`; `Deck.configure({ morph: { reach: 1 } })` sets how far apart two

@@ -9,6 +9,7 @@
  *   data-morph="key"             the pairing key (unique per slide; duplicates pair in document order)
  *   data-morph-fit="uniform"     keep text and pictures undistorted: scale evenly and letterbox instead of stretching
  *   data-morph-duration="900"    milliseconds (default: the slide transition time)
+ *   data-morph-delay="120"       start later, in milliseconds: stagger a group of elements for a cascade
  *
  * Deck.configure({ morph: { reach: 1 } }): how far apart two slides may be and still morph
  * (1 = neighbours, Infinity = any pair, 0 = off).
@@ -178,6 +179,7 @@
         const fr = p.from.rect, to = p.to.rect;
         p.to.ghost = ghostOf(p.to.el, to); // built before the real element is hidden
         const ms = +(p.to.el.dataset.morphDuration || p.from.el.dataset.morphDuration) || slideMs;
+        const delay = +(p.to.el.dataset.morphDelay || p.from.el.dataset.morphDelay) || 0;
         const uniform = (p.to.el.dataset.morphFit || p.from.el.dataset.morphFit) === "uniform";
 
         // One isolated box around both positions, so blending never touches the slides below.
@@ -218,7 +220,7 @@
           fo.push({ offset: t, transform: `matrix(${ox},0,0,${oy},${otx},${oty})`, opacity: 1 - w });
           fn.push({ offset: t, transform: `matrix(${nx},0,0,${ny},${ntx},${nty})`, opacity: w });
         }
-        const opts = { duration: ms, easing: "linear", fill: "both" };
+        const opts = { duration: ms, delay, easing: "linear", fill: "both" };
         anims.push(Deck.track(O.animate(fo, opts)), Deck.track(N.animate(fn, opts)));
         hidden.push(p.from.el, p.to.el);
       }
