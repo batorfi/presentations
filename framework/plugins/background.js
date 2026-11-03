@@ -607,7 +607,7 @@
       if (v === undefined) v = Deck.config.background;
       if (!v || v === "none") return null;
       if (typeof v === "string") v = { theme: v };
-      if (!THEMES[v.theme]) return null;
+      if (!THEMES[v.theme]) { console.warn("[background] unknown theme:", v.theme); return null; }
       return v;
     }
     const keyOf = (s) => (s ? JSON.stringify([s.theme, s.intensity || 1, s.speed || 1, s.seed || 0, s.colors || null]) : "");
