@@ -380,16 +380,23 @@
     tb.classList.toggle("is-hidden", def.titlebar === false);
     $(".deck-tb-kicker", tb).textContent = sec ? sec.label : "";
     const titleWrap = $(".deck-tb-title", tb);
-    const old = $("span", titleWrap);
     const label = def.navTitle || def.title;
-    if (old.textContent !== label) {
-      const next = h("span", {}, escapeHtml(label));
+    // Exactly one span is "current". Anything else still fading out is dropped at once, so quick
+    // navigation can never leave stale titles stacked on top of each other.
+    const current = $("span.is-current", titleWrap);
+    $$("span:not(.is-current)", titleWrap).forEach((s) => s.remove());
+    if (!current || current.textContent !== label) {
+      const next = h("span", { class: "is-current" }, escapeHtml(label));
       titleWrap.append(next);
       const d = dur(380);
       const dx = dir === "backward" ? -24 : 24;
-      track(next.animate([{ opacity: 0, transform: `translate3d(${dx}px,0,0)` }, { opacity: 1, transform: "none" }], { duration: d, easing: "cubic-bezier(0.16,1,0.3,1)" }));
-      const a = track(old.animate([{ opacity: 1 }, { opacity: 0, transform: `translate3d(${-dx}px,0,0)` }], { duration: d * 0.7, fill: "forwards" }));
-      a.finished.catch(() => {}).finally(() => old.remove());
+      next.animate([{ opacity: 0, transform: `translate3d(${dx}px,0,0)` }, { opacity: 1, transform: "none" }], { duration: d, easing: "cubic-bezier(0.16,1,0.3,1)" });
+      if (current) {
+        current.classList.remove("is-current");
+        current.animate([{ opacity: 1 }, { opacity: 0, transform: `translate3d(${-dx}px,0,0)` }], { duration: d * 0.7, fill: "forwards" });
+        // A timer, not the animation's promise: it also fires in background tabs and when animations are cancelled.
+        setTimeout(() => current.remove(), d * 0.7 + 60);
+      }
     }
     $$(".deck-tb-tick", tb).forEach((t) => {
       const k = +t.dataset.index;
