@@ -176,6 +176,33 @@ A large headline that scrolls sideways at a pace a person can read. Load `plugin
 It loops without a seam, restarts from the first word whenever its slide is shown, and runs only while its slide is on
 screen (a compositor-only transform animation). With reduced motion it shows the text still and wrapped.
 
+### Pan and zoom
+
+Look around inside a PNG, JPG, SVG (or any element) that is bigger than its slot. Load `plugins/panzoom.js`, then:
+
+```html
+<div class="s-panzoom" data-height="640px" data-views="Overview=0,0,4000,2250; Detail=1200,800,900,500">
+  <img src="assets/big-map.png" alt="…">
+</div>
+```
+
+The viewport size is yours: `data-width` / `data-height` take any CSS length, `data-height="fill"` takes the rest of the slide,
+`data-aspect="16/9"` derives the height from the width. 100 % is the picture's own pixel size.
+
+| Attribute | Meaning |
+|---|---|
+| `data-fit="contain\|cover\|width\|height"` | the first view (default `contain`) |
+| `data-max-zoom="4"` | largest zoom as a multiple of the picture's size (default 4) |
+| `data-views="A=x,y,w,h; …"` | named details as rectangles in picture pixels; keys `1`–`9` or the badge buttons fly there |
+| `data-content-width` / `-height` | picture size in px when it cannot be read |
+| `data-minimap="off"`, `data-minimap-size="240"` | the overview map (shown while zoomed in; click or drag it to jump) |
+| `data-badge="off"` | the zoom badge (percentage, Fit, 100 %, view buttons) |
+
+**Mouse:** drag pans, the wheel (or a trackpad pinch) zooms toward the pointer, double-click zooms in or back to fit.
+**Keyboard:** arrow keys keep changing slides. Click the picture, press `E`, or press Enter while the pointer is over it to
+explore with the keyboard: arrows pan (Shift = faster), `+` `−` zoom, `0` fit, `O` 100 %, `1`–`9` views, Esc or `E` leaves.
+Every slide change starts again from the fitted view. With reduced motion the fly-to moves are instant.
+
 ### Logo in the header
 
 `Deck.configure({ logo: { src: "assets/logo.svg", alt: "Company", height: 40 } })` puts an SVG or PNG at the left of the
