@@ -154,3 +154,10 @@ body.spot-on { cursor: none; }
 html[data-reduced-motion] .deck-tb-timer .arc { transition: none; }
 html[data-reduced-motion] .deck-tb-timer svg { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { .deck-tb-timer .arc { transition: none; } .deck-tb-timer svg { animation: none !important; } }
+
+/* ---------- shared-element morphs ---------- */
+.deck-morph-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.deck-morph-item { position: absolute; isolation: isolate; }
+.deck-morph-old, .deck-morph-new { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform, opacity; }
+.deck-morph-layer.has-plus .deck-morph-new { mix-blend-mode: plus-lighter; }
+.deck-morph-hide { visibility: hidden !important; }

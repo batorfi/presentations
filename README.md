@@ -7,7 +7,7 @@ No server, no build step — open a deck's `index.html` in a desktop browser (Ch
 framework/                 the engine — shared by every deck
   deck.js                  core: stage, navigation, steps, transitions, title bar, hotkeys
   deck.css                 layout, title bar and the slide content kit (s-* classes)
-  plugins/                 laser, draw, lens (zoom), spotlight, timer, storyline, menu (+ help), shared tool styles
+  plugins/                 laser, draw, lens (zoom), spotlight, timer, morph, storyline, menu (+ help), shared tool styles
   themes/kiln/             the KILN design system as a theme
     tokens/                design tokens, copied from batorfi/kiln (.specify/memory/design-system/tokens)
     tokens.css             CSS variables generated from tokens/ (light + dark)
@@ -120,6 +120,30 @@ dashes, a soft outward pulse) so its edge is always clear. Settings in the right
 or rectangle), dimming (light, medium, heavy) and border (animated or static). The animation is off under reduced motion.
 It works together with the laser; turning on the zoom lens turns it off.
 Going back reverses each step. Reduced motion (system setting or the menu) turns all motion off.
+
+### Shared-element morphs
+
+Mark the same element on two slides with the same key and it travels from one place to the other when you move between
+them (and back again with ←), while everything else transitions as usual:
+
+```html
+<!-- slide 3 -->  <div class="s-card" data-morph="arch"><h3>Architecture</h3></div>
+<!-- slide 4 -->  <div class="s-card big" data-morph="arch"><h3>Architecture</h3><p>…more…</p></div>
+```
+
+| Attribute | Meaning |
+|---|---|
+| `data-morph="key"` | pairing key; duplicates on a slide pair in document order |
+| `data-morph-fit="uniform"` | scale evenly and letterbox instead of stretching (pictures, SVG, text) |
+| `data-morph-duration="900"` | milliseconds (default: the slide transition time) |
+
+Only elements visible at that moment morph; the old and new look crossfade while the box moves and resizes. Position, size
+and content can all differ. Load `plugins/morph.js`; `Deck.configure({ morph: { reach: 1 } })` sets how far apart two
+slides may be (1 = neighbours, `Infinity` = any, 0 = off). Fade transitions look cleanest with morphs.
+Morphs are skipped under reduced motion. A morph element is not animated by `data-anim` / `data-out` itself, and nothing
+inside it auto-animates on arrival (steps work). The clone is styled by the same classes, but rules that depend on
+sibling order or `:hover` do not carry over; canvas content is copied, video is not. The animation uses only transform and
+opacity, baked into keyframes from the deck easing, so the browser runs it on the compositor.
 
 ### Timer
 

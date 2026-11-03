@@ -454,7 +454,11 @@
   }
 
   // Elements that animate in on their own when the slide is entered (no data-step).
-  const autoEls = (index) => $$("[data-anim]:not([data-step])", slideEls[index]).filter((el) => el.dataset.outStep === undefined || +el.dataset.outStep > 0);
+  // Elements (and their containers) that a shared-element morph is handling do not animate in on their own.
+  const autoEls = (index) =>
+    $$("[data-anim]:not([data-step])", slideEls[index]).filter(
+      (el) => (el.dataset.outStep === undefined || +el.dataset.outStep > 0) && !el.closest(".deck-morph-hide") && !el.querySelector(".deck-morph-hide")
+    );
 
   function playAutos(index, baseDelay) {
     const els = autoEls(index);
@@ -521,10 +525,10 @@
     const targetStep = step === "last" ? stepCount(target) : clamp(step, 0, stepCount(target));
 
     if (!first) {
-      emit("beforeleave", { index: from, to: target, dir });
+      emit("beforeleave", { index: from, to: target, dir, step: targetStep });
       // Elements marked data-out (without a step) leave before the slide does, when moving forward.
       if (dir === "forward") {
-        const outs = $$("[data-out]:not([data-out-step])", fromEl).filter((e) => !e.classList.contains("deck-hidden"));
+        const outs = $$("[data-out]:not([data-out-step]):not([data-morph])", fromEl).filter((e) => !e.classList.contains("deck-hidden"));
         if (outs.length) {
           await Promise.all(outs.map((e) => animateEl(e, e.dataset.out, "out", { duration: 320 })));
           if (token !== navToken) return;
@@ -542,6 +546,8 @@
     Deck.state.started = true;
     updateTitlebar(dir);
     writeHash();
+    // Plugins can measure the incoming slide here: displayed, in its final state, not yet animated.
+    if (!first) emit("beforeenter", { index: target, from, dir, step: targetStep });
 
     const kind = first ? "none" : slides[target].transition || config.transition;
     const ms = dur(cssNumber("--deck-slide-ms", 700));
@@ -589,7 +595,7 @@
     }
     if (Deck.state.index > 0) return go(Deck.state.index - 1, "last");
   }
-  Object.assign(Deck, { go, next, prev, first: () => go(0, 0), last: () => go(slides.length - 1, 0), stepCount, slideEl: (i) => slideEls[i ?? Deck.state.index], context: (i) => contexts[i ?? Deck.state.index], animate: animateEl, finishAll });
+  Object.assign(Deck, { go, next, prev, first: () => go(0, 0), last: () => go(slides.length - 1, 0), stepCount, slideEl: (i) => slideEls[i ?? Deck.state.index], context: (i) => contexts[i ?? Deck.state.index], animate: animateEl, finishAll, track });
 
   // ---------- location hash: #/7 or #/7.2 (slide 7, step 2) — reload keeps your place ----------
   function writeHash() {
