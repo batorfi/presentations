@@ -107,7 +107,7 @@
       const caret = document.createElement("span");
       caret.className = "s-tw-caret";
       caret.setAttribute("aria-hidden", "true");
-      if (nodes.length) nodes[0].node.after(caret);
+      el.append(caret);
 
       // style hooks
       el.dataset.cursor = d.cursor || "bar";
@@ -169,8 +169,30 @@
         }
         if (o.start < n) cur = k; // the cursor follows the last typed character
       }
+      place(m, cur);
+    }
+    /** The cursor is placed from the measured position of the last typed character, so it follows the text in every
+     *  browser and across lines, whatever the markup around it. It lives in the panel and moves by transform only. */
+    function place(m, cur) {
       const o = m.nodes[cur];
-      if (o && m.caret.previousSibling !== o.node) o.node.after(m.caret);
+      if (!o) return;
+      const r = document.createRange();
+      let rect = null, atRight = true;
+      if (m.typed > 0 && o.len > 0) {
+        r.setStart(o.node, o.len - 1); r.setEnd(o.node, o.len);
+        const rs = r.getClientRects(); rect = rs[rs.length - 1];
+      } else if (o.rest.firstChild && o.rest.firstChild.data.length) {
+        r.setStart(o.rest.firstChild, 0); r.setEnd(o.rest.firstChild, 1);
+        rect = r.getClientRects()[0]; atRight = false;
+      }
+      if (!rect || (!rect.width && !rect.height)) return;
+      const er = m.el.getBoundingClientRect(), sx = er.width / (m.el.offsetWidth || 1) || 1;
+      const x = ((atRight ? rect.right : rect.left) - er.left) / sx - m.el.clientLeft;
+      let y = (rect.top - er.top) / sx - m.el.clientTop, h = rect.height / sx;
+      const c = m.caret.style;
+      if (m.el.dataset.cursor === "underscore") { y += h - 0.12 * parseFloat(getComputedStyle(m.el).fontSize); c.height = ""; }
+      else c.height = `${h}px`;
+      c.transform = `translate3d(${x}px,${y}px,0)`;
     }
     function paint(m) { m.el.classList.toggle("is-typing", m.state === "typing"); m.el.classList.toggle("is-done", m.state === "done"); m.el.classList.toggle("is-waiting", m.state === "armed"); m.el.classList.toggle("is-last", running[running.length - 1] === m); }
     function finish(m) { show(m, m.total); m.state = "done"; m.seen = true; paint(m); }
@@ -227,6 +249,9 @@
     }
 
     for (const [el, i] of found) list.push(build(el, i));
+    const replace = () => running.forEach((m) => { m.drawn = false; show(m, m.typed); });
+    Deck.on("resize", replace);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(replace);
     Deck.on("slidechange", ({ index }) => { if (raf) { cancelAnimationFrame(raf); raf = 0; } list.some((m) => m.slide === index) ? arm(index) : (running = []); });
     Deck.on("settings", ({ key }) => key === "reducedMotion" && complete());
     window.addEventListener("keydown", (e) => {
