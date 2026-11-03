@@ -6,6 +6,7 @@ Deck.slide({
   navTitle: "Title",
   titlebar: false,
   className: "p1-title-slide",
+  background: "branches",
   html: `
     <p class="s-kicker">ADLC webinar series · Part 1 of 3 · Foundations</p>
     <h1 class="s-title p1-title">Modern Software Engineering with Agentic Development Lifecycle Management</h1>
