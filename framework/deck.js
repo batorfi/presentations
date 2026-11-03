@@ -97,6 +97,7 @@
     sections: [], // [{ id, label }]
     theme: "light",
     transition: "slide", // slide | fade | none
+    logo: null, // { src, alt, height } or { placeholder: true }: shown at the left of the title bar
   };
 
   const Deck = (window.Deck = {
@@ -378,13 +379,27 @@
   }
   Deck.sections = sectionsWithSlides;
 
+  // Logo at the left end of the title bar: Deck.configure({ logo: { src, alt, height } }) with an SVG or PNG,
+  // or { placeholder: true } for a dashed box that marks the spot until the real logo arrives.
+  function logoHtml() {
+    const l = config.logo;
+    if (!l || (!l.src && !l.placeholder)) return "";
+    const hgt = +l.height || 44;
+    const style = `--logo-h:${hgt}px;` + (l.maxWidth ? `--logo-max-w:${+l.maxWidth}px;` : "");
+    if (!l.src) return `<div class="deck-tb-logo is-placeholder" style="${style}" aria-hidden="true"><span>${escapeHtml(l.label || "LOGO")}</span></div>`;
+    return `<img class="deck-tb-logo" style="${style}" src="${escapeHtml(l.src)}" alt="${escapeHtml(l.alt || "")}" draggable="false" onerror="this.remove()">`;
+  }
+
   function buildTitlebar() {
     const tb = Deck.el.titlebar;
     const secs = sectionsWithSlides();
     tb.innerHTML = `
       <div class="deck-tb-left">
-        <div class="deck-tb-kicker"></div>
-        <div class="deck-tb-title"><span></span></div>
+        ${logoHtml()}
+        <div class="deck-tb-text">
+          <div class="deck-tb-kicker"></div>
+          <div class="deck-tb-title"><span></span></div>
+        </div>
       </div>
       <nav class="deck-tb-progress" aria-label="Storyline progress">
         ${secs

@@ -64,7 +64,15 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
   transition: transform 450ms var(--deck-ease), opacity 300ms;
 }
 .deck-titlebar.is-hidden { transform: translate3d(0, -100%, 0); opacity: 0; pointer-events: none; }
-.deck-tb-left { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.deck-tb-left { min-width: 0; display: flex; align-items: center; gap: 32px; }
+.deck-tb-text { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; }
+.deck-tb-logo { flex: none; display: block; height: var(--logo-h, 44px); width: auto; max-width: var(--logo-max-w, 240px); object-fit: contain; user-select: none; }
+.deck-tb-logo + .deck-tb-text { padding-left: 32px; border-left: 1px solid color-mix(in srgb, var(--deck-on-rail) 22%, transparent); }
+.deck-tb-logo.is-placeholder {
+  width: calc(var(--logo-h, 44px) * 3.6); display: grid; place-items: center; box-sizing: border-box;
+  border: 2px dashed color-mix(in srgb, var(--deck-on-rail) 45%, transparent); border-radius: 8px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--deck-muted-on-rail);
+}
 .deck-tb-kicker {
   font-size: 15px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--deck-accent-on-rail); min-height: 18px;

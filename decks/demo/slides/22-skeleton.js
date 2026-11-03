@@ -1,6 +1,6 @@
 Deck.slide({
   id: "skeleton",
-  section: "morph",
+  section: "branding",
   title: "What a skeleton slide looks like",
   html: `
     <p class="s-kicker">Skeleton</p>

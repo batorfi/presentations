@@ -154,6 +154,14 @@ restarts it from the full length. While it runs, the header shows the time left 
 that drains clockwise (teal, amber for the last 20 %, red for the last 5 %); past zero it counts the overrun in red.
 On slides without a title bar a small chip shows the same clock. A running timer survives a reload.
 
+### Logo in the header
+
+`Deck.configure({ logo: { src: "assets/logo.svg", alt: "Company", height: 40 } })` puts an SVG or PNG at the left of the
+title bar, with a thin divider before the slide title. `height` defaults to 44 px, `maxWidth` (default 240 px) caps the
+width. The bar is dark in both themes, so use a logo that reads on a dark background. Until you have one,
+`logo: { placeholder: true, label: "LOGO" }` marks the spot with a dashed box. A missing file removes the logo instead
+of showing a broken image. The demo deck ships a sample (`decks/demo/assets/newco-logo.svg` and `.png`).
+
 ### Images and SVG
 
 PNG and JPEG: `<img src="assets/x.png">`, inside `<figure class="s-figure">` for a caption; add `class="cover"` to crop to fill.

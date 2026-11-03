@@ -92,3 +92,10 @@
 .demo-badge { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--deck-accent); color: var(--deck-on-accent, #fff); font: 700 44px/1 var(--deck-font-sans); flex: none; }
 .demo-badge-row .s-lead { margin: 0; max-width: 40em; }
 .demo-gates { margin-top: 36px; }
+
+/* logo demo */
+.demo-logo-split { display: grid; grid-template-columns: 7fr 5fr; gap: 56px; margin-top: 32px; align-items: start; }
+.demo-code-block { margin: 0; font: 500 24px/1.5 var(--deck-font-mono); white-space: pre; color: var(--deck-text); }
+.demo-logo-samples { gap: 24px; }
+.demo-logo-card { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px 36px; border-radius: var(--deck-radius); background: var(--deck-rail); color: var(--deck-muted-on-rail); font-size: 20px; }
+.demo-logo-card img { height: 56px; width: auto; display: block; }
