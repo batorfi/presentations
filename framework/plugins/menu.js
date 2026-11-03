@@ -86,6 +86,7 @@
           <div class="deck-menu-title">View</div>
           <div class="deck-menu-row"><span>Theme</span>${seg("theme", dark ? "dark" : "light", [["light", "Light"], ["dark", "Dark"]])}</div>
           <div class="deck-menu-row"><span>Motion</span>${seg("reducedMotion", s.reducedMotion, [[false, "Full"], [true, "Reduced"]])}</div>
+          ${Deck.background ? `<div class="deck-menu-row"><span>Background</span>${seg("backgroundMode", s.backgroundMode, [["on", "Animated"], ["still", "Still"], ["off", "Off"]])}</div>` : ""}
           ${item("fullscreen", "Fullscreen", "F", !!(document.fullscreenElement || document.webkitFullscreenElement))}
           ${item("help", "Keyboard shortcuts", "?")}
         </div>`;

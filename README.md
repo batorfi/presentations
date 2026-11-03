@@ -206,6 +206,24 @@ The viewport size is yours: `data-width` / `data-height` take any CSS length, `d
 explore with the keyboard: arrows pan (Shift = faster), `+` `−` zoom, `0` fit, `O` 100 %, `1`–`9` views, Esc or `E` leaves.
 Every slide change starts again from the fitted view. With reduced motion the fly-to moves are instant.
 
+### Animated backgrounds
+
+`plugins/background.js` puts a quiet algorithmic animation behind the slide. Load it after `deck.js`.
+
+```js
+Deck.configure({ background: "aurora" });                 // default for every slide
+Deck.slide({ ..., background: "circuit" });               // this slide's theme
+Deck.slide({ ..., background: { theme: "flow", intensity: 1.4, speed: 0.7, seed: 3, colors: ["#0F7B6C", "#3B6FB6"] } });
+Deck.slide({ ..., background: "none" });                  // plain slide
+```
+
+Themes: `constellation`, `flow`, `aurora`, `ripples`, `grid`, `orbits`, `waves`, `circuit`, `contours`, `bokeh`.
+The animation is strongest at the edges and corners and very low behind the content; colours follow the deck theme (light/dark).
+Right-click menu → View → Background (Animated / Still / Off), or press **B**. Reduced motion shows one still frame.
+Cost: half-resolution canvas (quarter for soft themes), 30 fps cap, pauses when the tab is hidden or a pointer tool is on;
+a governor lowers it to 20 → 12 fps and then a still frame if frames get slow. It keeps running when the window merely loses focus (Teams screen share).
+`Deck.background.stats()` reports theme, fps and average frame cost. Demo: `decks/backgrounds/`.
+
 ### Typewriter
 
 Text that types itself, character by character, with a cursor: for the slide where the words are the message (a quote, a

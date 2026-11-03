@@ -57,6 +57,7 @@
     lensSize: "m",
     lensZoom: 2.5,
     reducedMotion: false,
+    backgroundMode: "on", // animated backgrounds: "on" | "still" | "off"
   };
   let stored = {};
   try {

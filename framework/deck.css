@@ -294,3 +294,12 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
 /* One cursor at a time: shown only on the text being typed (or about to be), and on the last text once it is done. */
 .s-typewriter.is-typing .s-tw-caret, .s-typewriter.is-waiting .s-tw-caret, .s-typewriter.is-done.is-last .s-tw-caret { display: block; }
 .s-typewriter[data-cursor="none"] .s-tw-caret { display: none !important; }
+
+/* ---- Animated background (plugins/background.js) ---- */
+.deck-bg {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; z-index: 0; pointer-events: none; opacity: 0;
+  /* quiet behind the content, stronger toward the edges and corners */
+  -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 54%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 45%, #000 100%);
+  mask-image: radial-gradient(ellipse 72% 70% at 50% 54%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 45%, #000 100%);
+}
+.deck-stage:not([data-bgmode="off"]) .deck-slide.has-bg { background: transparent; }
