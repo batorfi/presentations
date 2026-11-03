@@ -285,7 +285,7 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
 .s-tw-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* the cursor takes no room, so the text never shifts; the shape is drawn from a pseudo-element */
 .s-tw-caret { position: relative; display: inline; }
-.s-tw-caret::after { content: ""; position: absolute; left: 0.03em; top: 0.1em; width: 0.075em; height: 1.02em; background: var(--deck-accent); border-radius: 0.02em; animation: tw-blink 1.1s steps(1) infinite; }
+.s-tw-caret::after { display: none; content: ""; position: absolute; left: 0.03em; top: 0.1em; width: 0.075em; height: 1.02em; background: var(--deck-accent); border-radius: 0.02em; animation: tw-blink 1.1s steps(1) infinite; }
 .s-typewriter[data-cursor="block"] .s-tw-caret::after { width: 0.56em; opacity: 0.9; border-radius: 0.04em; }
 .s-typewriter[data-cursor="underscore"] .s-tw-caret::after { top: 1em; height: 0.09em; width: 0.56em; }
 .s-typewriter[data-cursor="none"] .s-tw-caret::after { display: none; }
@@ -293,4 +293,6 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
 .s-typewriter.is-done[data-cursor-end="hide"] .s-tw-caret::after { animation: none; opacity: 0; transition: opacity 0.4s 1s; }
 @keyframes tw-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
 :root[data-reduced-motion] .s-tw-caret::after { animation: none; }
-.s-typewriter.is-done:not(.is-last) .s-tw-caret::after { display: none; } /* only the text typed last keeps its cursor */
+/* One cursor at a time: shown only on the text being typed (or about to be), and on the last text once it is done. */
+.s-typewriter.is-typing .s-tw-caret::after, .s-typewriter.is-waiting .s-tw-caret::after, .s-typewriter.is-done.is-last .s-tw-caret::after { display: block; }
+.s-typewriter[data-cursor="none"] .s-tw-caret::after { display: none !important; }
