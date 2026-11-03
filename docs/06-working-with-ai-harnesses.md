@@ -5,7 +5,7 @@ This repo is meant to be co-authored: a person decides *what to say*, an agent b
 
 ## Orientation checklist for an agent starting a session
 
-1. Read `docs/README.md` and `docs/CHEATSHEET.md` (≈ 5 minutes). Skim `docs/02-authoring-slides.md` for the task.
+1. Read `docs/README.md` and `docs/CHEATSHEET.md` (≈ 5 minutes). For a **new deck** read [09-deck-template.md](09-deck-template.md) and start from `tools/new-deck.py`. Skim `docs/02-authoring-slides.md` for the task.
 2. `ls decks/` and open the target deck's `index.html` (slide order, plugins, config) and `deck.css` (its classes).
 3. Look at 1–2 existing slides in the same deck for tone, density and class usage; reuse before inventing.
 4. Never edit `framework/` unless the user asked for an engine/plugin change.
@@ -36,7 +36,7 @@ Tip: use **G** (storyline) to navigate, **T** to check dark mode, **B** to check
 | Slide-specific style | `decks/<d>/deck.css` with a `.xx-` prefix; add `className` on the slide |
 | Image | put in `decks/<d>/assets/`, reference relatively; give `alt` |
 | Animated background | add `plugins/background.js` to `index.html`, then `background: "<theme>"` on slides or in `Deck.configure` |
-| New deck | follow [02](02-authoring-slides.md#create-a-deck) |
+| New deck | `python3 tools/new-deck.py <slug> --title "…"` then follow [09](09-deck-template.md) |
 | Engine/plugin change | edit `framework/…`, **bump `?v=`**, run smoke tests on *all* decks (see below) |
 
 ## Verification

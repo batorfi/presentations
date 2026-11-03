@@ -17,13 +17,13 @@ presentations/
     plugins/*.js|css    opt-in features (laser, draw, lens, spotlight, timer, morph, storyline, menu,
                         marquee, panzoom, typewriter, background)
     themes/kiln/        design tokens, fonts and the mapping to --deck-* roles
-  decks/<name>/         one folder per presentation
+  decks/<name>/         one folder per presentation (decks/_template/ = starter, copied by tools/new-deck.py)
     index.html          loads engine + plugins + theme, calls Deck.configure, lists slide scripts in order
     slides/NN-id.js     one file per slide: a single Deck.slide({...}) call with an HTML template string
     deck.css            styles that belong to this deck only
     assets/             images, SVG, logo
   docs/                 this documentation
-  tools/                token/font generators and smoke-test.py
+  tools/                token/font generators, smoke-test.py, new-deck.py
   index.html            landing page that links every deck
 ```
 
@@ -44,6 +44,7 @@ presentations/
 | Change colours/fonts, build a theme, style a single deck | [05-theming.md](05-theming.md) |
 | Work interactively with an AI harness (workflow, verification, deploy) | [06-working-with-ai-harnesses.md](06-working-with-ai-harnesses.md) |
 | Copy a ready pattern (title slide, two columns, code focus, custom visual, new plugin…) | [07-recipes.md](07-recipes.md) |
+| Start a new deck from the template (`tools/new-deck.py`) | [09-deck-template.md](09-deck-template.md) |
 | Fix something that does not work | [08-troubleshooting.md](08-troubleshooting.md) |
 | One page with everything essential | [CHEATSHEET.md](CHEATSHEET.md) |
 

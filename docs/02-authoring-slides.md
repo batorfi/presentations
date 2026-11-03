@@ -2,12 +2,13 @@
 
 ## Create a deck
 
-1. `cp -r decks/basic-tools decks/my-deck`; delete the demo `slides/*.js` and unused `assets/`.
+1. **Preferred:** `python3 tools/new-deck.py my-deck --title "My deck"` — copies the runnable starter `decks/_template` (see [09](09-deck-template.md)),
+   adds the landing-page card. Manual alternative: `cp -r decks/_template decks/my-deck` and replace `{{TITLE}}` / `tpl-` yourself.
 2. Edit `decks/my-deck/index.html`:
    * `<title>`, and `Deck.configure({...})` (below).
    * Keep only the plugin `<script>` tags you need; keep `menu.js` last; keep `tools.js` first if you use any pointer tool.
    * List each slide `<script src="slides/NN-id.js">` in presentation order.
-3. Add a card to the root `index.html` linking `decks/my-deck/`.
+3. The script adds the landing card; if you copied manually, add a card to the root `index.html` linking `decks/my-deck/`.
 4. Verify with `python3 tools/smoke-test.py decks/my-deck`.
 
 ```js

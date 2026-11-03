@@ -2,6 +2,8 @@
 
 Offline HTML presentation framework (`framework/`) + decks (`decks/`). No build step; decks open from `file://` or GitHub Pages.
 
+**New deck?** `python3 tools/new-deck.py <slug> --title "…"` (copies `decks/_template`, fills `BRIEF.md` with the author first) — see `docs/09-deck-template.md`.
+
 **Start here:** `docs/README.md` (map) and `docs/CHEATSHEET.md` (one page). Deeper: `docs/02-authoring-slides.md`,
 `docs/04-plugins.md`, `docs/06-working-with-ai-harnesses.md`, `docs/07-recipes.md`.
 

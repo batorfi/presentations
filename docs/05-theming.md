@@ -30,6 +30,8 @@ Current theme: **KILN** (sand page, white raised surfaces, deep-teal rail, teal 
 
 Light/dark is `html[data-theme="light|dark"]`; the tokens switch automatically (the title bar stays dark in both). Test both with **T**.
 
+> Starting a new deck? Use the template ([09](09-deck-template.md)); its `deck.css` already shows the prefix convention.
+
 ## Styling one deck
 
 Put rules in `decks/<deck>/deck.css`:

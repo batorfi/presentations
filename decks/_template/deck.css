@@ -1,0 +1,14 @@
+/* Styles that belong to this deck only. Prefix every class with the deck code (tpl- is replaced by new-deck.py).
+   Use theme variables (var(--deck-…)), never raw colours or font names. See docs/05-theming.md. */
+
+.tpl-title-slide { justify-content: center; gap: 28px; }
+.tpl-title-slide .s-hero { max-width: 14em; }
+
+.tpl-section-slide { justify-content: center; gap: 24px; }
+.tpl-section-no { font-family: var(--deck-font-display); font-size: 200px; line-height: 1; color: var(--deck-accent); margin: 0; }
+
+.tpl-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.tpl-compare .s-card { min-height: 380px; }
+.tpl-compare ul { margin: 16px 0 0; padding-left: 1.1em; font-size: var(--deck-fs-body); line-height: var(--deck-lh-body); }
+
+.tpl-closing-slide { justify-content: center; gap: 28px; }

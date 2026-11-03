@@ -2,10 +2,10 @@
 
 ## Create a deck
 ```
-cp -r decks/basic-tools decks/my-deck     # then delete slides/, assets you don't need
+python3 tools/new-deck.py my-deck --title "My deck" --prefix md --minutes 45     # copies decks/_template, adds landing card
 ```
-Edit `decks/my-deck/index.html`: title, `Deck.configure({...})`, plugin `<script>` tags, slide `<script>` tags **in order**.
-Add the deck to the root `index.html` as a card.
+Then fill `decks/my-deck/BRIEF.md` with the author, edit `index.html` (sections, logo, plugins, slide `<script>` tags **in order**) and the slides in `slides/`.
+Details: [09-deck-template.md](09-deck-template.md).
 
 ## index.html skeleton
 ```html

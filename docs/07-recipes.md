@@ -113,7 +113,7 @@ Rules: use `ctx.play`/`ctx.animate` (tracked & reduced-motion aware); `ctx.clean
 
 ## Add a deck to the landing page
 
-In root `index.html` add inside `<main>`:
+`tools/new-deck.py` does this for you. By hand, in root `index.html` inside `<main>`:
 ```html
 <a class="card" href="decks/my-deck/"><b>My deck</b><span>One-line description.</span></a>
 ```
