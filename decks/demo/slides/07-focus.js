@@ -1,29 +1,24 @@
 Deck.slide({
   id: "focus",
-  section: "tools",
-  title: "Line-by-line focus and spotlight",
+  section: "focus",
+  title: "Focus: one point at a time",
   html: `
-    <h2 class="s-title">Guide the eye: focus a point, spotlight a spot</h2>
-    <div class="s-grid s-cols-2" style="margin-top:24px; gap:64px">
-      <div class="s-stack">
-        <p class="s-kicker">data-focus · each → focuses the next point</p>
-        <ul class="s-list" data-focus data-focus-release>
-          <li>Humans decide; models work.</li>
-          <li>Independent judges hold the line.</li>
-          <li>You decide where your models run.</li>
-          <li>Work is durable.</li>
-        </ul>
-        <p class="s-caption">Add <code>data-focus-release</code> and one more → brings everything back.</p>
-      </div>
-      <div class="s-stack">
-        <p class="s-kicker">data-focus="reveal" · points arrive one by one</p>
-        <div class="s-stack" data-focus="reveal" data-focus-from="1" style="gap:20px">
-          <div class="s-card"><h3>Concept</h3><p>Is this worth building?</p></div>
-          <div class="s-card"><h3>Architecture</h3><p>Is this the right structure?</p></div>
-          <div class="s-card"><h3>Specification</h3><p>What exactly counts as done?</p></div>
-        </div>
-        <p class="s-caption">Press <b>S</b> for the spotlight, <b>Shift+S</b> for a round one, <b>[ ]</b> or the wheel to resize.</p>
+    <p class="s-kicker">data-focus</p>
+    <h2 class="s-title">Walk through a list, one point at a time</h2>
+    <div class="demo-focus-split">
+      <ul class="s-list demo-big" data-focus data-focus-release>
+        <li>Humans decide; models work.</li>
+        <li>Independent judges hold the line.</li>
+        <li>You decide where your models run.</li>
+        <li>Work is durable.</li>
+      </ul>
+      <div class="s-card is-rail demo-how">
+        <h3>How it behaves</h3>
+        <p>Press → : the first point takes the focus and the others fade back.</p>
+        <p>Each → moves the focus down; ← moves it back up.</p>
+        <p>With <code>data-focus-release</code> one last → brings everything back.</p>
       </div>
     </div>
   `,
+  notes: "Plain list, only two attributes. Step with → and back with ←.",
 });
