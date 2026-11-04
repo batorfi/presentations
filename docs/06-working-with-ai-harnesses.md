@@ -53,7 +53,7 @@ Notes: headless software rendering makes performance numbers indicative only; Fi
 
 ## Cache-busting
 
-Browsers and GitHub Pages cache `.js`/`.css` for minutes. Deck pages load framework files as `…/framework/deck.js?v=20261103b`. After you change
+Browsers and GitHub Pages cache `.js`/`.css` for minutes. Deck pages load framework files as `…/framework/deck.js?v=20261104a`. After you change
 anything under `framework/`, bump that suffix in every `decks/*/index.html`, e.g.:
 
 ```sh

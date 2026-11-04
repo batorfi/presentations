@@ -40,7 +40,7 @@ presentations/
 | Understand how it works, the load order and slide lifecycle | [01-architecture.md](01-architecture.md) |
 | Create a deck or add/edit slides | [02-authoring-slides.md](02-authoring-slides.md) |
 | Look up a function, event, setting, hook or key binding | [03-api-reference.md](03-api-reference.md) |
-| Use laser, draw, lens, spotlight, timer, morph, marquee, pan & zoom, typewriter, backgrounds | [04-plugins.md](04-plugins.md) |
+| Use laser, draw, lens, spotlight, timer, morph, marquee, pan & zoom, typewriter, backgrounds, countdown lobby | [04-plugins.md](04-plugins.md) |
 | Change colours/fonts, build a theme, style a single deck | [05-theming.md](05-theming.md) |
 | Work interactively with an AI harness (workflow, verification, deploy) | [06-working-with-ai-harnesses.md](06-working-with-ai-harnesses.md) |
 | Copy a ready pattern (title slide, two columns, code focus, custom visual, new plugin…) | [07-recipes.md](07-recipes.md) |

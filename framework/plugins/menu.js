@@ -87,6 +87,7 @@
           <div class="deck-menu-row"><span>Theme</span>${seg("theme", dark ? "dark" : "light", [["light", "Light"], ["dark", "Dark"]])}</div>
           <div class="deck-menu-row"><span>Motion</span>${seg("reducedMotion", s.reducedMotion, [[false, "Full"], [true, "Reduced"]])}</div>
           ${Deck.background ? `<div class="deck-menu-row"><span>Background</span>${seg("backgroundMode", s.backgroundMode, [["on", "Animated"], ["still", "Still"], ["off", "Off"]])}</div>` : ""}
+          ${Deck.countdown ? item("countdown", "Countdown screen", "K", Deck.countdown.isOpen) : ""}
           ${item("fullscreen", "Fullscreen", "F", !!(document.fullscreenElement || document.webkitFullscreenElement))}
           ${item("help", "Keyboard shortcuts", "?")}
         </div>`;
@@ -141,6 +142,7 @@
         trestart: () => T().timer.restart(),
         tstop: () => T().timer.stop(),
         clear: () => T().draw.clear(),
+        countdown: () => Deck.countdown.toggle(),
         fullscreen: () => Deck.toggleFullscreen(),
         help: () => toggleHelp(),
       })[act]?.();

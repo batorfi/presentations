@@ -58,6 +58,7 @@
     lensZoom: 2.5,
     reducedMotion: false,
     backgroundMode: "on", // animated backgrounds: "on" | "still" | "off"
+    countdownVisual: null, // countdown lobby: the chosen visual (null = the deck's default)
   };
   let stored = {};
   try {

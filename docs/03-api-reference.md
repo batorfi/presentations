@@ -77,6 +77,7 @@ Everything public hangs off `window.Deck`. Unlisted internals may change.
 | `Deck.marquee` | `speeds()` → px/s per visible marquee |
 | `Deck.panzoom` | `views()` → state of visible pan-zoom elements |
 | `Deck.typewriter` | `replay()`, `complete()`, `state()` |
+| `Deck.countdown` | `open/close/toggle()`, `begin()`, `start/pause/reset()`, `adjust(±min)`, `setRemaining(sec)`, `visual(name?)`, `visuals`, `isOpen`, `state()`, `stats()` — see 04-plugins.md |
 | `Deck.background` | `themes` (names), `mode` (`on\|still\|off`), `setMode(m)`, `stats()` → `{theme,running,fps,avgCostMs,frames,res,canvas}` |
 
 `body.tool-active` is set while any pointer tool (laser/draw/lens/spotlight) is on — plugins like `background` use it to pause.

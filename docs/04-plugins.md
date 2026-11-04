@@ -109,6 +109,20 @@ slides with a background get `.has-bg` (transparent). A new theme fades in after
 Teams screen-share blurs the window), governor lowers 30 → 20 → 12 fps then still if frames run long. `Deck.background.stats()` reports it.
 Adding a theme: see [07-recipes.md](07-recipes.md#add-a-background-theme). Demo: `decks/backgrounds/`.
 
+## Countdown lobby
+
+`countdown.js` adds a full-screen "The presentation is about to begin in…" screen for the minutes before the talk: headline, big digits, deck title, author and duration, with a generative visual that shows how much time is left. At zero it celebrates (confetti, "Let’s begin") and waits for you; **Begin** (→ / Enter) closes it and replays slide 1's entrance.
+
+```js
+Deck.configure({ countdown: { title: "ADLC · Part 1", author: "Zsolt Batorfi", duration: "90 minutes",
+                              minutes: 5, visual: "hourglass", show: false } });
+```
+All options are optional: `title` (default deck title), `author`, `duration` (default timer length), `minutes` (initial time, default **5**), `headline`, `startText`, `visual`, `show` (open at load), `autoStart`, `startTimer` (start the talk timer on Begin). `?lobby` in the URL also opens it.
+
+Keys in the lobby: Space start/pause · `+`/`−` ±5 min · `V`/`Shift+V` next/previous visual · `R` reset · → / Enter begin · `K`/Esc close. `K` toggles it from any slide. Load `countdown.js` before `typewriter.js`/`panzoom.js` and `menu.js`.
+
+Ten visuals (choice is remembered in the `countdownVisual` setting): `hourglass`, `tide`, `mosaic`, `fuse`, `summit`, `pendulum`, `puzzle`, `assembly`, `dominoes`, `sunrise`. The timer uses the wall clock, survives reloads, and drops to one frame per second under reduced motion. API: `Deck.countdown.{open, close, toggle, begin, start, pause, reset, adjust, setRemaining, visual, visuals, isOpen, state, stats}`.
+
 ## Storyline and menu
 
 Storyline (G/O): modal listing slides grouped by section; arrows + Enter, or type a number then Enter. Menu (right-click): navigation, tools and their
