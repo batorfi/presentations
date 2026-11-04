@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engineering explained — technical infographics</title>
+
+  <!-- Theme: KILN design system. Swap these three links to re-skin the deck (docs/05-theming.md). -->
+  <link rel="stylesheet" href="../../framework/themes/kiln/fonts.css?v=20261104a">
+  <link rel="stylesheet" href="../../framework/themes/kiln/tokens.css?v=20261104a">
+  <link rel="stylesheet" href="../../framework/themes/kiln/theme.css?v=20261104a">
+  <!-- Engine, tools and this deck's own styles. -->
+  <link rel="stylesheet" href="../../framework/deck.css?v=20261104a">
+  <link rel="stylesheet" href="../../framework/plugins/tools.css?v=20261104a">
+  <link rel="stylesheet" href="deck.css">
+
+  <!-- Engine first, then plugins, menu LAST. Remove a plugin you do not use; uncomment one you need. -->
+  <script src="../../framework/deck.js?v=20261104a"></script>
+  <script src="../../framework/plugins/tools.js?v=20261104a"></script>
+  <script src="../../framework/plugins/laser.js?v=20261104a"></script>
+  <script src="../../framework/plugins/draw.js?v=20261104a"></script>
+  <script src="../../framework/plugins/lens.js?v=20261104a"></script>
+  <script src="../../framework/plugins/spotlight.js?v=20261104a"></script>
+  <script src="../../framework/plugins/timer.js?v=20261104a"></script>
+  <script src="../../framework/plugins/morph.js?v=20261104a"></script>
+  <script src="../../framework/plugins/background.js?v=20261104a"></script>
+  <script src="../../framework/plugins/countdown.js?v=20261104a"></script>
+  <!-- <script src="../../framework/plugins/marquee.js?v=20261104a"></script>      scrolling headline  (s-marquee) -->
+  <!-- <script src="../../framework/plugins/panzoom.js?v=20261104a"></script>      pan & zoom big pictures (s-panzoom) -->
+  <!-- <script src="../../framework/plugins/typewriter.js?v=20261104a"></script>   typed text (s-typewriter) -->
+  <script src="../../framework/plugins/storyline.js?v=20261104a"></script>
+  <script src="../../framework/plugins/menu.js?v=20261104a"></script>
+
+  <script>
+    Deck.configure({
+      title: "Engineering explained — technical infographics",
+      theme: "light",                      // "light" | "dark"
+      transition: "slide",                 // "slide" | "fade" | "none"
+      countdown: { author: "Presenter Name" },   // lobby countdown before the talk: press K (or open with ?lobby)
+      timer: { minutes: 60 },                 // new-deck.py --minutes sets this
+      logo: { placeholder: true, label: "LOGO" },   // replace with { src: "assets/logo.svg", alt: "Company", height: 40 }
+      // background: "aurora",             // optional deck-wide animated background (docs/04-plugins.md)
+      sections: [
+        { id: "opening", label: "Intro" },
+        { id: "web", label: "Web & security" },
+        { id: "delivery", label: "Delivery & operations" },
+        { id: "arch", label: "Architecture" },
+        { id: "data", label: "Data & performance" },
+        { id: "ai", label: "AI engineering" },
+        { id: "close", label: "Close" },
+      ],
+    });
+  </script>
+
+  <!-- One file per slide, IN PRESENTATION ORDER. Add, remove and reorder lines here. -->
+  <script src="slides/01-title.js"></script>
+  <script src="slides/02-overview.js"></script>
+  <script src="slides/03-http.js"></script>
+  <script src="slides/04-tls.js"></script>
+  <script src="slides/05-oauth.js"></script>
+  <script src="slides/06-cicd.js"></script>
+  <script src="slides/07-git.js"></script>
+  <script src="slides/08-vm.js"></script>
+  <script src="slides/09-k8s.js"></script>
+  <script src="slides/10-lb.js"></script>
+  <script src="slides/11-dora.js"></script>
+  <script src="slides/12-obs.js"></script>
+  <script src="slides/13-mono.js"></script>
+  <script src="slides/14-stream.js"></script>
+  <script src="slides/15-cap.js"></script>
+  <script src="slides/16-pyramid.js"></script>
+  <script src="slides/17-btree.js"></script>
+  <script src="slides/18-latency.js"></script>
+  <script src="slides/19-cache.js"></script>
+  <script src="slides/20-bigo.js"></script>
+  <script src="slides/21-memory.js"></script>
+  <script src="slides/22-agent.js"></script>
+  <script src="slides/23-rag.js"></script>
+  <script src="slides/24-context.js"></script>
+  <script src="slides/25-closing.js"></script>
+</head>
+<body></body>
+</html>
