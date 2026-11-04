@@ -19,8 +19,7 @@
 .p1-pane-dur { font-size: 24px; color: var(--deck-muted); }
 .p1-pane h3 { font-family: var(--deck-font-display); font-size: 36px; line-height: 1.2; margin: 0 0 6px; font-weight: 700; }
 .p1-pane ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.p1-pane li { font-size: 25px; line-height: 1.3; padding-left: 26px; position: relative; color: var(--deck-text); }
-.p1-pane li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 10px; height: 10px; border-radius: 50%; background: var(--deck-accent); }
+.p1-pane li { font-size: 25px; line-height: 1.3; color: var(--deck-text); }
 .p1-pane-tag { display: none; }
 .p1-pane.is-current { opacity: 1; border-color: var(--deck-accent); background: var(--deck-accent-subtle); }
 .p1-pane.is-current .p1-pane-tag { display: inline-block; position: absolute; top: -18px; right: 28px; padding: 4px 20px; font-size: 22px; font-weight: 700; border-radius: 999px; background: var(--deck-accent); color: var(--deck-bg); }
