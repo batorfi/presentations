@@ -1,0 +1,121 @@
+/* Slide patterns 2 — styles for this deck only (prefix pv-). Theme variables only; loops animate transform/opacity/stroke. */
+
+/* ---------- animated highlight value: --hl runs 1 → 0 inside a window of one slot per cycle ---------- */
+@property --hl { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes pv-seq3 { 0% { --hl: 1 } 26% { --hl: 1 } 33.3% { --hl: 0 } 100% { --hl: 0 } }
+@keyframes pv-seq4 { 0% { --hl: 1 } 19% { --hl: 1 } 25% { --hl: 0 } 100% { --hl: 0 } }
+@keyframes pv-seq5 { 0% { --hl: 1 } 15% { --hl: 1 } 20% { --hl: 0 } 100% { --hl: 0 } }
+@keyframes pv-seq6 { 0% { --hl: 1 } 12.5% { --hl: 1 } 16.6% { --hl: 0 } 100% { --hl: 0 } }
+.pv-hl3 { animation: pv-seq3 9s linear infinite;  animation-delay: calc(var(--i, 0) * 3s); }
+.pv-hl4 { animation: pv-seq4 12s linear infinite; animation-delay: calc(var(--i, 0) * 3s); }
+.pv-hl5 { animation: pv-seq5 10s linear infinite; animation-delay: calc(var(--i, 0) * 2s); }
+.pv-hl6 { animation: pv-seq6 12s linear infinite; animation-delay: calc(var(--i, 0) * 2s); }
+/* helpers that read --hl (0…1) */
+.pv-on-bg   { background: color-mix(in srgb, var(--deck-accent) calc(var(--hl) * 100%), var(--deck-raised)); color: color-mix(in srgb, var(--deck-on-accent) calc(var(--hl) * 100%), var(--deck-text)); }
+.pv-tint-bg { background: color-mix(in srgb, var(--deck-accent-subtle) calc(var(--hl) * 100%), transparent); }
+.pv-on-bd   { border-color: color-mix(in srgb, var(--deck-accent) calc(var(--hl) * 100%), var(--deck-border)); }
+
+/* ---------- generic loops ---------- */
+@keyframes pv-float { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-9px) } }
+@keyframes pv-ring  { 0% { transform: scale(.7); opacity: .55 } 100% { transform: scale(2.3); opacity: 0 } }
+@keyframes pv-flow  { to { stroke-dashoffset: -40 } }
+@keyframes pv-packet { 0% { stroke-dashoffset: 100; opacity: 0 } 8% { opacity: 1 } 92% { opacity: 1 } 100% { stroke-dashoffset: 0; opacity: 0 } }
+@keyframes pv-pk3 { 0% { stroke-dashoffset: 100; opacity: 0 } 1% { opacity: 1 } 30% { stroke-dashoffset: 0; opacity: 1 } 32% { opacity: 0; stroke-dashoffset: 0 } 100% { opacity: 0; stroke-dashoffset: 0 } }
+@keyframes pv-spin  { to { transform: rotate(360deg) } }
+@keyframes pv-sweep { 0% { transform: translateX(-130%) } 55%, 100% { transform: translateX(260%) } }
+@keyframes pv-grow  { 0% { transform: scaleX(0) } 70%, 100% { transform: scaleX(1) } }
+@keyframes pv-stripes { to { background-position: 80px 0 } }
+@keyframes pv-glow  { 0%, 100% { opacity: .15 } 50% { opacity: .55 } }
+@keyframes pv-nudge-up   { 0% { transform: translateY(10px); opacity: 0 } 40%, 60% { opacity: 1 } 100% { transform: translateY(-10px); opacity: 0 } }
+@keyframes pv-nudge-down { 0% { transform: translateY(-10px); opacity: 0 } 40%, 60% { opacity: 1 } 100% { transform: translateY(10px); opacity: 0 } }
+
+.pv-float { animation: pv-float 5s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -0.7s); }
+.pv-spin  { animation: pv-spin 60s linear infinite; transform-origin: 50% 50%; transform-box: fill-box; }
+
+html[data-reduced-motion] [class*="pv-"], html[data-reduced-motion] [class*="pv-"]::before, html[data-reduced-motion] [class*="pv-"]::after { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { [class*="pv-"], [class*="pv-"]::before, [class*="pv-"]::after { animation: none !important; } }
+
+/* ---------- common layout ---------- */
+.pv-s { gap: 20px; }
+.pv-stage { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+.pv-use { margin: 0; flex: none; font-size: var(--deck-fs-small); color: var(--deck-muted); border-left: 4px solid var(--deck-accent); padding-left: 16px; line-height: 1.35; }
+.pv-use b { color: var(--deck-text); font-weight: 600; margin-right: 8px; }
+.pv-title-slide { justify-content: center; gap: 28px; }
+.pv-title-slide .s-hero { max-width: 13em; }
+
+/* shared SVG vocabulary */
+.s-svg .pv-box { fill: var(--deck-raised); stroke: var(--deck-border-strong); stroke-width: 2; }
+.s-svg .pv-box.is-accent { fill: var(--deck-accent); stroke: none; }
+.s-svg .pv-box.is-soft { fill: var(--deck-accent-subtle); stroke: var(--deck-accent); stroke-width: 2; }
+.s-svg .pv-zone { fill: none; stroke: var(--deck-border-strong); stroke-width: 2; stroke-dasharray: 10 10; }
+.s-svg .pv-edge { fill: none; stroke: var(--deck-border-strong); stroke-width: 3; }
+.s-svg .pv-edge.is-dash { stroke-dasharray: 8 12; animation: pv-flow 2.4s linear infinite; }
+.s-svg .pv-packet { fill: none; stroke: var(--deck-accent); stroke-width: 14; stroke-linecap: round; stroke-dasharray: .1 99.9; animation: pv-packet 3.2s linear infinite; animation-delay: calc(var(--i, 0) * -0.6s); filter: drop-shadow(0 0 5px var(--deck-accent)); }
+.s-svg .pv-pk3 { animation: pv-pk3 9s linear infinite; animation-delay: calc(var(--i, 0) * 3s); }
+.s-svg text { font-family: var(--deck-font-sans); }
+.s-svg .pv-h { font-size: 28px; font-weight: 600; }
+.s-svg .pv-sub { font-size: 21px; fill: var(--deck-muted); }
+.s-svg .pv-cap { font-size: 22px; fill: var(--deck-muted); }
+.s-svg text.pv-on { fill: var(--deck-on-accent); }
+.s-svg text.pv-accent { fill: var(--deck-accent); }
+.s-svg text.pv-display { font-family: var(--deck-font-display); }
+.s-svg .pv-ring { fill: none; stroke: var(--deck-accent); stroke-width: 3; transform-box: fill-box; transform-origin: center; animation: pv-ring 3s ease-out infinite; animation-delay: calc(var(--i, 0) * -0.5s); }
+.s-svg .pv-bob { transform-box: fill-box; transform-origin: center; animation: pv-float 6s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.1s); }
+.s-svg .pv-bob2 { transform-box: fill-box; transform-origin: center; animation: pv-float 7s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+
+/* ---------- 04 process · cycle ---------- */
+.pv-split { display: grid; grid-template-columns: 700px 1fr; gap: 80px; align-items: center; flex: 1; min-height: 0; }
+.pv-legend { display: flex; flex-direction: column; gap: 22px; }
+.pv-leg { display: grid; grid-template-columns: 76px 1fr; gap: 24px; align-items: center; padding: 20px 26px; border: 2px solid var(--deck-border); border-radius: var(--deck-radius); background: var(--deck-raised); }
+.pv-leg i { font-style: normal; width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; font-family: var(--deck-font-display); font-size: 38px; }
+.pv-leg h3 { margin: 0 0 4px; font-size: 34px; }
+.pv-leg p { margin: 0; font-size: 26px; color: var(--deck-text-2); line-height: 1.3; }
+/* ---------- overview / closing cards ---------- */
+.pv-ov { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; flex: 1; min-height: 0; align-content: center; }
+.pv-ov-card { background: var(--deck-raised); border: 2px solid var(--deck-border); border-radius: var(--deck-radius); padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 8px; min-height: 280px; }
+.pv-ov-card span { font-family: var(--deck-font-display); font-size: 52px; color: var(--deck-accent); line-height: 1; }
+.pv-ov-card h3 { margin: 4px 0 0; font-size: 32px; }
+.pv-ov-card p { margin: 0; font-size: 23px; line-height: 1.3; color: var(--deck-text-2); }
+.pv-ov-card small { margin-top: auto; font-size: 20px; color: var(--deck-muted); letter-spacing: .04em; }
+.pv-map { width: 100%; border-collapse: separate; border-spacing: 0 10px; font-size: 30px; }
+.pv-map td { padding: 18px 28px; background: var(--deck-raised); border-top: 2px solid var(--deck-border); border-bottom: 2px solid var(--deck-border); }
+.pv-map td:first-child { border-left: 2px solid var(--deck-border); border-radius: var(--deck-radius) 0 0 var(--deck-radius); font-weight: 600; }
+.pv-map td:last-child { border-right: 2px solid var(--deck-border); border-radius: 0 var(--deck-radius) var(--deck-radius) 0; color: var(--deck-text-2); font-size: 26px; }
+.pv-map td:nth-child(2) { color: var(--deck-accent); font-weight: 600; }
+
+
+.pv-s h3 { line-height: 1.15; }
+
+/* ---------- volume 2 specifics ---------- */
+.pv-stage svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.pv-rot { transform-box: view-box; animation: pv-spin var(--d, 30s) linear infinite; transform-origin: var(--ox, 50%) var(--oy, 50%); }
+.pv-rot.rev { animation-direction: reverse; }
+.pv-breathe { transform-box: fill-box; transform-origin: center; animation: pv-breathe 7s ease-in-out infinite; animation-delay: calc(var(--i, 0) * -1.3s); }
+.pv-breathe-c { transform-box: view-box; transform-origin: var(--ox) var(--oy); animation: pv-breathe 6s ease-in-out infinite; }
+@keyframes pv-breathe { 0%, 100% { transform: scale(1) } 50% { transform: scale(1.045) } }
+.s-svg .pv-target { animation: pv-flow 3s linear infinite; }
+.pv-sway { transform-box: view-box; transform-origin: var(--ox) var(--oy); animation: pv-sway 4.5s ease-in-out infinite alternate; }
+@keyframes pv-sway { from { transform: rotate(-3.5deg) } to { transform: rotate(3.5deg) } }
+.pv-hopper { transform-box: view-box; }
+.pv-fit { animation: pv-fit 8s ease-in-out infinite; }
+@keyframes pv-fit { 0%, 8% { transform: translate(var(--dx), var(--dy)) } 38%, 68% { transform: translate(0, 0) } 98%, 100% { transform: translate(var(--dx), var(--dy)) } }
+.s-svg .pv-fall { fill: var(--deck-accent); animation: pv-fall 6.5s linear infinite; animation-delay: calc(var(--i, 0) * -0.41s); }
+@keyframes pv-fall { 0% { transform: translateY(0); opacity: 0 } 10%, 85% { opacity: .9 } 100% { transform: translateY(var(--h)); opacity: 0 } }
+.s-svg .pv-stream { fill: none; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1 30; opacity: .8; animation: pv-flow 2.8s linear infinite; animation-delay: calc(var(--i, 0) * -.3s); }
+.s-svg .pv-sb1 { fill: color-mix(in srgb, var(--c) calc(var(--m) * 1% + var(--hl) * 40%), var(--deck-raised)); stroke: var(--c); stroke-width: 2; }
+.s-svg .pv-onion { fill: color-mix(in srgb, var(--deck-accent) calc(var(--hl) * 40%), var(--f)); stroke: var(--deck-accent); stroke-width: 3; }
+.s-svg .pv-cell { fill: color-mix(in srgb, var(--c) calc(28% + var(--hl, 0) * 52%), var(--deck-raised)); stroke: var(--c); stroke-width: 3; }
+.s-svg .pv-petal { fill: color-mix(in srgb, var(--deck-accent) calc(var(--hl) * 60%), var(--deck-raised)); stroke: var(--deck-accent); stroke-width: 4; }
+.s-svg .pv-quad { fill: var(--deck-raised); stroke: var(--deck-border-strong); stroke-width: 2; }
+.s-svg .pv-quad.best { fill: var(--deck-accent-subtle); stroke: var(--deck-accent); stroke-width: 3; animation: pv-quadglow 4s ease-in-out infinite; }
+@keyframes pv-quadglow { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
+.s-svg .pv-slab { fill: color-mix(in srgb, var(--deck-accent) calc(var(--t) + var(--hl) * 45%), var(--deck-raised)); stroke: var(--deck-accent); stroke-width: 3; stroke-linejoin: round; }
+.pv-note { display: flex; flex-direction: column; gap: 18px; }
+.pv-note h3 { margin: 0; font-family: var(--deck-font-display); font-size: 56px; line-height: 1.1; }
+.pv-note p { margin: 0; font-size: 30px; line-height: 1.4; color: var(--deck-text-2); }
+.pv-notewrap { display: flex; align-items: center; height: 100%; }
+.pv-ov4 { grid-template-columns: repeat(4, 1fr); }
+.pv-ov4 .pv-ov-card { min-height: 170px; padding: 20px 24px; }
+.pv-ov4 .pv-ov-card span { font-size: 40px; }
+.pv-map td { padding: 14px 28px; }
+.s-svg .pv-halo { paint-order: stroke; stroke: var(--deck-bg); stroke-width: 8px; stroke-linejoin: round; }

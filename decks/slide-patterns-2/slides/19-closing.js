@@ -1,0 +1,6 @@
+Deck.slide({
+  id: "closing", section: "close", title: "Pick the pattern that fits the message", className: "pv-s",
+  
+  html: `<div class="pv-stage"><table class="pv-map"><tbody><tr data-anim="up" data-delay="0"><td>Something is at the centre</td><td>Orbit · Onion</td><td>#1 · 4</td></tr><tr data-anim="up" data-delay="60"><td>A hierarchy has levels</td><td>Sunburst</td><td>#2</td></tr><tr data-anim="up" data-delay="120"><td>Compare against a target</td><td>Radar · Quadrant</td><td>#3 · 13</td></tr><tr data-anim="up" data-delay="180"><td>Many related capabilities</td><td>Honeycomb · Hex flower</td><td>#5 · 6</td></tr><tr data-anim="up" data-delay="240"><td>A journey in small steps</td><td>Hex path · Metro map</td><td>#7 · 12</td></tr><tr data-anim="up" data-delay="300"><td>Parts must fit together</td><td>Puzzle · Exploded stack</td><td>#8 · 16</td></tr><tr data-anim="up" data-delay="360"><td>Ideas overlap</td><td>Venn</td><td>#9</td></tr><tr data-anim="up" data-delay="420"><td>Quantities flow and split</td><td>Sankey · Funnel</td><td>#10 · 14</td></tr><tr data-anim="up" data-delay="480"><td>Things link to each other</td><td>Network</td><td>#11</td></tr><tr data-anim="up" data-delay="540"><td>Headline numbers</td><td>Gauges</td><td>#15</td></tr></tbody></table></div>`,
+  notes: "Mapping from message to pattern for volume 2.",
+});
