@@ -1,0 +1,9 @@
+Deck.slide({
+  id: "timeline-milestones", section: "flow", title: "Timeline · milestones", className: "pt-s",
+  
+  html: `
+    <div class="pt-stage"><div class="pt-tl"><div class="pt-tl-line" data-anim="wipe"></div><div class="pt-ms up" style="left:10%;--i:0" data-anim="zoom" data-delay="250"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 1</small><h3>Kick-off</h3><p>Goals, owners and guardrails agreed.</p></div></div><div class="pt-ms dn" style="left:26%;--i:1" data-anim="zoom" data-delay="400"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 2</small><h3>Pilot</h3><p>Two teams try the new workflow.</p></div></div><div class="pt-ms up" style="left:42%;--i:2" data-anim="zoom" data-delay="550"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 3</small><h3>First release</h3><p>Reference stack goes live.</p></div></div><div class="pt-ms dn" style="left:58%;--i:3" data-anim="zoom" data-delay="700"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 4</small><h3>Scale</h3><p>Six more teams join.</p></div></div><div class="pt-ms up" style="left:74%;--i:4" data-anim="zoom" data-delay="850"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 5</small><h3>Review</h3><p>Measure, learn, adjust.</p></div></div><div class="pt-ms dn" style="left:90%;--i:5" data-anim="zoom" data-delay="1000"><div class="dot"></div><div class="stem"></div><div class="card"><small>Month 6</small><h3>Handover</h3><p>Run it as a normal service.</p></div></div></div></div>
+    <p class="pt-use" data-anim="fade" data-delay="700"><b>Use when</b>you show a sequence with a few key moments. Alternate above and below the line to give each label room.</p>
+`,
+  notes: "Horizontal timeline, alternating cards. The progress bar sweeps along the line.",
+});

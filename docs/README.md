@@ -70,4 +70,4 @@ presentations/
   (deck URLs: `…/decks/<name>/`). `.nojekyll` is present.
 * The theme (KILN design system) is generated from `batorfi/kiln` tokens — see [05-theming.md](05-theming.md).
 * Demo decks double as living documentation of every feature: `basic-tools`, `focus-morphs`, `branding-typewriter`,
-  `backgrounds`. The real series deck is `adlc-part1` (ADLC webinar series, Part 1 — Foundations; skeleton slides).
+  `backgrounds`, `countdown-demo` (10 lobby visuals), `slide-patterns` (10 diagram patterns × 2 variants — copy a slide as a starting point). The real series deck is `adlc-part1` (ADLC webinar series, Part 1 — Foundations; skeleton slides).
