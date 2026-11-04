@@ -1,15 +1,7 @@
-// Slide 3 — skeleton. Content, visuals and animation are designed in a working session.
 Deck.slide({
-  id: "part1-intro",
-  section: "opening",
-  title: "Part 1: laying down the foundations for ADLC",
-  navTitle: "Part 1 intro",
-  html: `
-    <h2 class="s-title">Part 1: laying down the foundations for ADLC</h2>
-    <div class="s-placeholder">
-      <b>Slide 3 · content to be designed together</b>
-      <span class="p1-outline">Laying down the foundations for ADLC: we become builders of systems that build systems.</span>
-    </div>
-  `,
-  notes: "Laying down the foundations for ADLC: we become builders of systems that build systems.",
+  id: "part1-intro", section: "opening",
+  title: "Part 1: laying down the foundations for ADLC", navTitle: "Part 1 intro",
+  className: "p1-s3",
+  html: `<div class="s-typewriter p1-quote" data-font-size="48" data-cursor-end="hide" data-cps="30" data-width="100%" data-font="serif" data-delay="300"><p>AI can now write most of a feature. What it cannot do is be **accountable** for it. Teams adopting coding agents meet the same problems:</p></div><div class="p1-probgrid"><div class="p1-prob" data-step="1"><b>Trust</b><span>a model that writes code and then judges it is grading its own homework.</span></div><div class="p1-prob" data-step="1"><b>Control</b><span>agents that run for hours make thousands of small decisions; without points where a person decides, and where the work genuinely stops until they do, people only review a finished pile of changes they never shaped.</span></div><div class="p1-prob" data-step="1"><b>Ownership</b><span>cloud agents send your code and intent to someone else's servers and bill per token.</span></div><div class="p1-prob" data-step="1"><b>Collaboration</b><span>when everyone drives their own agents, nobody can see who is building what, or how a change was made.</span></div></div><div class="p1-need" data-step="2"><h3>What each R&amp;D team needs to build</h3><p>A factory with a <b>person at every gate</b>, <b>independent judges</b> that never review their own work, a substrate that is <b>local by default</b>, and a <b>team space</b> where engineers who each run their own factory see each other's work, share what they learn and review each other's changes.</p></div>`,
+  notes: "Laying down the foundations for ADLC: we become builders of systems that build systems. AI can now write most of a feature; it cannot be accountable for it. Four problems teams meet: trust, control, ownership, collaboration. Each R&D team needs to build: a factory with a person at every gate, independent judges, a local-by-default substrate and a team space.",
 });

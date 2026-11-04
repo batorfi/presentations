@@ -28,30 +28,13 @@
 @keyframes p1-glow { 0%, 100% { opacity: 0.15; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.012); } }
 
 /* Slide 3 — quote, four problems, what to build */
-.p1-s3 { gap: 22px; }
-.p1-quote { margin: 0; }
-.p1-prob { display: flex; flex-direction: column; gap: 4px; padding: 16px 22px; border-left: 5px solid var(--deck-accent); background: var(--deck-raised); border-radius: 0 var(--deck-radius-lg) var(--deck-radius-lg) 0; }
+.p1-s3 { gap: 0; justify-content: space-between; }
+.p1-quote { margin: 0 0 8px; }
+.p1-probgrid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 20px; flex: 1; margin: 20px 0 22px; min-height: 0; }
+.p1-prob { display: flex; flex-direction: column; gap: 8px; padding: 18px 28px; border-left: 6px solid var(--deck-accent); background: var(--deck-raised); border-radius: 0 var(--deck-radius-lg) var(--deck-radius-lg) 0; }
 .p1-prob b { font-size: 30px; font-weight: 700; color: var(--deck-accent); }
-.p1-prob span { font-size: 24px; line-height: 1.3; color: var(--deck-text); }
-.p1-need h3 { font-family: var(--deck-font-display); font-size: 32px; margin: 0 0 10px; }
-.p1-need p, .p1-need li { font-size: 26px; line-height: 1.35; margin: 0; }
+.p1-prob span { font-size: 25px; line-height: 1.32; color: var(--deck-text); }
+.p1-need { padding: 22px 32px 24px; border: 2px solid var(--deck-accent); background: var(--deck-accent-subtle); border-radius: var(--deck-radius-lg); }
+.p1-need h3 { font-family: var(--deck-font-display); font-size: 32px; line-height: 1.2; margin: 0 0 10px; }
+.p1-need p { font-size: 26px; line-height: 1.38; margin: 0; }
 .p1-need b { color: var(--deck-accent); }
-.p1-need { padding: 24px 32px; border: 2px solid var(--deck-accent); background: var(--deck-accent-subtle); border-radius: var(--deck-radius-lg); }
-/* A */
-.p1-v-a .p1-probgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
-.p1-v-a .p1-quote { margin-bottom: 6px; }
-/* B */
-.p1-v-b .p1-rows { display: flex; flex-direction: column; gap: 12px; }
-.p1-rowhead { display: grid; grid-template-columns: 1fr 56px 0.62fr; gap: 12px; font-size: 22px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--deck-muted); }
-.p1-row { display: grid; grid-template-columns: 1fr 56px 0.62fr; gap: 12px; align-items: stretch; }
-.p1-arrow { align-self: center; font-size: 44px; color: var(--deck-accent); text-align: center; }
-.p1-ans { display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 14px 22px; border: 2px solid var(--deck-accent); background: var(--deck-accent-subtle); border-radius: var(--deck-radius-lg); }
-.p1-ans b { font-size: 28px; font-weight: 700; color: var(--deck-accent); }
-.p1-ans span { font-size: 23px; line-height: 1.25; }
-.p1-v-b .p1-prob span { font-size: 23px; }
-/* C */
-.p1-cols { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; flex: 1; min-height: 0; }
-.p1-colL { display: flex; flex-direction: column; gap: 20px; }
-.p1-problist { display: flex; flex-direction: column; gap: 12px; }
-.p1-need-col { align-self: stretch; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-.p1-need-col ol { margin: 0; padding-left: 34px; display: flex; flex-direction: column; gap: 16px; }
