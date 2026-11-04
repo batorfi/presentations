@@ -1,7 +1,12 @@
 /* Styles that belong to ADLC Part 1 only. Shared patterns move to framework/deck.css once a second deck needs them. */
 
 .p1-title-slide { justify-content: center; }
-.p1-title { font-size: var(--deck-fs-hero); max-width: 14em; }
-.p1-title-meta { flex: 0 0 auto; min-height: 160px; max-width: 900px; }
+.p1-title { font-size: 84px; line-height: 1.08; max-width: 17em; margin: 8px 0 12px; font-weight: 500; }
+.p1-title-em { color: var(--deck-accent); font-weight: 700; }
+.p1-title-meta { display: flex; align-items: center; gap: 28px; margin-top: 36px; padding-top: 32px; border-top: 2px solid var(--deck-border-strong); max-width: 1200px; }
+.p1-presenter { display: flex; flex-direction: column; gap: 4px; margin-right: 20px; }
+.p1-presenter b { font-size: 38px; font-weight: 600; }
+.p1-presenter span { font-size: 26px; color: var(--deck-muted); }
+.p1-pill { font-size: 26px; padding: 10px 26px; border: 2px solid var(--deck-accent); color: var(--deck-accent); border-radius: 999px; background: var(--deck-accent-subtle); font-weight: 600; }
 
 .p1-outline { max-width: 40em; }

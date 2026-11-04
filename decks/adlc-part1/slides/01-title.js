@@ -1,4 +1,4 @@
-// Slide 1 — skeleton. Content, visuals and animation are designed in a working session.
+// Slide 1 — Title page. Spec: Notion "01 – Title page" (series name, title, presenter, role, duration; Network background).
 Deck.slide({
   id: "title",
   section: "opening",
@@ -6,11 +6,15 @@ Deck.slide({
   navTitle: "Title",
   titlebar: false,
   className: "p1-title-slide",
-  background: "branches",
+  background: "network",
   html: `
-    <p class="s-kicker">ADLC webinar series · Part 1 of 3 · Foundations</p>
-    <h1 class="s-title p1-title">Modern Software Engineering with Agentic Development Lifecycle Management</h1>
-    <div class="s-placeholder p1-title-meta"><b>Title page</b><span>Presenter, date and visual to be designed together</span></div>
+    <p class="s-kicker" data-anim="fade">ADLC webinar series · Part 1 of 3</p>
+    <h1 class="s-title p1-title" data-anim="up" data-delay="150">Modern Software Engineering with <span class="p1-title-em">Agentic Development Lifecycle Management</span></h1>
+    <div class="p1-title-meta" data-anim="up" data-delay="450">
+      <div class="p1-presenter"><b>Zsolt Bátorfi</b><span>Senior AI architect</span></div>
+      <div class="p1-pill">Part 1 · Foundations</div>
+      <div class="p1-pill">60 minutes</div>
+    </div>
   `,
-  notes: "Title page.",
+  notes: "Title page. Series: ADLC webinar series, Part 1 (Foundations). Presenter: Zsolt Bátorfi, senior AI architect. 60 minutes (50 talk + 10 Q&A).",
 });
