@@ -10,3 +10,19 @@
 .p1-pill { font-size: 26px; padding: 10px 26px; border: 2px solid var(--deck-accent); color: var(--deck-accent); border-radius: 999px; background: var(--deck-accent-subtle); font-weight: 600; }
 
 .p1-outline { max-width: 40em; }
+
+/* Slide 2 — series panes */
+.p1-series { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 36px; flex: 1; min-height: 0; }
+.p1-pane { position: relative; display: flex; flex-direction: column; gap: 16px; padding: 30px 34px; border: 2px solid var(--deck-border); border-radius: var(--deck-radius-lg); background: var(--deck-raised); opacity: 0.78; }
+.p1-pane header { display: flex; justify-content: space-between; align-items: baseline; }
+.p1-pane-no { font-size: 26px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--deck-accent); }
+.p1-pane-dur { font-size: 24px; color: var(--deck-muted); }
+.p1-pane h3 { font-family: var(--deck-font-display); font-size: 36px; line-height: 1.2; margin: 0 0 6px; font-weight: 700; }
+.p1-pane ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.p1-pane li { font-size: 25px; line-height: 1.3; padding-left: 26px; position: relative; color: var(--deck-text); }
+.p1-pane li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 10px; height: 10px; border-radius: 50%; background: var(--deck-accent); }
+.p1-pane-tag { display: none; }
+.p1-pane.is-current { opacity: 1; border-color: var(--deck-accent); background: var(--deck-accent-subtle); }
+.p1-pane.is-current .p1-pane-tag { display: inline-block; position: absolute; top: -18px; right: 28px; padding: 4px 20px; font-size: 22px; font-weight: 700; border-radius: 999px; background: var(--deck-accent); color: var(--deck-bg); }
+.p1-pane.is-current::after { content: ""; position: absolute; inset: -6px; border-radius: calc(var(--deck-radius-lg) + 6px); border: 3px solid var(--deck-accent); pointer-events: none; animation: p1-glow 2.6s ease-in-out infinite; }
+@keyframes p1-glow { 0%, 100% { opacity: 0.15; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.012); } }
