@@ -44,6 +44,11 @@
 .p1f-svg .p1f-b { font-weight: 700; }
 .p1f-svg .p1f-hd { font-weight: 600; fill: var(--deck-text-2); }
 .p1f-svg .p1f-strip { fill: var(--deck-sunken); stroke: var(--deck-border); stroke-width: 2; }
+.p1f-svg .p1f-src { fill: var(--deck-raised); stroke: var(--deck-border); stroke-width: 2; }
+.p1f-svg .p1f-srcglow { fill: none; stroke: var(--deck-accent); stroke-width: 4; opacity: 0; }
+.p1f-svg .p1f-sg { fill: none; stroke: var(--deck-accent); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.p1f-svg .p1f-sgn { fill: var(--deck-accent); }
+.p1f-svg .p1f-sub { fill: var(--deck-text-2); }
 .p1f-svg .p1f-chip { fill: var(--deck-accent-subtle); stroke: var(--deck-accent); stroke-width: 2; }
 .p1f-svg .p1f-spine { stroke: var(--deck-border-strong); stroke-width: 3; fill: none; stroke-dasharray: 2 8; stroke-linecap: round; }
 .p1f-svg .p1f-lanebg { fill: var(--deck-raised); stroke: var(--deck-border); stroke-width: 2; }
