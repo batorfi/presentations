@@ -1,4 +1,4 @@
-// Slide 1 — Title page. Spec: Notion "01 – Title page" (series name, title, presenter, role, duration; Network background).
+// Slide 1 — Title page. Spec: Notion "01 – Title page" (series name, title, presenter, role, duration; edge-branches background in the right quarter).
 Deck.slide({
   id: "title",
   section: "opening",
@@ -6,7 +6,7 @@ Deck.slide({
   navTitle: "Title",
   titlebar: false,
   className: "p1-title-slide",
-  background: "none",
+  background: "edge-branches",
   html: `
     <p class="s-kicker" data-anim="fade">ADLC webinar series · Part 1 of 3</p>
     <h1 class="s-title p1-title" data-anim="up" data-delay="150">Modern Software Engineering with <span class="p1-title-em">Agentic Development Lifecycle Management</span></h1>
