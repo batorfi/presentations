@@ -302,6 +302,12 @@ html[data-reduced-motion] .deck-focus-item { transition: none; }
   -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 54%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 45%, #000 100%);
   mask-image: radial-gradient(ellipse 72% 70% at 50% 54%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 45%, #000 100%);
 }
+/* "edge-…" themes: a canvas over the right quarter only, feathered into the slide on its left side */
+.deck-bg[data-region="edge"] {
+  left: 1440px; width: 480px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.55) 28%, #000 62%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.55) 28%, #000 62%);
+}
 .deck-stage:not([data-bgmode="off"]) .deck-slide.has-bg { background: transparent; }
 
 /* ---- Countdown lobby (plugins/countdown.js): the screen before the talk. Always on the dark rail colour. ---- */

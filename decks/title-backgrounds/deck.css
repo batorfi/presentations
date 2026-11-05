@@ -1,0 +1,9 @@
+/* Styles that belong to this deck only (prefix tb-). Theme variables only. */
+/* Title slides keep their text in the left three quarters; the animation lives in the right quarter. */
+.tb-title-slide { justify-content: center; gap: 28px; }
+.tb-title-slide .s-hero { max-width: 11em; }
+.tb-title-slide .s-lead { max-width: 24em; }
+.tb-title-slide code, .tb-how code { font-family: var(--deck-font-mono); font-size: 0.85em; color: var(--deck-accent); }
+.tb-how { display: grid; grid-template-columns: 1fr 520px; gap: 40px; margin-top: 24px; max-width: 1380px; }
+.tb-code { margin: 0; padding: 28px 32px; border-radius: 16px; background: var(--deck-sunken); border: 1px solid var(--deck-border); font-family: var(--deck-font-mono); font-size: 26px; line-height: 1.5; color: var(--deck-text); white-space: pre; overflow: hidden; }
+.tb-rules { display: flex; flex-direction: column; gap: 20px; }

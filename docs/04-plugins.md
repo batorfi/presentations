@@ -19,7 +19,7 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | marquee | `marquee.js` | scrolling headline |
 | panzoom | `panzoom.js` | pan & zoom large images/SVG |
 | typewriter | `typewriter.js` | text that types itself |
-| background | `background.js` | animated algorithmic backgrounds (20 themes) |
+| background | `background.js` | animated algorithmic backgrounds (20 full-slide themes + 5 title-slide themes) |
 
 Common behaviours: pointer tools draw in screen space (not magnified by the lens); settings persist; reduced motion disables motion.
 
@@ -127,6 +127,7 @@ slides with a background get `.has-bg` (transparent). A new theme fades in after
 **Mode** (menu → View → Background, or **B**): Animated → Still → Off (persisted as `backgroundMode`). Reduced motion = one still frame.
 **CPU safety:** 30 fps cap, per-theme canvas scale (0.25–0.5), pauses in hidden tabs and while a pointer tool is on (not on window blur —
 Teams screen-share blurs the window), governor lowers 30 → 20 → 12 fps then still if frames run long. `Deck.background.stats()` reports it.
+**Title-slide themes** — `edge-network`, `edge-branches`, `edge-pcb`, `edge-hex`, `edge-stars` draw only in the right quarter of the slide (x 1440–1920, on a small canvas that fades out toward the left), so a left-aligned title stays clear. Same options as the others; demo: `decks/title-backgrounds/`. A theme becomes one of these by returning `side: true` and keeping its geometry inside `RX…W` (`RX = 1440`).
 Adding a theme: see [07-recipes.md](07-recipes.md#add-a-background-theme). Demo: `decks/backgrounds/`.
 
 ## Countdown lobby
