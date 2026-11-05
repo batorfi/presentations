@@ -72,7 +72,7 @@
       html += `<div class="p1-ev-yr" data-era="${era}" style="left:${xOf(y) + 4}px">${l}</div><div class="p1-ev-vline" data-era="${era}" style="left:${xOf(y)}px"></div>`;
     });
     // lane layout: each pill goes into the nearest free row above or below the lane line, on the right or left of its dot
-    let top = 92;
+    let top = 106;
     const lanes = LANES.map((lane) => {
       const placed = [], stems = [];
       const out = lane.items.map(([y, m, label]) => {

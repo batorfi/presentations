@@ -141,7 +141,7 @@ html[data-reduced-motion] .p1-ch-card, html[data-reduced-motion] .p1-ch-card > *
 .p1-ev-era { position: absolute; top: 0; height: 52px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: var(--deck-radius-sm); border: 2px solid var(--deck-border); background: var(--deck-sunken); color: var(--deck-muted); font-weight: 700; font-size: 20px; line-height: 1.05; transition: all 450ms var(--deck-ease-out); }
 .p1-ev-era.is-cur { background: var(--deck-accent); border-color: var(--deck-accent); color: var(--deck-on-accent); }
 .p1-ev-era.is-past { background: var(--deck-accent-subtle); border-color: var(--deck-accent-subtle); color: var(--deck-accent); }
-.p1-ev-yr { position: absolute; top: 60px; font-size: 22px; font-weight: 700; letter-spacing: 0.06em; color: var(--deck-text-2); transition: opacity 450ms; }
+.p1-ev-yr { position: absolute; top: 58px; font-size: 32px; font-weight: 700; letter-spacing: 0.06em; color: var(--deck-text-2); transition: opacity 450ms; }
 .p1-ev-vline { position: absolute; top: 60px; bottom: 0; width: 2px; background: var(--deck-border); transition: opacity 450ms; }
 .p1-ev-yr.is-next, .p1-ev-vline.is-next { opacity: 0.25; }
 .p1-ev-lane { position: absolute; left: 0; width: 1680px; }
