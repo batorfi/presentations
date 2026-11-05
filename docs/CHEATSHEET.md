@@ -16,7 +16,7 @@ Details: [09-deck-template.md](09-deck-template.md).
 <link rel="stylesheet" href="../../framework/plugins/tools.css">
 <link rel="stylesheet" href="deck.css">
 <script src="../../framework/deck.js"></script>
-<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline -->
+<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, highlighter, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline -->
 <script src="../../framework/plugins/menu.js"></script>     <!-- menu LAST among plugins -->
 <script>Deck.configure({ title, theme:"light", transition:"slide", timer:{minutes:50}, logo:{src:"assets/logo.svg",alt:"X",height:40},
   background:"aurora" /*optional deck default*/, sections:[{id:"intro",label:"Intro"}] });</script>
@@ -60,7 +60,7 @@ Layout: `s-stack s-row s-grow s-center s-grid s-cols-2|3|4 s-split` · Blocks: `
 Inline SVG: `<svg class="s-svg">` with `.ink .accent .fill-accent .fill-raised .fill-subtle .line-muted`.
 
 ## Keys (presenting)
-→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
+→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **H** highlighter (M keep/fade, C colour, U undo, X clear) · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
 **Z** lens · **S** spotlight · **P** timer · **B** background Animated/Still/Off · **E** panzoom explore · **Y** retype · **?** help · Esc close · Right-click menu.
 URL hash `#/7.2` = slide 7 step 2.
 

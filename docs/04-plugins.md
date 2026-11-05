@@ -8,6 +8,7 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | tools | `tools.js`, `tools.css` | shared bookkeeping for the four pointer tools (always load with them) |
 | laser | `laser.js` | **L** — glowing dot + optional trail |
 | draw | `draw.js` | **D** — annotate live: ellipse/rect/line/arrow/curve; cleared when you leave the slide |
+| highlighter | `highlighter.js` | **H** — freehand glowing highlighter (mouse, touch, pen); keep or fade; remembered per slide |
 | lens | `lens.js` | **Z** — magnifier following the mouse |
 | spotlight | `spotlight.js` | **S** — dims everything except a window under the mouse |
 | timer | `timer.js` | **P** countdown in the title bar |
@@ -21,11 +22,21 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 
 Common behaviours: pointer tools draw in screen space (not magnified by the lens); settings persist; reduced motion disables motion.
 
-## Pointer tools (laser · draw · lens · spotlight)
+## Pointer tools (laser · draw · highlighter · lens · spotlight)
 
 Presenter-only live tools — nothing to author in slides. Settings (menu or `Deck.setSetting`): `laserColor laserSize(s|m|l) laserTrail`,
-`inkColor inkWidth(s|m|l) inkShape`, `lensWidth lensSize lensZoom(2–4)`, `spotWidth spotSize spotShape(circle|rect) spotDim(0.5–0.9)
+`inkColor inkWidth(s|m|l) inkShape`, `hlColor hlWidth(s|m|l) hlMode(keep|fade) hlBar(auto|always|hidden)`, `lensWidth lensSize lensZoom(2–4)`, `spotWidth spotSize spotShape(circle|rect) spotDim(0.5–0.9)
 spotBorder(animated|static)`. Spotlight and lens exclude each other; spotlight works with the laser.
+
+## Highlighter
+
+**H** turns it on; drag with a mouse, finger or pen. A glowing ring follows the pointer while the tool is on. Strokes are a soft glow band
+with a bright core, drawn as SVG in stage coordinates (sharp at any size, visible in the lens).
+**M** switches *keep* (strokes stay) and *fade* (each stroke fades out about a second after you lift). **C** next colour (four theme colours),
+**U** undo, **X** clear this slide's highlights, **Shift** while dragging = straight line, **Esc** off. Highlights are remembered per slide.
+On touch devices a launcher button and a toolbar (Keep/Fade, colours, width, Undo, Clear, Done) appear; `hlBar` = `auto` (touch/pen only) | `always` | `hidden`.
+It turns the laser and draw tools off (and they it). The old **H** help shortcut is now **?** only. Load `highlighter.js` after `draw.js`.
+Demo: `decks/basic-tools/`.
 
 ## Timer
 

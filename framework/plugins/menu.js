@@ -25,7 +25,7 @@
 
     function renderMenu() {
       const s = Deck.settings;
-      const laser = T().laser, draw = T().draw, lens = T().lens, spot = T().spotlight;
+      const laser = T().laser, draw = T().draw, hl = T().highlighter, lens = T().lens, spot = T().spotlight;
       const inkColor = s.inkColor || Deck.helpers.cssList("--deck-ink-default")[0];
       const laserColor = s.laserColor || Deck.helpers.cssList("--deck-laser-default")[0];
       const dark = document.documentElement.dataset.theme === "dark";
@@ -47,6 +47,7 @@
           ${item("laser", "Laser pointer", "L", laser.active)}
           ${item("draw", "Draw", "D", draw.active)}
           ${seg("inkShape", s.inkShape, [["ellipse", "◯ 1"], ["rect", "▭ 2"], ["line", "╱ 3"], ["arrow", "→ 4"], ["curve", "↷ 5"]])}
+          ${hl ? item("hl", "Highlighter", "H", hl.active) : ""}
           ${item("lens", "Zoom lens", "Z", lens.active)}
           ${spot ? item("spot", "Spotlight", "S", spot.active) : ""}
           ${item("clear", "Clear drawings", "X")}
@@ -62,6 +63,13 @@
           ${swatches("inkColor", inkColor)}
           <div class="deck-menu-row"><span>Stroke</span>${seg("inkWidth", s.inkWidth, [["s", "Thin"], ["m", "Medium"], ["l", "Bold"]])}</div>
         </div>
+        ${hl ? `<div class="deck-menu-group">
+          <div class="deck-menu-title">Highlighter</div>
+          <div class="deck-menu-swatches">${hl.palette().map(([name, v]) => `<button class="sw${v.toLowerCase() === (s.hlColor || hl.palette()[0][1]).toLowerCase() ? " is-on" : ""}" style="--sw:${v}" data-set="hlColor" data-value="${v}" title="${name}" aria-label="${name}"></button>`).join("")}</div>
+          <div class="deck-menu-row"><span>Width</span>${seg("hlWidth", s.hlWidth || "m", [["s", "S"], ["m", "M"], ["l", "L"]])}</div>
+          <div class="deck-menu-row"><span>Strokes</span>${seg("hlMode", s.hlMode === "fade" ? "fade" : "keep", [["keep", "Keep"], ["fade", "Fade"]])}</div>
+          <div class="deck-menu-row"><span>Toolbar</span>${seg("hlBar", s.hlBar || "auto", [["auto", "Touch"], ["always", "Always"], ["hidden", "Off"]])}</div>
+        </div>` : ""}
         <div class="deck-menu-group">
           <div class="deck-menu-title">Zoom lens</div>
           <div class="deck-menu-row"><span>Size</span>${seg("lensPreset", lensPreset, [["s", "S"], ["m", "M"], ["l", "L"]])}</div>
@@ -122,6 +130,7 @@
         else if (key === "inkShape") T().draw.pick(v);
         else Deck.setSetting(key, v);
         if (key === "inkColor" && !T().draw.active) T().draw.set(true);
+        if (key === "hlColor" && !T().highlighter.active) T().highlighter.set(true);
         renderMenu(); // stay open while adjusting settings
         return;
       }
@@ -136,6 +145,7 @@
         story: () => Deck.storyline.show(),
         laser: () => T().laser.toggle(),
         draw: () => T().draw.toggle(),
+        hl: () => T().highlighter.toggle(),
         lens: () => T().lens.toggle(),
         spot: () => T().spotlight.toggle(),
         tstart: () => T().timer.toggle(),
@@ -162,7 +172,7 @@
     Deck.el.ui.append(help);
     const pretty = (k) =>
       ({ " ": "Space", "Shift+ ": "Shift+Space", ArrowRight: "→", ArrowLeft: "←", ArrowUp: "↑", ArrowDown: "↓", PageDown: "PgDn", PageUp: "PgUp", "Mod+z": "Ctrl/⌘+Z" }[k] || (k.length === 1 ? k.toUpperCase() : k));
-    const ORDER = ["Navigate", "Tools", "Draw", "Zoom lens", "Spotlight", "Timer", "View"];
+    const ORDER = ["Navigate", "Tools", "Draw", "Highlighter", "Zoom lens", "Spotlight", "Timer", "View"];
     const order = (g) => (ORDER.indexOf(g) + 1 || 99);
     function renderHelp() {
       const groups = {};
@@ -190,7 +200,7 @@
       Deck.animate(help.firstElementChild, "zoom", "in", { duration: 240 });
     }
     help.addEventListener("click", (e) => e.target === help && toggleHelp());
-    Deck.addKeys(["?", "h"], toggleHelp, "Keyboard shortcuts", "View");
+    Deck.addKeys(["?"], toggleHelp, "Keyboard shortcuts", "View");
     Deck.help = { toggle: toggleHelp };
   });
 })();

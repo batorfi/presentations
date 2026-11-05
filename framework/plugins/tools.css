@@ -161,3 +161,42 @@ html[data-reduced-motion] .deck-tb-timer svg { animation: none !important; }
 .deck-morph-old, .deck-morph-new { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform, opacity; }
 .deck-morph-layer.has-plus .deck-morph-new { mix-blend-mode: plus-lighter; }
 .deck-morph-hide { visibility: hidden !important; }
+
+/* ---------- highlighter ---------- */
+.deck-hl { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 9; pointer-events: none; overflow: visible; }
+.deck-hl.is-active { pointer-events: auto; touch-action: none; }
+.deck-hl .hl-stroke path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.deck-hl .hl-stroke.is-fading { opacity: 0; transition: opacity var(--hl-fade, 1600ms) ease-out; }
+body.hl-on, body.hl-on .deck-stage, body.hl-on .deck-stage * { cursor: none !important; }
+body.hl-on .deck-hl-bar, body.hl-on .deck-hl-bar *, body.hl-on .deck-menu, body.hl-on .deck-menu * { cursor: pointer !important; }
+.deck-hl-tip { position: fixed; left: 0; top: 0; z-index: 50; width: 0; height: 0; pointer-events: none !important; will-change: transform; }
+.deck-hl-tip[hidden], .deck-hl-bar[hidden], .deck-hl-launch[hidden] { display: none; }
+.deck-hl-tip i { position: absolute; left: calc(var(--hl-size) / -2); top: calc(var(--hl-size) / -2); width: var(--hl-size); height: var(--hl-size); box-sizing: border-box; border-radius: 34%; pointer-events: none; }
+.deck-hl-tip .ring { border: 4px solid var(--hl-color); box-shadow: 0 0 16px var(--hl-color); box-shadow: 0 0 18px color-mix(in srgb, var(--hl-color) 75%, transparent), inset 0 0 12px color-mix(in srgb, var(--hl-color) 40%, transparent); animation: hl-breathe 1.9s ease-in-out infinite; transition: transform 120ms ease-out; }
+.deck-hl-tip.is-fade .ring { border-style: dashed; }
+.deck-hl-tip .ping { border: 3px solid var(--hl-color); opacity: 0; animation: hl-ping 1.9s ease-out infinite; }
+.deck-hl-tip .core { left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: var(--deck-on-accent); box-shadow: 0 0 10px 3px var(--hl-color); }
+.deck-hl-tip.is-down .ring { animation: none; transform: scale(0.74); }
+.deck-hl-tip.is-down .ping { animation: none; opacity: 0; }
+@keyframes hl-breathe { 0%, 100% { transform: scale(0.94); } 50% { transform: scale(1.06); } }
+@keyframes hl-ping { 0% { transform: scale(0.9); opacity: 0.7; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+[data-reduced-motion] .deck-hl-tip .ring, [data-reduced-motion] .deck-hl-tip .ping { animation: none; }
+.deck-hl-bar {
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 52;
+  display: flex; align-items: center; gap: 14px; padding: 8px 12px; border-radius: 999px;
+  background: var(--deck-raised); color: var(--deck-text); border: 1px solid var(--deck-border); box-shadow: var(--deck-shadow-menu);
+  font: 600 16px/1 var(--deck-font-sans); touch-action: manipulation; user-select: none;
+}
+.deck-hl-bar button { font: inherit; color: inherit; background: transparent; border: 0; border-radius: 999px; min-height: 44px; padding: 0 16px; }
+.deck-hl-bar .seg { display: flex; gap: 2px; padding: 3px; background: var(--deck-sunken); border-radius: 999px; }
+.deck-hl-bar .seg button { min-height: 38px; padding: 0 14px; }
+.deck-hl-bar .seg .is-on { background: var(--deck-accent); color: var(--deck-on-accent); }
+.deck-hl-bar .sws { display: flex; gap: 8px; }
+.deck-hl-bar .sw { width: 36px; height: 36px; min-height: 0; padding: 0; background: var(--sw); border: 2px solid var(--deck-border); }
+.deck-hl-bar .sw.is-on { outline: 3px solid var(--deck-accent); outline-offset: 2px; }
+.deck-hl-bar .wd { padding: 0 12px; display: flex; align-items: center; }
+.deck-hl-bar .wd i { display: block; width: 8px; background: currentColor; border-radius: 4px; }
+.deck-hl-bar .wd-s i { height: 10px; } .deck-hl-bar .wd-m i { height: 18px; } .deck-hl-bar .wd-l i { height: 26px; }
+.deck-hl-bar > button:not(.done) { border: 1px solid var(--deck-border); }
+.deck-hl-bar .done { background: var(--deck-accent); color: var(--deck-on-accent); }
+.deck-hl-launch { position: fixed; right: 18px; bottom: 18px; z-index: 52; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--deck-border); background: var(--deck-raised); color: var(--deck-accent); box-shadow: var(--deck-shadow-menu); display: flex; align-items: center; justify-content: center; touch-action: manipulation; }

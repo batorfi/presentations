@@ -3,7 +3,7 @@
   "use strict";
   Deck.tools = {
     update() {
-      const any = ["laser", "draw", "lens", "spotlight"].some((n) => Deck.tools[n] && Deck.tools[n].active);
+      const any = ["laser", "draw", "highlighter", "lens", "spotlight"].some((n) => Deck.tools[n] && Deck.tools[n].active);
       document.body.classList.toggle("tool-active", any);
     },
     /** [ and ] resize whichever sizeable tool (lens or spotlight) is on. */
