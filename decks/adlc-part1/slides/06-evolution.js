@@ -116,7 +116,7 @@
     html += stemsHtml + dotsHtml + pillsHtml;
     html += `<div class="p1-ev-today" style="left:${xOf(TODAY)}px;height:${top - 120}px"><b>TODAY</b></div>`;
     root.innerHTML = html;
-    root.style.setProperty("--ev-h", top + "px");
+    root.style.setProperty("--ev-h", Math.round(top) + "px");
     sync();
   }
 
