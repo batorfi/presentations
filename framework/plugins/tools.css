@@ -202,3 +202,17 @@ body.hl-on .deck-hl-bar, body.hl-on .deck-hl-bar *, body.hl-on .deck-menu, body.
 .deck-hl-bar > button:not(.done) { border: 1px solid var(--deck-border); }
 .deck-hl-bar .done { background: var(--deck-accent); color: var(--deck-on-accent); }
 .deck-hl-launch { position: fixed; right: 18px; bottom: 18px; z-index: 52; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--deck-border); background: var(--deck-raised); color: var(--deck-accent); box-shadow: var(--deck-shadow-menu); display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
+
+/* Text tool */
+.deck-tx { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 10; pointer-events: none; }
+.deck-tx.is-active { pointer-events: auto; touch-action: none; cursor: text; }
+.deck-tx .tx-group[hidden] { display: none; }
+.tx-item {
+  position: absolute; max-width: 1500px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--deck-font-sans); font-weight: 600; line-height: 1.2;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.2); outline: none; padding: 2px 6px; margin: -2px -6px; border-radius: 8px; caret-color: currentColor;
+}
+.deck-tx.is-active .tx-item { cursor: move; }
+.deck-tx.is-active .tx-item.is-sel { outline: 2px dashed var(--deck-accent); outline-offset: 4px; }
+.deck-tx.is-active .tx-item.is-editing { cursor: text; user-select: text; }
+.tx-item.is-moving { opacity: 0.85; }
+body.tx-on .deck-hl-bar, body.tx-on .deck-hl-bar * { cursor: pointer !important; }

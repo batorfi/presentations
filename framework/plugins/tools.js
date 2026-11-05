@@ -3,12 +3,12 @@
   "use strict";
   Deck.tools = {
     update() {
-      const any = ["laser", "draw", "highlighter", "lens", "spotlight"].some((n) => Deck.tools[n] && Deck.tools[n].active);
+      const any = ["laser", "draw", "highlighter", "text", "lens", "spotlight"].some((n) => Deck.tools[n] && Deck.tools[n].active);
       document.body.classList.toggle("tool-active", any);
     },
-    /** [ and ] resize whichever sizeable tool (lens, spotlight or highlighter) is on. */
+    /** [ and ] resize whichever sizeable tool (lens, spotlight, highlighter or text) is on. */
     resize(factor) {
-      const t = ["lens", "spotlight", "highlighter"].map((n) => Deck.tools[n]).find((x) => x && x.active);
+      const t = ["lens", "spotlight", "highlighter", "text"].map((n) => Deck.tools[n]).find((x) => x && x.active);
       if (t) t.resize(factor);
     },
     /** Named colours for menus: [name, value] from the theme's --deck-palette. */

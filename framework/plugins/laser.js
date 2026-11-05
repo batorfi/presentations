@@ -76,6 +76,7 @@
       if (on) {
         if (Deck.tools.draw?.active) Deck.tools.draw.set(false);
         if (Deck.tools.highlighter?.active) Deck.tools.highlighter.set(false);
+        if (Deck.tools.text?.active) Deck.tools.text.set(false);
         style();
         sizeCanvas();
         schedule();

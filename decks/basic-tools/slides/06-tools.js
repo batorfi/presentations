@@ -15,8 +15,9 @@ Deck.slide({
           <kbd>L</kbd><span>Laser pointer</span>
           <kbd>D</kbd><span>Draw · 1 circle · 2 rect · 3 line · 4 arrow · 5 curve</span>
           <kbd>H</kbd><span>Highlighter · <b>M</b> keep / fade · wheel or <b>[ ]</b> width · Shift = line</span>
-          <kbd>C</kbd><span>Next colour (drawing or highlighter)</span>
-          <kbd>X</kbd><span>Clear · <b>U</b> undo</span>
+          <kbd>A</kbd><span>Text · click and type · wheel or <b>[ ]</b> size · Delete</span>
+          <kbd>C</kbd><span>Next colour (drawing, highlighter or text)</span>
+          <kbd>X</kbd><span>Clear · <b>Shift+X</b> clear all · <b>U</b> undo</span>
           <kbd>Z</kbd><span>Lens · wheel or [ ] size · Shift+wheel or + − zoom</span>
           <kbd>S</kbd><span>Spotlight · Shift+S shape</span>
           <kbd>P</kbd><span>Timer · Shift+P stop · R restart</span>

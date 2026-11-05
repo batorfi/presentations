@@ -25,7 +25,7 @@
 
     function renderMenu() {
       const s = Deck.settings;
-      const laser = T().laser, draw = T().draw, hl = T().highlighter, lens = T().lens, spot = T().spotlight;
+      const laser = T().laser, draw = T().draw, tx = T().text, hl = T().highlighter, lens = T().lens, spot = T().spotlight;
       const inkColor = s.inkColor || Deck.helpers.cssList("--deck-ink-default")[0];
       const laserColor = s.laserColor || Deck.helpers.cssList("--deck-laser-default")[0];
       const dark = document.documentElement.dataset.theme === "dark";
@@ -48,6 +48,7 @@
           ${item("draw", "Draw", "D", draw.active)}
           ${seg("inkShape", s.inkShape, [["ellipse", "◯ 1"], ["rect", "▭ 2"], ["line", "╱ 3"], ["arrow", "→ 4"], ["curve", "↷ 5"]])}
           ${hl ? item("hl", "Highlighter", "H", hl.active) : ""}
+          ${tx ? item("text", "Text", "A", tx.active) : ""}
           ${item("lens", "Zoom lens", "Z", lens.active)}
           ${spot ? item("spot", "Spotlight", "S", spot.active) : ""}
           ${item("clear", "Clear drawings", "X")}
@@ -63,6 +64,11 @@
           ${swatches("inkColor", inkColor)}
           <div class="deck-menu-row"><span>Stroke</span>${seg("inkWidth", s.inkWidth, [["s", "Thin"], ["m", "Medium"], ["l", "Bold"]])}</div>
         </div>
+        ${tx ? `<div class="deck-menu-group">
+          <div class="deck-menu-title">Text</div>
+          <div class="deck-menu-swatches">${tx.palette().map(([name, v]) => `<button class="sw${v.toLowerCase() === (s.txColor || tx.palette().find(([n]) => n === "Ink")?.[1] || tx.palette()[0][1]).toLowerCase() ? " is-on" : ""}" style="--sw:${v}" data-set="txColor" data-value="${v}" title="${name}" aria-label="${name}"></button>`).join("")}</div>
+          <div class="deck-menu-row"><span>Size</span>${seg("txPreset", Object.entries(tx.presets).reduce((b, [k, v]) => (Math.abs(v - tx.size) < Math.abs(tx.presets[b] - tx.size) ? k : b), "m"), [["s", "S"], ["m", "M"], ["l", "L"], ["xl", "XL"]])}</div>
+        </div>` : ""}
         ${hl ? `<div class="deck-menu-group">
           <div class="deck-menu-title">Highlighter</div>
           <div class="deck-menu-swatches">${hl.palette().map(([name, v]) => `<button class="sw${v.toLowerCase() === (s.hlColor || hl.palette()[0][1]).toLowerCase() ? " is-on" : ""}" style="--sw:${v}" data-set="hlColor" data-value="${v}" title="${name}" aria-label="${name}"></button>`).join("")}</div>
@@ -127,10 +133,12 @@
         else if (key === "lensPreset") Deck.setSetting("lensWidth", T().lens.presets[v]);
         else if (key === "timerPreset") { Deck.setSetting("timerMinutes", +v); T().timer.adjust(0); }
         else if (key === "spotPreset") Deck.setSetting("spotWidth", T().spotlight.presets[v]);
+        else if (key === "txPreset") T().text.setSize(T().text.presets[v]);
         else if (key === "inkShape") T().draw.pick(v);
         else Deck.setSetting(key, v);
         if (key === "inkColor" && !T().draw.active) T().draw.set(true);
         if (key === "hlColor" && !T().highlighter.active) T().highlighter.set(true);
+        if (key === "txColor" && !T().text.active) T().text.set(true);
         renderMenu(); // stay open while adjusting settings
         return;
       }
@@ -146,6 +154,7 @@
         laser: () => T().laser.toggle(),
         draw: () => T().draw.toggle(),
         hl: () => T().highlighter.toggle(),
+        text: () => T().text.toggle(),
         lens: () => T().lens.toggle(),
         spot: () => T().spotlight.toggle(),
         tstart: () => T().timer.toggle(),
@@ -172,7 +181,7 @@
     Deck.el.ui.append(help);
     const pretty = (k) =>
       ({ " ": "Space", "Shift+ ": "Shift+Space", ArrowRight: "→", ArrowLeft: "←", ArrowUp: "↑", ArrowDown: "↓", PageDown: "PgDn", PageUp: "PgUp", "Mod+z": "Ctrl/⌘+Z" }[k] || (k.length === 1 ? k.toUpperCase() : k));
-    const ORDER = ["Navigate", "Tools", "Draw", "Highlighter", "Zoom lens", "Spotlight", "Timer", "View"];
+    const ORDER = ["Navigate", "Tools", "Draw", "Highlighter", "Text", "Zoom lens", "Spotlight", "Timer", "View"];
     const order = (g) => (ORDER.indexOf(g) + 1 || 99);
     function renderHelp() {
       const groups = {};

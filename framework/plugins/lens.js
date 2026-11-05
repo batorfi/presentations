@@ -30,7 +30,7 @@
       clone.removeAttribute("style");
       clone.classList.add("is-lens-copy");
       const cur = Deck.slideEl();
-      for (const part of [cur, Deck.el.titlebar, stage.querySelector(".deck-ink")]) {
+      for (const part of [cur, Deck.el.titlebar, stage.querySelector(".deck-ink"), stage.querySelector(".deck-hl"), stage.querySelector(".deck-tx")]) {
         if (!part) continue;
         const copy = part.cloneNode(true);
         copy.getAnimations?.().forEach((a) => a.cancel());

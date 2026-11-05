@@ -8,6 +8,7 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | tools | `tools.js`, `tools.css` | shared bookkeeping for the four pointer tools (always load with them) |
 | laser | `laser.js` | **L** — glowing dot + optional trail |
 | draw | `draw.js` | **D** — annotate live: ellipse/rect/line/arrow/curve; cleared when you leave the slide |
+| text | `text.js` | **A** — click to type text over the slide; colour, size, move, delete; remembered per slide |
 | highlighter | `highlighter.js` | **H** — freehand glowing highlighter (mouse, touch, pen); keep or fade; remembered per slide |
 | lens | `lens.js` | **Z** — magnifier following the mouse |
 | spotlight | `spotlight.js` | **S** — dims everything except a window under the mouse |
@@ -25,8 +26,15 @@ Common behaviours: pointer tools draw in screen space (not magnified by the lens
 ## Pointer tools (laser · draw · highlighter · lens · spotlight)
 
 Presenter-only live tools — nothing to author in slides. Settings (menu or `Deck.setSetting`): `laserColor laserSize(s|m|l) laserTrail`,
-`inkColor inkWidth(s|m|l) inkShape`, `hlColor hlWidth(s|m|l) hlWidthPx(8–96) hlMode(keep|fade) hlBar(auto|always|hidden)`, `lensWidth lensSize lensZoom(2–4)`, `spotWidth spotSize spotShape(circle|rect) spotDim(0.5–0.9)
+`inkColor inkWidth(s|m|l) inkShape`, `hlColor hlWidth(s|m|l) hlWidthPx(8–96) hlMode(keep|fade) hlBar(auto|always|hidden)`, `txColor txSize(20–260)`, `lensWidth lensSize lensZoom(2–4)`, `spotWidth spotSize spotShape(circle|rect) spotDim(0.5–0.9)
 spotBorder(animated|static)`. Spotlight and lens exclude each other; spotlight works with the laser.
+
+## Text
+
+**A** turns it on; click anywhere and type (theme font, so it stays offline-safe). **Enter** = new line, **Esc** or a click elsewhere finishes the text, a click on an existing text edits it, dragging moves it.
+**C** (or **Tab** while typing) cycles the colour; mouse wheel, **[ ]** (or **Ctrl/⌘ + ↑ ↓** while typing) change the size; they apply to the selected text and become the default for the next one.
+**Delete** removes the selected text, **U** undoes the last text, **X** clears this slide's text while the tool is on, **Shift+X** clears everything (drawings, highlights, text). **Esc** twice turns the tool off.
+Text lives on its own layer above ink and highlights, stays visible when you switch to laser/draw/highlighter, and is remembered per slide. Starting laser, draw or highlighter turns the text tool off (and vice versa). Settings: `txColor`, `txSize`; the touch toolbar follows `hlBar`. Load `text.js` after `highlighter.js`.
 
 ## Highlighter
 

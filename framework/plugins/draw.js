@@ -30,6 +30,7 @@
       document.body.classList.toggle("draw-on", on);
       if (on && Deck.tools.laser?.active) Deck.tools.laser.set(false);
       if (on && Deck.tools.highlighter?.active) Deck.tools.highlighter.set(false);
+      if (on && Deck.tools.text?.active) Deck.tools.text.set(false);
       Deck.tools.update();
       Deck.emit("tool", { name: "draw", active: on });
     }
@@ -136,16 +137,25 @@
     svg.addEventListener("pointercancel", end);
 
     function clear() {
+      if (Deck.tools.text?.active) return Deck.tools.text.clear(); // text tool on: X clears its text only
       layer.replaceChildren();
       Deck.tools.highlighter?.clear();
       Deck.emit("ink", { count: 0 });
     }
+    function clearAll() {
+      layer.replaceChildren();
+      Deck.tools.highlighter?.clear();
+      Deck.tools.text?.clear();
+      Deck.emit("ink", { count: 0 });
+    }
     function undo() {
+      if (Deck.tools.text?.active) return Deck.tools.text.undo();
       if (Deck.tools.highlighter?.active) return Deck.tools.highlighter.undo();
       layer.lastElementChild?.remove();
       Deck.emit("ink", { count: layer.childElementCount });
     }
     function cycleColor() {
+      if (Deck.tools.text?.active) return Deck.tools.text.cycleColor();
       if (Deck.tools.highlighter?.active) return Deck.tools.highlighter.cycleColor();
       const list = Deck.tools.palette().map(([, v]) => v);
       const i = list.indexOf(color());
@@ -157,6 +167,7 @@
     Deck.on("escape", () => on && set(false));
 
     Deck.tools.draw = {
+      clearAll,
       get active() { return on; },
       set, toggle: () => set(!on), pick, clear, undo, cycleColor, shapes: SHAPES, widths: WIDTHS,
       get count() { return layer.childElementCount; },
@@ -167,8 +178,9 @@
     Deck.addKeys(["3"], () => pick("line"), "Line (Shift = 45° snap)", "Draw");
     Deck.addKeys(["4"], () => pick("arrow"), "Arrow", "Draw");
     Deck.addKeys(["5"], () => pick("curve"), "Curved arrow (Shift = bend the other way)", "Draw");
-    Deck.addKeys(["c"], cycleColor, "Next colour (drawing or highlighter)", "Draw");
-    Deck.addKeys(["x"], clear, "Clear drawings and highlights", "Draw");
-    Deck.addKeys(["u", "Mod+z"], undo, "Undo last shape or highlight", "Draw");
+    Deck.addKeys(["c"], cycleColor, "Next colour (drawing, highlighter or text)", "Draw");
+    Deck.addKeys(["x"], clear, "Clear drawings and highlights (text only while the text tool is on)", "Draw");
+    Deck.addKeys(["Shift+x"], clearAll, "Clear everything: drawings, highlights and text", "Draw");
+    Deck.addKeys(["u", "Mod+z"], undo, "Undo last shape, highlight or text", "Draw");
   });
 })();

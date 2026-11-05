@@ -219,6 +219,7 @@
       if (on) {
         Deck.tools.laser?.active && Deck.tools.laser.set(false);
         Deck.tools.draw?.active && Deck.tools.draw.set(false);
+        Deck.tools.text?.active && Deck.tools.text.set(false);
         tip.hidden = !(x > 0 || y > 0) || (touchSeen && !down && x < 0);
         place();
       } else {
