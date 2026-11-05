@@ -135,7 +135,7 @@ html[data-reduced-motion] .p1-ch-card, html[data-reduced-motion] .p1-ch-card > *
 @media (prefers-reduced-motion: reduce) { .p1-ch-card, .p1-ch-card > *, .p1-ch-ico { transition: none; } }
 
 /* Slide 6 — timeline of AI coding tools (lanes, elastic axis, revealed era by era) */
-.p1-ev { position: relative; height: 960px; }
+.p1-ev { position: relative; height: 1040px; }
 .p1-ev-head { font-family: var(--deck-font-display); font-size: 52px; line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
 .p1-ev-chart { position: absolute; left: 120px; top: calc(96px + (984px - var(--ev-h, 800px)) / 2 - 14px); width: 1680px; height: var(--ev-h, 800px); }
 .p1-ev-era { position: absolute; top: 0; height: 52px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: var(--deck-radius-sm); border: 2px solid var(--deck-border); background: var(--deck-sunken); color: var(--deck-muted); font-weight: 700; font-size: 20px; line-height: 1.05; transition: all 450ms var(--deck-ease-out); }
