@@ -60,7 +60,7 @@ Layout: `s-stack s-row s-grow s-center s-grid s-cols-2|3|4 s-split` · Blocks: `
 Inline SVG: `<svg class="s-svg">` with `.ink .accent .fill-accent .fill-raised .fill-subtle .line-muted`.
 
 ## Keys (presenting)
-→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **H** highlighter (M keep/fade, C colour, U undo, X clear) · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
+→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **H** highlighter (wheel or [ ] width, M keep/fade, C colour, U undo, X clear) · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
 **Z** lens · **S** spotlight · **P** timer · **B** background Animated/Still/Off · **E** panzoom explore · **Y** retype · **?** help · Esc close · Right-click menu.
 URL hash `#/7.2` = slide 7 step 2.
 
