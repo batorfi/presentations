@@ -67,13 +67,13 @@
     section: "why",
     title: "The challenge",
     className: "p1-ch",
+    steps: 4, // step n shows challenge n + 1; the first is visible at once
     html: `
     <h2 class="p1-ch-head" data-anim="fade">Five challenges for every R&amp;D team building its own AI software factory</h2>
     <div class="p1-ch-wrap" data-anim="up" data-delay="200">
-      <ol class="p1-ch-rail" data-focus="reveal">${C.map((c, i) => `<li><span class="p1-ch-no">${i + 1}</span><span class="p1-ch-rt">${c.rail}</span></li>`).join("")}</ol>
-      <div class="p1-ch-idle">${C.map((_, i) => `<div class="p1-ch-idleico">${svg(i + 1)}<b>${i + 1}</b></div>`).join("")}</div>
+      <ol class="p1-ch-rail is-focusing">${C.map((c, i) => `<li class="deck-focus-item ${i ? "is-future" : "is-current"}"><span class="p1-ch-no">${i + 1}</span><span class="p1-ch-rt">${c.rail}</span></li>`).join("")}</ol>
       <div class="p1-ch-stage">
-        ${C.map((c, i) => `<article class="p1-ch-card" data-i="${i + 1}">
+        ${C.map((c, i) => `<article class="p1-ch-card${i ? "" : " is-on"}" data-i="${i}">
           <header><div class="p1-ch-ico">${svg(i + 1)}</div><h3>${c.title}</h3></header>
           <div class="p1-ch-body">${c.body.map((t) => `<p>${t}</p>`).join("")}</div>
           <div class="p1-ch-learn"><div class="p1-ch-lh">What we learned</div>${c.learn.map((t) => `<p>${t}</p>`).join("")}</div>
@@ -81,16 +81,20 @@
       </div>
     </div>`,
     onStep(step) { sync(step); },
-    notes: "Five challenges for R&D teams building their own AI software factory; each press shows the next challenge and fades the ones already shown. 1) Each team must build its own AI factory: SWEs learn to build systems to build systems; brownfield and greenfield differ; blueprints and golden skills need customization; one size won't fit all. 2) Invest in context engineering: Worker and Judge agents need grounded codebase and tribal knowledge; reverse-document, graphify the codebase, markdown knowledge vaults, open knowledge format. 3) Reimagining how teams work: roles change, SWEs become orchestrators, deciders, reviewers and factory builders. 4) SWE roles and responsibilities change: end-to-end ownership, spec-driven workflow, context engineering; from in-the-loop to near-the-loop to out-of-the-loop. 5) Hybrid LLM infrastructure: open and closed models converge; a factory can run fully local on dev machines, and must be a durable workflow distributed across dev machines, on-prem gateways and hyperscalers.",
+    notes: "Five challenges for R&D teams building their own AI software factory; the first challenge is shown at once; each press shows the next one and fades the ones already shown. 1) Each team must build its own AI factory: SWEs learn to build systems to build systems; brownfield and greenfield differ; blueprints and golden skills need customization; one size won't fit all. 2) Invest in context engineering: Worker and Judge agents need grounded codebase and tribal knowledge; reverse-document, graphify the codebase, markdown knowledge vaults, open knowledge format. 3) Reimagining how teams work: roles change, SWEs become orchestrators, deciders, reviewers and factory builders. 4) SWE roles and responsibilities change: end-to-end ownership, spec-driven workflow, context engineering; from in-the-loop to near-the-loop to out-of-the-loop. 5) Hybrid LLM infrastructure: open and closed models converge; a factory can run fully local on dev machines, and must be a durable workflow distributed across dev machines, on-prem gateways and hyperscalers.",
   });
 
-  // Show the card that belongs to the current step (step 0 = overview of the five icons).
+  // Step n = challenge n + 1: that card and rail item are current, the earlier rail items fade, the later ones wait.
   function sync(step) {
     const root = document.querySelector(".p1-ch");
     if (!root) return;
-    const s = typeof step === "number" ? step : Deck.state.step || 0;
-    root.querySelector(".p1-ch-wrap").classList.toggle("is-idle", s < 1);
-    root.querySelectorAll(".p1-ch-card").forEach((c) => c.classList.toggle("is-on", +c.dataset.i === s));
+    const cur = typeof step === "number" ? step : Deck.state.index === Deck.slides.findIndex((d) => d.id === "challenge") ? Deck.state.step || 0 : 0;
+    root.querySelectorAll(".p1-ch-card").forEach((c) => c.classList.toggle("is-on", +c.dataset.i === cur));
+    root.querySelectorAll(".p1-ch-rail li").forEach((li, i) => {
+      li.classList.toggle("is-current", i === cur);
+      li.classList.toggle("is-dim", i < cur);
+      li.classList.toggle("is-future", i > cur);
+    });
   }
   Deck.on("slidechange", () => sync());
   Deck.on("stepchange", ({ step }) => sync(step));
