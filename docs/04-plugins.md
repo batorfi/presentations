@@ -160,7 +160,7 @@ and `Deck.config.yourKey`; react to `slidechange/beforeleave/theme/settings`; `D
 ## Notes board
 
 **N** (or right-click → *Notes board…*) opens a canvas of uniform sticky notes over the slide; **N** or **Esc** closes it, the slide never moves while it is open. Load `notes.js` after `storyline.js` and before `menu.js`.
-**Enter** adds a note in the active lane and you type at once; **Enter** again saves it and opens the next (**Shift+Enter** = new line in the note, **Esc** saves and stops). Each note records the slide and the time automatically.
+**Click a lane** (anywhere in the column) to choose where the next note goes, then **Enter**; double-click empty lane space adds a note there. **Enter** adds a note in the active lane and you type at once; **Enter** again saves it and opens the next (**Shift+Enter** = new line in the note, **Esc** saves and stops). Each note records the slide and the time automatically.
 Drag notes to arrange them (snaps to a grid); the lane is whichever column the note sits in. Keys **1–5** or **Tab** pick the lane new notes land in; double-click a lane name to rename it; *+ Lane* / *− Lane* add or remove lanes (max 5, the last one must be empty).
 On a note: **✓** (or **Space**) marks it answered, **●** cycles its colour, **×** (or **Delete**) removes it, double-click (or **Shift+Enter**) edits, arrow keys nudge. **U** or **Ctrl/⌘+Z** undoes; *Clear all* asks twice.
 **E** or *Export .md* downloads one Markdown file grouped by lane (`- [ ] text _(slide 8 · Title · 15:54)_`, answered notes `[x]`); *Copy .md* puts the same text on the clipboard.

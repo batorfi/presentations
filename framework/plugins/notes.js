@@ -47,7 +47,7 @@
 .nb-board{position:relative;flex:1;overflow-y:auto;overflow-x:hidden;border:1px solid var(--deck-border);border-radius:var(--deck-radius);background:var(--deck-bg)}
 .nb-canvas{position:relative;width:${CW}px;min-height:100%}
 .nb-lane{position:absolute;top:0;bottom:0;border-right:1px dashed var(--deck-border-strong)}.nb-lane:last-child{border-right:0}
-.nb-lane.is-active{background:color-mix(in srgb,var(--deck-accent) 6%,transparent)}
+.nb-lane{cursor:pointer}.nb-lane.is-active{background:color-mix(in srgb,var(--deck-accent) 9%,transparent);box-shadow:inset 0 4px 0 var(--deck-accent)}
 .nb-lh{display:flex;align-items:center;gap:10px;height:${HEAD - 12}px;padding:0 18px;margin-top:6px;cursor:pointer;color:var(--deck-text-2);font:700 21px var(--deck-font-sans);letter-spacing:.04em;text-transform:uppercase}
 .nb-lh .k{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;border:1px solid var(--deck-border-strong);font-size:16px;color:var(--deck-muted)}
 .nb-lane.is-active .nb-lh{color:var(--deck-accent)}.nb-lane.is-active .nb-lh .k{border-color:var(--deck-accent);color:var(--deck-accent)}
@@ -116,11 +116,11 @@
       canvas.style.height = Math.max(maxB, 700) + "px";
       canvas.innerHTML =
         L.map((name, i) => `<div class="nb-lane${i === active ? " is-active" : ""}" data-lane="${i}" style="left:${i * w}px;width:${w}px">
-          <div class="nb-lh" data-lh="${i}" title="Click: new notes land here · double-click: rename"><span class="k">${i + 1}</span><span class="nm">${esc(name)}</span><span class="c">${counts[i]}</span></div></div>`).join("") +
+          <div class="nb-lh" data-lh="${i}" title="Click the lane: new notes land here · double-click the name: rename"><span class="k">${i + 1}</span><span class="nm">${esc(name)}</span><span class="c">${counts[i]}</span></div></div>`).join("") +
         (S.notes.length ? "" : `<div class="nb-empty">Press Enter to add the first note · keys 1–${L.length} choose its lane</div>`) +
         S.notes.map(noteHtml).join("");
       canvas.querySelectorAll(".nb-txt").forEach(fit);
-      sub.textContent = `${S.notes.length} note${S.notes.length === 1 ? "" : "s"} · Enter adds · drag to sort · double-click edits`;
+      sub.textContent = `${S.notes.length} note${S.notes.length === 1 ? "" : "s"} · click a lane, then Enter adds there · drag to sort`;
       modal.querySelector('[data-act="clear"]').textContent = armClear ? "Sure? Clear all" : "Clear all";
     }
 
@@ -232,14 +232,16 @@
         else if (b.dataset.a === "del") { S.notes = S.notes.filter((x) => x !== n); sel = null; }
         save(); render(); return;
       }
-      const lh = e.target.closest("[data-lh]");
-      if (lh && !e.target.closest("input")) { active = +lh.dataset.lh; canvas.querySelectorAll(".nb-lane").forEach((l, i) => l.classList.toggle("is-active", i === active)); }
+      const ln = e.target.closest(".nb-lane");
+      if (ln && !el && !e.target.closest("input")) { active = +ln.dataset.lane; canvas.querySelectorAll(".nb-lane").forEach((l, i) => l.classList.toggle("is-active", i === active)); }
     });
     canvas.addEventListener("dblclick", (e) => {
       const el = e.target.closest(".nb-note");
       if (el && !el.querySelector("textarea")) return edit(+el.dataset.id);
       const lh = e.target.closest("[data-lh]");
-      if (lh) renameLane(+lh.dataset.lh);
+      if (lh) return renameLane(+lh.dataset.lh);
+      const ln = e.target.closest(".nb-lane");
+      if (ln && !el) { active = +ln.dataset.lane; addNote(active); } // double-click empty lane space = note there
     });
 
     // ---------- export ----------
