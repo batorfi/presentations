@@ -54,7 +54,11 @@
               <div class="p1-bv-cons"><h4>Con’s</h4>
                 <div class="p1-bv-tiles">
                   <div class="p1-bv-tile"><b><span data-count="45">45</span>%</b><span>of AI-generated code tasks introduced vulnerabilities<small>Veracode, 2025-07</small></span></div>
+                  <div class="p1-bv-tile"><b><span data-count="65">65</span>%</b><span>of 1,400+ vibe-coded production apps had security issues<small>Escape.tech, 2025-10</small></span></div>
+                  <div class="p1-bv-tile"><b><span data-count="20">20</span>%</b><span>of generated samples recommended packages that do not exist<small>Larson and Nesbitt, 2025-04</small></span></div>
+                  <div class="p1-bv-tile"><b><span data-count="3.2" data-dec="1">3.2</span>%</b><span>of AI-assisted commits leaked secrets, versus 1.5% baseline<small>GitGuardian, 2026-03</small></span></div>
                   <div class="p1-bv-tile"><b><span data-count="19">19</span>%</b><span>slower, while feeling faster<small>METR, 2025-07</small></span></div>
+                  <div class="p1-bv-tile"><b><span data-count="69">69</span></b><span>vulnerabilities in 15 apps built with five AI tools<small>Tenzai, 2025-12</small></span></div>
                 </div>
                 <ul class="p1-bv-plain"><li>Nobody owns the code</li><li>No spec, no tests, no trace: the intent lives in a chat</li></ul>
               </div>
@@ -68,19 +72,19 @@
       </div>
     </div>`,
     onStep(step) { sync(step); },
-    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; METR 2025-07, experienced developers were 19% slower yet felt faster; nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Next: what is an AI software factory.",
+    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's, six tiles: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; Escape.tech 2025-10, 65% of 1,400+ vibe-coded production apps had security issues and 58% at least one critical; slopsquatting, 20% of 576,000 generated samples recommended packages that do not exist (Larson and Nesbitt 2025-04); GitGuardian 2026-03, 3.2% of AI-assisted commits leaked secrets versus 1.5% baseline; METR 2025-07, experienced developers were 19% slower yet felt faster; Tenzai 2025-12, 69 vulnerabilities in 15 apps from five AI tools. Also: nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Next: what is an AI software factory.",
   });
 
   const reduce = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   let prev = 0;
   function countUp(root) {
     root.querySelectorAll("[data-count]").forEach((el) => {
-      const to = +el.dataset.count;
-      if (reduce()) { el.textContent = to; return; }
+      const to = +el.dataset.count, dec = +(el.dataset.dec || 0);
+      if (reduce()) { el.textContent = to.toFixed(dec); return; }
       const t0 = performance.now();
       const tick = (t) => {
         const k = Math.min(1, (t - t0) / 900);
-        el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+        el.textContent = (to * (1 - Math.pow(1 - k, 3))).toFixed(dec);
         if (k < 1) requestAnimationFrame(tick);
       };
       el.textContent = 0;
