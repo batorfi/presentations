@@ -13,7 +13,7 @@
       ${i < 4 ? `<path d="M${296 + i * 340} 170 H${364 + i * 340}" class="p1-bv-arr" marker-end="url(#p1bvA)"/>` : ""}`).join("")}
     <g transform="translate(710 302)"><rect width="260" height="96" rx="16" class="p1-bv-ghost"/><text x="130" y="58" text-anchor="middle" class="p1-bv-gt">Review</text></g>
     <path d="M730 322 L950 378 M950 322 L730 378" class="p1-bv-cross"/>
-    <circle r="12" class="p1-bv-dotm"><animateMotion dur="8s" repeatCount="indefinite" path="M160 218 H1520 V350 H160 V218"/></circle>
+    <circle r="12" class="p1-bv-dotm"><animateMotion dur="8s" repeatCount="indefinite" path="M160 170 H1520 V350 H160 V170"/></circle>
   </svg>`;
 
   // Floor and ceiling.
