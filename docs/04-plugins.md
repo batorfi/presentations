@@ -179,3 +179,17 @@ API: `Deck.notes.toggle() / show() / hide() / markdown() / add(text, lane)`, `De
 `data-qr` (the text: link, `mailto:`, `WIFI:T:WPA;S:name;P:pass;;`) · `data-label` (line above) · `data-caption` (line under; default is the link, `""` hides it) · `data-size` (px, default 460; keep ≥ 360 for a room) · `data-ecc` (`L M Q H`, default M) · `data-style` (`square` is the most reliable, `rounded`, `dots`) · `data-layout="side"` (label to the left).
 The code is always dark on a light card, because scanners need that contrast, also in the dark theme. Override with `--deck-qr-ink` / `--deck-qr-paper` only if the contrast stays high. Longer text makes a denser code; keep links short and test with a phone from the back of the room.
 API: `Deck.qr.svg(text, { ecc, style, quiet })`, `Deck.qr.matrix(text, ecc)`, `Deck.qr.render(el)` after changing `data-*`.
+
+## Speaker card
+
+`speaker.js` shows a profile of the presenter that the audience can open from the published deck, also on a phone: the card is drawn outside the scaled stage as a real responsive page.
+
+```html
+<script src="../../speakers/zsolt-batorfi.js"></script>    <!-- the profile (public data), before the config -->
+<script src="../../framework/plugins/speaker.js"></script>  <!-- after qr.js -->
+Deck.configure({ speaker: "zsolt-batorfi" })                // slug in window.DeckSpeakers, or the profile object
+<div data-speaker-open>presenter name</div>                 // click target on any slide
+Deck.speakerSlide({ section: "next" })                      // optional closing "About the speaker" slide
+```
+
+Opens from a click on any `data-speaker-open` element, **I**, the link `…/deck/#bio`, or the closing slide. **Esc** or **I** closes; **Shift+I** shows the QR codes full screen. Save contact builds a `.vcf` in the browser. Email, phone and WhatsApp show after a tap. EN/HU toggle appears when the profile has `intro.hu`. Profile fields live in `speakers/<slug>.js`; optional `photo`, default is a monogram. Everything in a profile is public once the deck is published. API: `Deck.speaker.open/close/toggle/contactMode/vcard`.
