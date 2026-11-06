@@ -15,6 +15,7 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | timer | `timer.js` | **P** countdown in the title bar |
 | morph | `morph.js` | shared-element transitions between slides |
 | storyline | `storyline.js` | **G/O** — modal map of all slides by section; type a number to jump |
+| notes | `notes.js` | **N** — sticky-note board for Q&A and audience feedback; lanes, drag, export as Markdown |
 | menu | `menu.js` | right-click menu + `?` shortcut help (**load last**) |
 | marquee | `marquee.js` | scrolling headline |
 | panzoom | `panzoom.js` | pan & zoom large images/SVG |
@@ -155,3 +156,13 @@ matters in that `menu.js` should come after `Deck` exists.
 See [07-recipes.md](07-recipes.md#write-a-plugin). Pattern: an IIFE; `Deck.on("ready", () => { … })`; read `Deck.slides[i].yourField`
 and `Deck.config.yourKey`; react to `slidechange/beforeleave/theme/settings`; `Deck.addKeys` for hotkeys; expose `Deck.yourPlugin`; add styles in
 `deck.css` or a plugin CSS file; only transform/opacity animation; honour `Deck.context(i).reduced()`; pause when `document.hidden`.
+
+## Notes board
+
+**N** (or right-click → *Notes board…*) opens a canvas of uniform sticky notes over the slide; **N** or **Esc** closes it, the slide never moves while it is open. Load `notes.js` after `storyline.js` and before `menu.js`.
+**Enter** adds a note in the active lane and you type at once; **Enter** again saves it and opens the next (**Shift+Enter** = new line in the note, **Esc** saves and stops). Each note records the slide and the time automatically.
+Drag notes to arrange them (snaps to a grid); the lane is whichever column the note sits in. Keys **1–5** or **Tab** pick the lane new notes land in; double-click a lane name to rename it; *+ Lane* / *− Lane* add or remove lanes (max 5, the last one must be empty).
+On a note: **✓** (or **Space**) marks it answered, **●** cycles its colour, **×** (or **Delete**) removes it, double-click (or **Shift+Enter**) edits, arrow keys nudge. **U** or **Ctrl/⌘+Z** undoes; *Clear all* asks twice.
+**E** or *Export .md* downloads one Markdown file grouped by lane (`- [ ] text _(slide 8 · Title · 15:54)_`, answered notes `[x]`); *Copy .md* puts the same text on the clipboard.
+Notes are stored in this browser per deck (`localStorage`), never sent anywhere, and survive a reload. Lane names for a deck: `Deck.configure({ notes: { lanes: ["Questions", "Feedback", "Follow-ups"] } })`.
+API: `Deck.notes.toggle() / show() / hide() / markdown() / add(text, lane)`, `Deck.notes.count`.

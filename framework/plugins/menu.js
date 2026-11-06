@@ -41,6 +41,7 @@
           ${item("first", "First slide", "Home")}
           ${item("last", "Last slide", "End")}
           ${item("story", "Storyline…", "G")}
+          ${Deck.notes ? item("notes", "Notes board…", "N") : ""}
         </div>
         <div class="deck-menu-group">
           <div class="deck-menu-title">Tools</div>
@@ -151,6 +152,7 @@
         first: () => Deck.first(),
         last: () => Deck.last(),
         story: () => Deck.storyline.show(),
+        notes: () => Deck.notes && Deck.notes.toggle(),
         laser: () => T().laser.toggle(),
         draw: () => T().draw.toggle(),
         hl: () => T().highlighter.toggle(),
