@@ -188,6 +188,8 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-bv-cols { position: absolute; left: 0; right: 0; top: 262px; bottom: 0; display: grid; grid-template-columns: 1fr 0fr; column-gap: 0; opacity: 0; pointer-events: none; align-content: start; transition: grid-template-columns 600ms var(--deck-ease-out), column-gap 600ms var(--deck-ease-out), top 600ms var(--deck-ease-out), opacity 500ms 200ms var(--deck-ease-out); }
 .p1-bv.is-s1 .p1-bv-cols { opacity: 1; }
 .p1-bv.is-s2 .p1-bv-cols { grid-template-columns: 500px 1fr; column-gap: 44px; top: 24px; transition-delay: 0s; }
+.p1-bv.is-s3 .p1-bv-cols { grid-template-columns: 0fr 1fr; column-gap: 0; align-content: stretch; }
+.p1-bv.is-s3 .p1-bv-vc { opacity: 0; pointer-events: none; overflow: hidden; }
 .p1-bv-vc { min-width: 0; align-self: start; transition: opacity 500ms; }
 .p1-bv-vctag { display: inline-block; font-size: 22px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--deck-wait); margin-bottom: 14px; }
 .p1-bv-vcin { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; transition: grid-template-columns 600ms var(--deck-ease-out), column-gap 600ms var(--deck-ease-out); }
@@ -220,8 +222,14 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-bv-rc { min-width: 0; display: flex; flex-direction: column; gap: 22px; align-self: start; }
 .p1-bv-pane { max-height: 0; opacity: 0; overflow: hidden; transform: translate3d(0, 14px, 0); transition: max-height 600ms var(--deck-ease-out), opacity 500ms var(--deck-ease-out), transform 500ms var(--deck-ease-out); }
 .p1-bv.is-s2 .p1-bv-ceil { max-height: 470px; opacity: 1; transform: none; }
-.p1-bv.is-s3 .p1-bv-ceil { opacity: 0.55; }
-.p1-bv.is-s3 .p1-bv-sdd { max-height: 420px; opacity: 1; transform: none; }
+.p1-bv.is-s3 .p1-bv-rc { align-self: stretch; justify-content: space-between; padding: 12px 0 8px; }
+.p1-bv.is-s3 .p1-bv-ceil { opacity: 0.55; max-height: 420px; }
+.p1-bv.is-s3 .p1-bv-sdd { max-height: 600px; opacity: 1; transform: none; }
+.p1-bv.is-s3 .p1-bv-sddh { font-size: 46px; margin-bottom: 22px; }
+.p1-bv.is-s3 .p1-bv-chip { font-size: 30px; padding: 10px 24px; }
+.p1-bv.is-s3 .p1-bv-chipcap { font-size: 28px; }
+.p1-bv.is-s3 .p1-bv-chips { margin-top: 18px; gap: 20px; }
+.p1-bv.is-s3 .p1-bv-sit { font-size: 28px; margin-top: 16px; }
 .p1-bv-fc { display: flex; align-items: center; gap: 12px; }
 .p1-bv-card { flex: 1; min-width: 0; padding: 20px 26px; border-radius: var(--deck-radius); border: 3px solid var(--deck-border-strong); background: var(--deck-raised); }
 .p1-bv-card.is-floor { border-color: var(--deck-wait); }
