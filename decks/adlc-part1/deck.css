@@ -225,7 +225,7 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-bv.is-s3 .p1-bv-chip { font-size: 30px; padding: 10px 24px; }
 .p1-bv.is-s3 .p1-bv-chipcap { font-size: 28px; }
 .p1-bv.is-s3 .p1-bv-chips { margin-top: 18px; gap: 20px; }
-.p1-bv.is-s3 .p1-bv-sit { font-size: 28px; margin-top: 16px; }
+.p1-bv.is-s3 .p1-bv-sum { font-size: 32px; margin-top: 28px; }
 .p1-bv-fc { display: flex; align-items: center; gap: 12px; }
 .p1-bv-card { flex: 1; min-width: 0; padding: 20px 26px; border-radius: var(--deck-radius); border: 3px solid var(--deck-border-strong); background: var(--deck-raised); }
 .p1-bv-card.is-floor { border-color: var(--deck-wait); }
@@ -250,6 +250,5 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-bv-chip:nth-child(2) { animation-delay: 1.5s; } .p1-bv-chip:nth-child(3) { animation-delay: 3s; }
 @keyframes p1bvchip { 0%, 55%, 100% { background: var(--deck-sunken); border-color: var(--deck-border-strong); } 15%, 35% { background: var(--deck-accent-subtle); border-color: var(--deck-accent); } }
 .p1-bv-chipcap { font-size: 24px; font-weight: 600; color: var(--deck-muted); }
-.p1-bv-sit { flex-basis: 100%; margin-top: 8px; font-size: 24px; font-weight: 700; letter-spacing: 0.04em; color: var(--deck-text-2); }
-.p1-bv-sit { transition: opacity 400ms; }
+.p1-bv-sum { margin: 22px 0 0; max-width: 1500px; font-size: 30px; line-height: 1.4; font-weight: 600; color: var(--deck-text-2); }
 @media (prefers-reduced-motion: reduce) { .p1-bv-pane, .p1-bv-cols, .p1-bv-vcin, .p1-bv-q p { transition: none; } .p1-bv-chip { animation: none; } .p1-bv-riseline { stroke-dashoffset: 0; animation: none; } }
