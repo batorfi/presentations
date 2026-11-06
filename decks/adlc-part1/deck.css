@@ -161,7 +161,7 @@ html[data-reduced-motion] .p1-ch-card, html[data-reduced-motion] .p1-ch-card > *
 html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { transition: none; }
 @media (prefers-reduced-motion: reduce) { .p1-ev-pill, .p1-ev-era { transition: none; } }
 
-/* Slide 7 — beyond vibe coding (four beats on one stage; classes is-s1..is-s3 accumulate; the closing banner shows from beat 1) */
+/* Slide 7 — beyond vibe coding (four beats on one stage; classes is-s1..is-s3 accumulate) */
 .p1-bv { position: relative; height: 1040px; }
 .p1-bv-stage { position: absolute; left: 120px; top: 120px; width: 1680px; height: 870px; display: grid; grid-template-rows: 1fr auto; row-gap: 20px; }
 /* beat 0: the quote alone, centred; it fades out when the vibe scene opens */
@@ -258,7 +258,5 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 @keyframes p1bvchip { 0%, 55%, 100% { background: var(--deck-sunken); border-color: var(--deck-border-strong); } 15%, 35% { background: var(--deck-accent-subtle); border-color: var(--deck-accent); } }
 .p1-bv-chipcap { font-size: 24px; font-weight: 600; color: var(--deck-muted); }
 .p1-bv-sit { flex-basis: 100%; margin-top: 8px; font-size: 24px; font-weight: 700; letter-spacing: 0.04em; color: var(--deck-text-2); }
-.p1-bv-banner { max-height: 0; opacity: 0; overflow: hidden; background: var(--deck-accent); color: var(--deck-on-accent); border-radius: var(--deck-radius); font-family: var(--deck-font-display); font-weight: 800; font-size: 34px; line-height: 1.2; padding: 0 36px; display: flex; align-items: center; transform: translate3d(0, 20px, 0); transition: max-height 600ms var(--deck-ease-out), opacity 500ms 200ms, transform 500ms 200ms var(--deck-ease-out), padding 600ms; }
-.p1-bv.is-s1 .p1-bv-banner { max-height: 110px; opacity: 1; transform: none; padding: 20px 36px; }
 .p1-bv-sit { transition: opacity 400ms; }
-@media (prefers-reduced-motion: reduce) { .p1-bv-pane, .p1-bv-banner, .p1-bv-cols, .p1-bv-vcin, .p1-bv-q p { transition: none; } .p1-bv-human, .p1-bv-agents i, .p1-bv-chip { animation: none; } .p1-bv-riseline { stroke-dashoffset: 0; animation: none; } }
+@media (prefers-reduced-motion: reduce) { .p1-bv-pane, .p1-bv-cols, .p1-bv-vcin, .p1-bv-q p { transition: none; } .p1-bv-human, .p1-bv-agents i, .p1-bv-chip { animation: none; } .p1-bv-riseline { stroke-dashoffset: 0; animation: none; } }
