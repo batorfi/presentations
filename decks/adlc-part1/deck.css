@@ -163,32 +163,31 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 
 /* Slide 7 — beyond vibe coding (five beats on one stage; classes is-s1..is-s4 accumulate) */
 .p1-bv { position: relative; height: 1040px; }
-.p1-bv-stage { position: absolute; left: 120px; top: 120px; width: 1680px; height: 870px; display: grid; grid-template-rows: auto 1fr auto; row-gap: 20px; }
-.p1-bv-q { margin: 0; padding: 4px 0 0 36px; border-left: 8px solid var(--deck-wait); transition: all 600ms var(--deck-ease-out); }
-.p1-bv-q p { margin: 0; font-family: var(--deck-font-display); font-style: italic; font-weight: 700; font-size: 50px; line-height: 1.22; transition: font-size 600ms var(--deck-ease-out); }
-.p1-bv-q footer { margin-top: 18px; padding-bottom: 4px; font-size: 24px; font-weight: 700; letter-spacing: 0.04em; color: var(--deck-muted); }
-.p1-bv.is-s1 .p1-bv-q p { font-size: 30px; }
-.p1-bv.is-s1 .p1-bv-q footer { margin-top: 10px; font-size: 20px; }
-.p1-bv.is-s2 .p1-bv-q { opacity: 0.55; }
+.p1-bv-stage { position: absolute; left: 120px; top: 120px; width: 1680px; height: 870px; display: grid; grid-template-rows: 1fr auto; row-gap: 20px; }
+/* beat 0: the quote alone, centred; it fades out when the vibe scene opens */
+.p1-bv-q { position: absolute; inset: 0; margin: auto 0; height: max-content; padding: 6px 0 6px 44px; border-left: 10px solid var(--deck-wait); transition: opacity 500ms var(--deck-ease-out), transform 500ms var(--deck-ease-out); }
+.p1-bv-q p { margin: 0; font-family: var(--deck-font-display); font-style: italic; font-weight: 700; font-size: 64px; line-height: 1.22; }
+.p1-bv-q footer { margin-top: 26px; font-size: 28px; font-weight: 700; letter-spacing: 0.04em; color: var(--deck-muted); }
+.p1-bv.is-s1 .p1-bv-q { opacity: 0; transform: translate3d(0, -16px, 0); pointer-events: none; }
 .p1-bv-main { position: relative; min-height: 0; }
-.p1-bv-loop, .p1-bv-cols { position: absolute; inset: 0; transition: opacity 500ms var(--deck-ease-out); }
-.p1-bv-loop { display: flex; flex-direction: column; justify-content: center; }
-.p1-bv.is-s1 .p1-bv-loop { opacity: 0; pointer-events: none; }
-.p1-bv-loopsvg { width: 100%; height: auto; max-height: 340px; }
-.p1-bv-loopcap { text-align: center; font-size: 34px; font-weight: 700; color: var(--deck-danger); margin-top: 20px; }
+/* beat 1: the review-less loop on top, pro's and con's below */
+.p1-bv-loop { position: absolute; left: 0; right: 0; top: 16px; opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity 500ms 200ms var(--deck-ease-out), transform 500ms 200ms var(--deck-ease-out); pointer-events: none; }
+.p1-bv.is-s1 .p1-bv-loop { opacity: 1; transform: none; }
+.p1-bv.is-s2 .p1-bv-loop { opacity: 0; transition-delay: 0s; }
+.p1-bv-loopsvg { display: block; width: 1150px; height: auto; margin: 0 auto; }
+.p1-bv-loopcap { text-align: center; font-size: 30px; font-weight: 700; color: var(--deck-danger); margin-top: 6px; }
 .p1-bv-node { fill: var(--deck-raised); stroke: var(--deck-wait); stroke-width: 4; }
 .p1-bv-nt { font-size: 34px; font-weight: 700; fill: var(--deck-text); }
 .p1-bv-arr { stroke: var(--deck-text-2); stroke-width: 4; fill: none; }
 .p1-bv-ah { fill: var(--deck-text-2); }
-.p1-bv-ret { stroke: var(--deck-border-strong); stroke-width: 4; fill: none; stroke-dasharray: 2 0; }
+.p1-bv-ret { stroke: var(--deck-border-strong); stroke-width: 4; fill: none; }
 .p1-bv-ghost { fill: none; stroke: var(--deck-danger); stroke-width: 4; stroke-dasharray: 10 8; }
 .p1-bv-gt { font-size: 34px; font-weight: 700; fill: var(--deck-danger); }
 .p1-bv-cross { stroke: var(--deck-danger); stroke-width: 5; opacity: 0.8; }
 .p1-bv-dotm { fill: var(--deck-accent); }
-.p1-bv-cols { display: grid; grid-template-columns: 1fr 0fr; column-gap: 0; opacity: 0; pointer-events: none; align-content: center; }
+.p1-bv-cols { position: absolute; left: 0; right: 0; top: 316px; bottom: 0; display: grid; grid-template-columns: 1fr 0fr; column-gap: 0; opacity: 0; pointer-events: none; align-content: start; transition: grid-template-columns 600ms var(--deck-ease-out), column-gap 600ms var(--deck-ease-out), top 600ms var(--deck-ease-out), opacity 500ms 200ms var(--deck-ease-out); }
 .p1-bv.is-s1 .p1-bv-cols { opacity: 1; }
-.p1-bv.is-s2 .p1-bv-cols { grid-template-columns: 500px 1fr; column-gap: 44px; align-content: start; }
-.p1-bv-cols { transition: grid-template-columns 600ms var(--deck-ease-out), column-gap 600ms var(--deck-ease-out), opacity 500ms var(--deck-ease-out); }
+.p1-bv.is-s2 .p1-bv-cols { grid-template-columns: 500px 1fr; column-gap: 44px; top: 60px; transition-delay: 0s; }
 .p1-bv-vc { min-width: 0; align-self: start; transition: opacity 500ms; }
 .p1-bv-vctag { display: inline-block; font-size: 22px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--deck-wait); margin-bottom: 14px; }
 .p1-bv-vcin { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; transition: grid-template-columns 600ms var(--deck-ease-out), column-gap 600ms var(--deck-ease-out); }
@@ -200,12 +199,12 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-bv-pros h4 { color: var(--deck-ok); }
 .p1-bv-cons h4 { color: var(--deck-danger); }
 .p1-bv-vc ul { list-style: none; margin: 0; padding: 0; }
-.p1-bv-vc li { font-size: 34px; line-height: 1.25; padding: 12px 0 12px 44px; position: relative; }
+.p1-bv-vc li { font-size: 32px; line-height: 1.25; padding: 10px 0 10px 44px; position: relative; }
 .p1-bv-pros li::before, .p1-bv-plain li::before { content: ""; position: absolute; left: 4px; top: 24px; width: 22px; height: 22px; border-radius: 50%; background: var(--deck-ok); }
 .p1-bv-plain li::before { background: var(--deck-danger); }
 .p1-bv-tiles { display: flex; gap: 24px; margin-bottom: 14px; }
 .p1-bv-tile { flex: 1; min-width: 0; padding: 22px 26px; border-radius: var(--deck-radius); background: var(--deck-danger-bg); border: 3px solid var(--deck-danger); }
-.p1-bv-tile b { display: block; font-size: 104px; line-height: 1.15; margin-bottom: 4px; color: var(--deck-danger); font-family: var(--deck-font-display); }
+.p1-bv-tile b { display: block; font-size: 88px; line-height: 1.15; margin-bottom: 4px; color: var(--deck-danger); font-family: var(--deck-font-display); }
 .p1-bv-tile > span { display: block; font-size: 26px; line-height: 1.25; margin-top: 10px; }
 .p1-bv-tile small { display: block; margin-top: 8px; font-size: 20px; color: var(--deck-muted); }
 .p1-bv.is-s2 .p1-bv-tiles { flex-direction: column; gap: 12px; }
