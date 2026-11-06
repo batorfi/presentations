@@ -1,6 +1,6 @@
 // Slide 7 — Why we need to go beyond vibe coding. Content from the Notion page "07 – Why we need to go beyond vibe coding".
-// One stage, five beats (step n reveals beat n): 0 the Karpathy quote alone (it fades out at the next press), 1 the review-less vibe loop with the pro's and con's of vibe coding,
-// 2 floor vs ceiling (agentic engineering), 3 spec-driven development flow, 4 trade-offs and the point. Earlier beats stay, dimmed.
+// One stage, four beats (step n reveals beat n): 0 the Karpathy quote alone (it fades out at the next press), 1 the review-less vibe loop with the pro's and con's of vibe coding,
+// 2 floor vs ceiling (agentic engineering), 3 spec-driven development flow with the closing line. Earlier beats stay, dimmed.
 (function () {
   const QUOTE = "There’s a new kind of coding I call “vibe coding”, where you fully give in to the vibes, embrace exponentials, and forget that the code even exists.";
 
@@ -41,16 +41,13 @@
     </svg>
     <div class="p1-bv-chips"><span class="p1-bv-chip">spec.md</span><span class="p1-bv-chip">plan.md</span><span class="p1-bv-chip">tasks.md</span><span class="p1-bv-chipcap">lives in the repository</span><span class="p1-bv-sit">Greenfield · Exploration · Brownfield</span></div>`;
 
-  const tradeHtml = `<div class="p1-bv-col is-gain"><h4>Gains</h4><ul><li>Intent is versioned in the repo</li><li>Review the spec before the code</li><li>Same rules for engineers and agents</li></ul></div>
-    <div class="p1-bv-col is-cost"><h4>Costs</h4><ul><li>Needs engineering expertise</li><li>Up-front spec and context work</li><li>Review can become the bottleneck</li></ul></div>`;
-
   Deck.slide({
     id: "beyond-vibe",
     section: "why",
     title: "Why we need to go beyond vibe coding",
     navTitle: "Beyond vibe coding",
     className: "p1-bv",
-    steps: 4, // step n reveals beat n; beat 0 is visible at once
+    steps: 3, // step n reveals beat n; beat 0 is visible at once
     html: `
     <div class="p1-bv-stage" data-anim="fade">
       <blockquote class="p1-bv-q"><p>${QUOTE}</p><footer>Andrej Karpathy · 2025-02-02</footer></blockquote>
@@ -72,14 +69,13 @@
           <div class="p1-bv-rc">
             <div class="p1-bv-pane p1-bv-ceil">${ceilHtml}</div>
             <div class="p1-bv-pane p1-bv-sdd">${sddHtml}</div>
-            <div class="p1-bv-pane p1-bv-trade">${tradeHtml}</div>
           </div>
         </div>
       </div>
       <div class="p1-bv-banner">Vibe coding does not scale to a team. An AI factory needs specs, review and ownership.</div>
     </div>`,
     onStep(step) { sync(step); },
-    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; METR 2025-07, experienced developers were 19% slower yet felt faster; nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Humans always show up at the ends: plan and review. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Beat 4: gains: intent versioned, review the spec before the code, same rules for every engineer and agent. Costs: engineering expertise, up-front spec and context work, review can become the bottleneck (slide 16). Closing: vibe coding does not scale to a team; an AI factory needs specs, review and ownership. Next: what is an AI software factory.",
+    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; METR 2025-07, experienced developers were 19% slower yet felt faster; nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Humans always show up at the ends: plan and review. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Beat 3 closes: vibe coding does not scale to a team; an AI factory needs specs, review and ownership. Next: what is an AI software factory.",
   });
 
   const reduce = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -103,7 +99,7 @@
     const root = document.querySelector(".p1-bv");
     if (!root) return;
     const cur = typeof step === "number" ? step : Deck.state.index === Deck.slides.findIndex((d) => d.id === "beyond-vibe") ? Deck.state.step || 0 : 0;
-    for (let i = 1; i <= 4; i++) root.classList.toggle("is-s" + i, cur >= i);
+    for (let i = 1; i <= 3; i++) root.classList.toggle("is-s" + i, cur >= i);
     root.dataset.beat = cur;
     if (cur === 1 && prev !== 1) countUp(root);
     prev = cur;
