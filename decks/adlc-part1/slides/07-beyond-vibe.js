@@ -21,12 +21,6 @@
       <div class="p1-bv-card is-floor"><div class="p1-bv-tag">FLOOR · vibe coding</div><p>“You don’t know how your system works, and you don’t look.”</p></div>
       <svg viewBox="0 0 120 120" class="p1-bv-rise" aria-hidden="true"><path d="M14 98 L100 22" class="p1-bv-riseline"/><path d="M78 20 H102 V44" class="p1-bv-risehead"/></svg>
       <div class="p1-bv-card is-ceil"><div class="p1-bv-tag">CEILING · agentic engineering</div><p>“You know how your system works so well that you don’t have to look.”</p></div>
-    </div>
-    <div class="p1-bv-ends">
-      <span class="p1-bv-human">Plan<small>human</small></span>
-      <span class="p1-bv-agents"><i></i><i></i><i></i><i></i><small>agents work</small></span>
-      <span class="p1-bv-human">Review<small>human</small></span>
-      <span class="p1-bv-endcap">Humans always show up at the ends</span>
     </div>`;
 
   // Spec-driven development flow, generic.
@@ -74,7 +68,7 @@
       </div>
     </div>`,
     onStep(step) { sync(step); },
-    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; METR 2025-07, experienced developers were 19% slower yet felt faster; nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Humans always show up at the ends: plan and review. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Next: what is an AI software factory.",
+    notes: "Beat 0: Karpathy's quote, 2025-02-02, shown alone; it leaves at the next press. Beat 1: in practice the loop is: describe what you want, the AI generates it, you run it, paste the error back and accept, often without reading the diff. The defining trait is the missing review (Simon Willison: building software with an LLM without reviewing the code it writes). Test: could you explain exactly what the code does? Pro's are speed, a low barrier and cheap experiments, fine for low-stakes prototypes. Con's: Veracode 2025-07, 45% of AI-generated code tasks introduced vulnerabilities; METR 2025-07, experienced developers were 19% slower yet felt faster; nobody owns the code; no spec, tests or trace. Worst figures come from ungoverned setups. Beat 2: IndyDevDan: vibe coding is the floor, agentic engineering the ceiling. You know how your system works so well that you do not have to look. Beat 3: spec-driven development makes this repeatable: specifications become executable; principles once, then specify, plan, tasks, implement, verify, repeat until it converges; spec.md, plan.md and tasks.md live in the repository; works for greenfield, exploration and brownfield. Next: what is an AI software factory.",
   });
 
   const reduce = () => window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
