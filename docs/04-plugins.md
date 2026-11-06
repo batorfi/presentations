@@ -15,6 +15,7 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | timer | `timer.js` | **P** countdown in the title bar |
 | morph | `morph.js` | shared-element transitions between slides |
 | storyline | `storyline.js` | **G/O** — modal map of all slides by section; type a number to jump |
+| qr | `qr.js` | `.s-qr` — a link as a scannable QR code, computed offline |
 | notes | `notes.js` | **N** — sticky-note board for Q&A and audience feedback; lanes, drag, export as Markdown |
 | menu | `menu.js` | right-click menu + `?` shortcut help (**load last**) |
 | marquee | `marquee.js` | scrolling headline |
@@ -166,3 +167,15 @@ On a note: **✓** (or **Space**) marks it answered, **●** cycles its colour, 
 **E** or *Export .md* downloads one Markdown file grouped by lane (`- [ ] text _(slide 8 · Title · 15:54)_`, answered notes `[x]`); *Copy .md* puts the same text on the clipboard.
 Notes are stored in this browser per deck (`localStorage`), never sent anywhere, and survive a reload. Lane names for a deck: `Deck.configure({ notes: { lanes: ["Questions", "Feedback", "Follow-ups"] } })`.
 API: `Deck.notes.toggle() / show() / hide() / markdown() / add(text, lane)`, `Deck.notes.count`.
+
+## QR code
+
+`qr.js` turns a link into a scannable code drawn as inline SVG. It needs no library and no network, so it works from `file://`. Load it anywhere before `menu.js`.
+
+```html
+<div class="s-qr" data-qr="https://example.com/feedback" data-label="Scan to share feedback" data-anim="zoom"></div>
+```
+
+`data-qr` (the text: link, `mailto:`, `WIFI:T:WPA;S:name;P:pass;;`) · `data-label` (line above) · `data-caption` (line under; default is the link, `""` hides it) · `data-size` (px, default 460; keep ≥ 360 for a room) · `data-ecc` (`L M Q H`, default M) · `data-style` (`square` is the most reliable, `rounded`, `dots`) · `data-layout="side"` (label to the left).
+The code is always dark on a light card, because scanners need that contrast, also in the dark theme. Override with `--deck-qr-ink` / `--deck-qr-paper` only if the contrast stays high. Longer text makes a denser code; keep links short and test with a phone from the back of the room.
+API: `Deck.qr.svg(text, { ecc, style, quiet })`, `Deck.qr.matrix(text, ecc)`, `Deck.qr.render(el)` after changing `data-*`.

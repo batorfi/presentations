@@ -16,7 +16,7 @@ Details: [09-deck-template.md](09-deck-template.md).
 <link rel="stylesheet" href="../../framework/plugins/tools.css">
 <link rel="stylesheet" href="deck.css">
 <script src="../../framework/deck.js"></script>
-<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, highlighter, text, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline, notes -->
+<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, highlighter, text, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline, notes, qr -->
 <script src="../../framework/plugins/menu.js"></script>     <!-- menu LAST among plugins -->
 <script>Deck.configure({ title, theme:"light", transition:"slide", timer:{minutes:50}, logo:{src:"assets/logo.svg",alt:"X",height:40},
   background:"aurora" /*optional deck default*/, sections:[{id:"intro",label:"Intro"}] });</script>
@@ -52,6 +52,7 @@ without (`titlebar:false`) ≈ 936. Slide = flex column, gap 28.
 | `data-morph="key"` (+`-fit`,`-duration`,`-delay`) | same key on two slides = shared-element move (plugin `morph.js`) |
 | `s-marquee` `data-size data-wpm data-width…` | scrolling headline (`marquee.js`) |
 | `s-panzoom` `data-views data-bleed data-fit…` | pan/zoom large image (`panzoom.js`) |
+| `s-qr` `data-qr data-label data-size data-ecc data-style` | link as a QR code (`qr.js`) |
 | `s-typewriter` `data-size data-cps data-style…` | typed text (`typewriter.js`) |
 
 ## Content kit (`framework/deck.css`)
