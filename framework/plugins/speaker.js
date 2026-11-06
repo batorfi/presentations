@@ -72,7 +72,7 @@
       html: `<p class="s-kicker" data-anim="fade">${esc(o.kicker || t.about)}</p>
         <div class="spk-sl-grid">
           <div class="spk-sl-main">
-            <div class="spk-sl-id" data-anim="up" data-speaker-open><div class="spk-mono spk-mono-l">${esc(initials(P))}</div>
+            <div class="spk-sl-id" data-anim="up" data-speaker-open>${P.photo ? `<img class="spk-mono spk-mono-l" src="${esc(P.photo)}" alt="">` : `<div class="spk-mono spk-mono-l" aria-hidden="true">${esc(initials(P))}</div>`}
               <div><h2 class="s-title spk-sl-name"><b>${esc(P.first + " " + P.last)}</b></h2><p class="spk-sl-role">${esc(L(P.role, lang))} · ${esc(P.org || "")}</p></div></div>
             <p class="spk-sl-intro" data-anim="up" data-delay="150">${esc(L(P.intro, lang))}</p>
             <div class="spk-chips" data-anim="up" data-delay="300">${chips}</div>
@@ -116,6 +116,7 @@
 .spk-face::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:linear-gradient(90deg,var(--deck-accent),var(--deck-info))}
 .spk-back{transform:rotateY(180deg)}
 .spk-mono{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--deck-accent),var(--deck-accent-hover));color:var(--deck-on-accent);font:700 36px var(--deck-font-display);letter-spacing:.02em;box-shadow:0 10px 24px -10px var(--deck-accent)}
+img.spk-mono{object-fit:cover;background:var(--deck-surface-2,transparent)}
 .spk-mono-l{width:120px;height:120px;font-size:46px}
 .spk-name{font:700 30px/1.15 var(--deck-font-display);margin:16px 0 4px}
 .spk-role{margin:0;font-weight:600;color:var(--deck-text)}.spk-org,.spk-lang{margin:2px 0 0;color:var(--deck-text-2);font-size:15px}

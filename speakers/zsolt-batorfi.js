@@ -4,6 +4,7 @@
  * Text can be a plain string or { en, hu }. The Hungarian text is a draft translation: review before use. */
 window.DeckSpeakers = window.DeckSpeakers || {};
 window.DeckSpeakers["zsolt-batorfi"] = {
+  photo: "../../speakers/zsolt-batorfi.png",
   first: "Zsolt",
   last: "Bátorfi",
   role: { en: "Senior Generative AI Solution Architect", hu: "Senior generatív AI megoldásarchitekt" },
