@@ -1,6 +1,8 @@
 /* Styles that belong to ADLC Part 1 only. Shared patterns move to framework/deck.css once a second deck needs them. */
 
 .p1-title-slide { justify-content: center; }
+.p1-title-slide .s-qr.p1-title-qr { position: absolute; left: 120px; top: 56px; gap: 28px; align-items: center; flex-direction: row-reverse; }
+.p1-title-slide .s-qr.p1-title-qr .qr-label { font-size: 28px; font-weight: 600; max-width: 260px; }
 .p1-title { font-size: 84px; line-height: 1.08; max-width: 17em; margin: 8px 0 12px; font-weight: 500; }
 .p1-title-em { color: var(--deck-accent); font-weight: 700; }
 .p1-title-meta { display: flex; align-items: center; gap: 28px; margin-top: 36px; padding-top: 32px; border-top: 2px solid var(--deck-border-strong); max-width: 1200px; }

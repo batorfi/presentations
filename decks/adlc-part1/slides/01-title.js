@@ -15,6 +15,7 @@ Deck.slide({
       <div class="p1-pill">Part 1 · Foundations</div>
       <div class="p1-pill">60 minutes</div>
     </div>
+    <div class="s-qr p1-title-qr" data-anim="zoom" data-delay="800" data-qr="https://batorfi.github.io/presentations/decks/adlc-part1/" data-label="Scan to follow along" data-caption="" data-size="180" data-layout="side"></div>
   `,
-  notes: "Title page. Series: ADLC webinar series, Part 1 (Foundations). Presenter: Zsolt Bátorfi, senior AI architect. 60 minutes (50 talk + 10 Q&A).",
+  notes: "Title page. Series: ADLC webinar series, Part 1 (Foundations). Presenter: Zsolt Bátorfi, senior AI architect. 60 minutes (50 talk + 10 Q&A). The QR code opens the live deck on GitHub Pages.",
 });
