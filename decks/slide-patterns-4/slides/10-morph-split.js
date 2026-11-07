@@ -1,0 +1,20 @@
+(() => {
+const apply = (ctx, step, snap) => {
+  const r = ctx.$(".p4-root"); if (!r) return;
+  if (snap) r.classList.add("p4-snap");
+  r.dataset.s = step;
+  const cam = r.querySelector(".p4-cam"), cams = r.dataset.cams && JSON.parse(r.dataset.cams);
+  if (cam && cams) cam.style.transform = cams[step];
+  const vp = r.querySelector(".p4-vp"), vps = r.dataset.vps && JSON.parse(r.dataset.vps);
+  if (vp && vps) vp.style.transform = vps[step];
+  if (snap) { void r.offsetWidth; requestAnimationFrame(() => r.classList.remove("p4-snap")); }
+};
+Deck.slide({
+  id: "morph-split", section: "build", title: "Split morph · one block becomes services", className: "p4-s",
+  steps: 2,
+  html: `<div class="p4-stage"><div class="p4-root p4-mo" data-s="0"><svg class="s-svg" viewBox="0 0 1680 650" width="1680" height="650" role="img" aria-label="A monolith morphing into services"><rect class="p4-ct" x="480" y="110" width="720" height="440" rx="24"/><text class="p4-h p4-ct-t" x="840" y="168" text-anchor="middle">One codebase, one deployment</text><g class="p4-sedges"><path class="p4-edge" d="M330.0 175.0 L740.0 175.0"/><text class="p4-lab p4-halo" x="535.0" y="161.0" text-anchor="middle">API</text><path class="p4-edge" d="M940.0 175.0 L1350.0 175.0"/><text class="p4-lab p4-halo" x="1145.0" y="161.0" text-anchor="middle">API</text><path class="p4-edge" d="M330.0 475.0 L740.0 475.0"/><text class="p4-lab p4-halo" x="535.0" y="461.0" text-anchor="middle">API</text><path class="p4-edge" d="M940.0 475.0 L1350.0 475.0"/><text class="p4-lab p4-halo" x="1145.0" y="461.0" text-anchor="middle">API</text></g><g class="p4-sgroup"><rect class="p4-grp" x="96" y="80" width="268" height="500" rx="24"/><text class="p4-h p4-accent" x="230.0" y="620" text-anchor="middle">Service 1</text></g><g class="p4-sgroup"><rect class="p4-grp" x="706" y="80" width="268" height="500" rx="24"/><text class="p4-h p4-accent" x="840.0" y="620" text-anchor="middle">Service 2</text></g><g class="p4-sgroup"><rect class="p4-grp" x="1316" y="80" width="268" height="500" rx="24"/><text class="p4-h p4-accent" x="1450.0" y="620" text-anchor="middle">Service 3</text></g><g class="p4-mod" style="--x0:520px;--y0:215px;--x1:130px;--y1:130px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Orders</text></g><g class="p4-mod" style="--x0:740px;--y0:215px;--x1:740px;--y1:130px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Billing</text></g><g class="p4-mod" style="--x0:960px;--y0:215px;--x1:1350px;--y1:130px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Users</text></g><g class="p4-mod" style="--x0:520px;--y0:355px;--x1:130px;--y1:430px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Search</text></g><g class="p4-mod" style="--x0:740px;--y0:355px;--x1:740px;--y1:430px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Reports</text></g><g class="p4-mod" style="--x0:960px;--y0:355px;--x1:1350px;--y1:430px"><rect class="p4-nbox" width="200" height="90" rx="16"/><text class="p4-h" x="100.0" y="55.0" text-anchor="middle">Alerts</text></g></svg><div class="p4-capbar"><span class="p4-cp" data-for="0">Everything ships together.</span><span class="p4-cp" data-for="1">Pull the modules apart: each one can now change on its own.</span><span class="p4-cp" data-for="2">Group them by what they are responsible for.</span></div></div></div><p class="p4-use" data-anim="fade" data-delay="500"><b>Use it for</b> a before-and-after story. Keep the same parts on screen, so the audience sees what moved, what was cut and what stayed together.</p>`,
+  onEnter(ctx) { apply(ctx, ctx.step, true); },
+  onStep(step, dir, ctx) { apply(ctx, step, false); },
+  notes: "Six modules inside one container move apart and are then grouped into three services. The same elements stay on screen.",
+});
+})();

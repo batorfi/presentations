@@ -1,0 +1,20 @@
+(() => {
+const apply = (ctx, step, snap) => {
+  const r = ctx.$(".p4-root"); if (!r) return;
+  if (snap) r.classList.add("p4-snap");
+  r.dataset.s = step;
+  const cam = r.querySelector(".p4-cam"), cams = r.dataset.cams && JSON.parse(r.dataset.cams);
+  if (cam && cams) cam.style.transform = cams[step];
+  const vp = r.querySelector(".p4-vp"), vps = r.dataset.vps && JSON.parse(r.dataset.vps);
+  if (vp && vps) vp.style.transform = vps[step];
+  if (snap) { void r.offsetWidth; requestAnimationFrame(() => r.classList.remove("p4-snap")); }
+};
+Deck.slide({
+  id: "chart-build", section: "build", title: "Chart build · draw the argument in stages", className: "p4-s",
+  steps: 3,
+  html: `<div class="p4-stage"><div class="p4-root p4-ch" data-s="0"><div class="p4-chart-svg"><svg class="s-svg" viewBox="0 0 1300 660" width="1300" height="660" role="img" aria-label="Line chart built in four stages"><line class="p4-grid" x1="130" x2="1130" y1="560.0" y2="560.0"/><text class="p4-sub" x="112" y="568.0" text-anchor="end">0</text><line class="p4-grid" x1="130" x2="1130" y1="440.0" y2="440.0"/><text class="p4-sub" x="112" y="448.0" text-anchor="end">25</text><line class="p4-grid" x1="130" x2="1130" y1="320.0" y2="320.0"/><text class="p4-sub" x="112" y="328.0" text-anchor="end">50</text><line class="p4-grid" x1="130" x2="1130" y1="200.0" y2="200.0"/><text class="p4-sub" x="112" y="208.0" text-anchor="end">75</text><line class="p4-grid" x1="130" x2="1130" y1="80.0" y2="80.0"/><text class="p4-sub" x="112" y="88.0" text-anchor="end">100</text><text class="p4-sub" x="130.0" y="604" text-anchor="middle">T1</text><text class="p4-sub" x="272.9" y="604" text-anchor="middle">T2</text><text class="p4-sub" x="415.7" y="604" text-anchor="middle">T3</text><text class="p4-sub" x="558.6" y="604" text-anchor="middle">T4</text><text class="p4-sub" x="701.4" y="604" text-anchor="middle">T5</text><text class="p4-sub" x="844.3" y="604" text-anchor="middle">T6</text><text class="p4-sub" x="987.1" y="604" text-anchor="middle">T7</text><text class="p4-sub" x="1130.0" y="604" text-anchor="middle">T8</text><text class="p4-sub" x="630.0" y="652" text-anchor="middle">Time (sample)</text><path class="p4-gap" d="M130.0 464.0 L272.9 435.2 L415.7 411.2 L558.6 368.0 L701.4 310.4 L844.3 257.6 L987.1 185.6 L1130.0 118.4 L1130.0 368.0 L987.1 377.6 L844.3 387.2 L701.4 401.6 L558.6 416.0 L415.7 430.4 L272.9 444.8 L130.0 464.0 Z"/><path class="p4-line l-a" pathLength="1" d="M130.0 464.0 L272.9 435.2 L415.7 411.2 L558.6 368.0 L701.4 310.4 L844.3 257.6 L987.1 185.6 L1130.0 118.4"/><path class="p4-line l-b" pathLength="1" d="M130.0 464.0 L272.9 444.8 L415.7 430.4 L558.6 416.0 L701.4 401.6 L844.3 387.2 L987.1 377.6 L1130.0 368.0"/><text class="p4-h" x="1148.0" y="128.39999999999998" fill="">Series A</text><text class="p4-h p4-bt" x="1148.0" y="378.0">Series B</text><g class="p4-brk"><line class="p4-bracket" x1="1096.0" x2="1096.0" y1="122.39999999999998" y2="364.0"/><circle class="p4-pt" cx="1130.0" cy="118.39999999999998" r="9"/><circle class="p4-pt b" cx="1130.0" cy="368.0" r="9"/></g></svg></div><div class="p4-chart-side"><div class="p4-cc" data-for="0"><i>1</i><div><h3>One line</h3><p>Start with the series everybody expects to see.</p></div></div><div class="p4-cc" data-for="1"><i>2</i><div><h3>A second line</h3><p>Add the one to compare it with.</p></div></div><div class="p4-cc" data-for="2"><i>3</i><div><h3>Shade the gap</h3><p>Colour the space between them so the eye lands on it.</p></div></div><div class="p4-cc" data-for="3"><i>4</i><div><h3>Mark the end</h3><p>Pin the last values and say what the gap means.</p></div></div></div></div></div><p class="p4-use" data-anim="fade" data-delay="500"><b>Use it for</b> an argument that lives in a chart. Reveal the data in the order of your story, so the last element added is the point.</p>`,
+  onEnter(ctx) { apply(ctx, ctx.step, true); },
+  onStep(step, dir, ctx) { apply(ctx, step, false); },
+  notes: "A two-series line chart drawn in four stages: first line, second line, shaded gap, end markers. Sample data only.",
+});
+})();

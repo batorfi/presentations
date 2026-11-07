@@ -107,6 +107,14 @@ Deck.slide({
 Rules: use `ctx.play`/`ctx.animate` (tracked & reduced-motion aware); `ctx.cleanup(fn)` for timers; derive state from `step`, not from history
 (slides can be entered at any step). Full example: `decks/basic-tools/slides/05-custom.js`.
 
+## A CSS-driven visual (state attribute) — zoom, morph, accordion
+
+For visuals where many things change at once, let `onEnter`/`onStep` only write the step into a `data-s` attribute and do the rest in CSS
+(`.root[data-s="2"] .part { … }` with `transition`). Because state comes from `step`, jumping to any step or entering a slide backwards
+just works. Add a `snap` class for one frame on enter so nothing animates from a stale state. For a camera, write a `transform` per step on
+one wrapper group (`translate(x,y) scale(k)`, `transform-origin: 0 0`). Working examples with all of this: `decks/slide-patterns-4`
+(semantic zoom with minimap and breadcrumb, split and regroup morphs, scale ladder, layer peel).
+
 ## Hide the title bar / add a section
 
 `titlebar: false` on the slide. Sections: add `{ id, label }` to `Deck.configure({ sections })` and set `section: "id"` on slides.
