@@ -186,8 +186,8 @@
     const help = h("div", { class: "deck-modal deck-help", hidden: true, role: "dialog", "aria-label": "Keyboard shortcuts" });
     Deck.el.ui.append(help);
     const pretty = (k) =>
-      ({ " ": "Space", "Shift+ ": "Shift+Space", ArrowRight: "→", ArrowLeft: "←", ArrowUp: "↑", ArrowDown: "↓", PageDown: "PgDn", PageUp: "PgUp", "Mod+z": "Ctrl/⌘+Z" }[k] || (k.length === 1 ? k.toUpperCase() : k));
-    const ORDER = ["Navigate", "Tools", "Draw", "Highlighter", "Text", "Zoom lens", "Spotlight", "Timer", "View"];
+      ({ " ": "Space", "Shift+ ": "Shift+Space", ArrowRight: "→", ArrowLeft: "←", ArrowUp: "↑", ArrowDown: "↓", PageDown: "PgDn", PageUp: "PgUp", "Mod+z": "Ctrl/⌘+Z" }[k] || (k.includes("+") ? k.split("+").map((x) => (x.length === 1 ? x.toUpperCase() : x)).join("+") : k.length === 1 ? k.toUpperCase() : k));
+    const ORDER = ["Navigate", "Tools", "Draw", "Highlighter", "Text", "Zoom lens", "Spotlight", "Timer", "Notes", "References", "Speaker", "View"];
     const order = (g) => (ORDER.indexOf(g) + 1 || 99);
     function renderHelp() {
       const groups = {};
