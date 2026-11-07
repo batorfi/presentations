@@ -42,6 +42,8 @@
           ${item("last", "Last slide", "End")}
           ${item("story", "Storyline…", "G")}
           ${Deck.notes ? item("notes", "Notes board…", "N") : ""}
+          ${Deck.references ? item("refs", "References…", "⇧R") : ""}
+          ${Deck.speaker ? item("speaker", "About the speaker…", "I") : ""}
         </div>
         <div class="deck-menu-group">
           <div class="deck-menu-title">Tools</div>
@@ -153,6 +155,8 @@
         last: () => Deck.last(),
         story: () => Deck.storyline.show(),
         notes: () => Deck.notes && Deck.notes.toggle(),
+        refs: () => Deck.references && Deck.references.toggle(),
+        speaker: () => Deck.speaker && Deck.speaker.toggle(),
         laser: () => T().laser.toggle(),
         draw: () => T().draw.toggle(),
         hl: () => T().highlighter.toggle(),

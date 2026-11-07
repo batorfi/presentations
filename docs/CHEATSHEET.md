@@ -16,7 +16,7 @@ Details: [09-deck-template.md](09-deck-template.md).
 <link rel="stylesheet" href="../../framework/plugins/tools.css">
 <link rel="stylesheet" href="deck.css">
 <script src="../../framework/deck.js"></script>
-<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, highlighter, text, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline, notes, qr -->
+<script src="../../framework/plugins/tools.js"></script>   <!-- then laser, draw, highlighter, text, lens, spotlight, timer, morph, marquee, panzoom, typewriter, background, countdown, storyline, notes, qr, speaker, references -->
 <script src="../../framework/plugins/menu.js"></script>     <!-- menu LAST among plugins -->
 <script>Deck.configure({ title, theme:"light", transition:"slide", timer:{minutes:50}, logo:{src:"assets/logo.svg",alt:"X",height:40},
   background:"aurora" /*optional deck default*/, sections:[{id:"intro",label:"Intro"}] });</script>
@@ -52,6 +52,7 @@ without (`titlebar:false`) ≈ 936. Slide = flex column, gap 28.
 | `data-morph="key"` (+`-fit`,`-duration`,`-delay`) | same key on two slides = shared-element move (plugin `morph.js`) |
 | `s-marquee` `data-size data-wpm data-width…` | scrolling headline (`marquee.js`) |
 | `s-panzoom` `data-views data-bleed data-fit…` | pan/zoom large image (`panzoom.js`) |
+| `data-ref="id,id"` | citation marker [n] next to the element (`references.js`) |
 | `s-qr` `data-qr data-label data-size data-ecc data-style` | link as a QR code (`qr.js`) |
 | `s-typewriter` `data-size data-cps data-style…` | typed text (`typewriter.js`) |
 
@@ -61,7 +62,7 @@ Layout: `s-stack s-row s-grow s-center s-grid s-cols-2|3|4 s-split` · Blocks: `
 Inline SVG: `<svg class="s-svg">` with `.ink .accent .fill-accent .fill-raised .fill-subtle .line-muted`.
 
 ## Keys (presenting)
-→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **N** notes board (Enter new note, drag, E export .md) · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **A** text (click, type; C colour, wheel/[ ] size, Delete) · **Shift+X** clear all · **H** highlighter (wheel or [ ] width, M keep/fade, C colour, U undo, X clear) · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
+→/Space/PgDn next · ←/PgUp prev · Home/End · **G/O** storyline · **I** speaker card (Shift+I contact QR codes) · **Shift+R** references (sources, readings, videos, repos) · **N** notes board (Enter new note, drag, E export .md) · **F** fullscreen · **K** countdown lobby · **T** theme · **L** laser · **A** text (click, type; C colour, wheel/[ ] size, Delete) · **Shift+X** clear all · **H** highlighter (wheel or [ ] width, M keep/fade, C colour, U undo, X clear) · **D** draw (1–5 shapes, C colour, X clear, U undo) ·
 **Z** lens · **S** spotlight · **P** timer · **B** background Animated/Still/Off · **E** panzoom explore · **Y** retype · **?** help · Esc close · Right-click menu.
 URL hash `#/7.2` = slide 7 step 2.
 

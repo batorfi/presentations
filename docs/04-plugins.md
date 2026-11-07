@@ -15,6 +15,8 @@ what the deck uses. Pointer tools need `tools.js` + `tools.css`.
 | timer | `timer.js` | **P** countdown in the title bar |
 | morph | `morph.js` | shared-element transitions between slides |
 | storyline | `storyline.js` | **G/O** — modal map of all slides by section; type a number to jump |
+| references | `references.js` | **Shift+R** — sources, readings, videos and repos: a vertical slide, an overlay and `[n]` citation markers |
+| speaker | `speaker.js` | **I** / click the name / `#bio` — responsive speaker card: bio, links, save-contact, QR codes |
 | qr | `qr.js` | `.s-qr` — a link as a scannable QR code, computed offline |
 | notes | `notes.js` | **N** — sticky-note board for Q&A and audience feedback; lanes, drag, export as Markdown |
 | menu | `menu.js` | right-click menu + `?` shortcut help (**load last**) |
@@ -193,3 +195,20 @@ Deck.speakerSlide({ section: "next" })                      // optional closing 
 ```
 
 Opens from a click on any `data-speaker-open` element, **I**, the link `…/deck/#bio`, or the closing slide. **Esc** or **I** closes; **Shift+I** shows the QR codes full screen. Save contact builds a `.vcf` in the browser. Email, phone and WhatsApp show after a tap. EN/HU toggle appears when the profile has `intro.hu`. Profile fields live in `speakers/<slug>.js`; optional `photo`, default is a monogram. Everything in a profile is public once the deck is published. API: `Deck.speaker.open/close/toggle/contactMode/vcard`.
+
+## References
+
+`references.js` shows sources, readings, videos, repos and other related material, each with a title, a short description and a link. Categories are stacked vertically on the slide, with the cards of a category in a row.
+
+```html
+<script src="../../references/adlc.js"></script>               <!-- the list (public data), before the config -->
+<script src="../../framework/plugins/references.js"></script>
+Deck.configure({ references: "adlc" })                          // slug in window.DeckReferences, or the object
+<span data-ref="graphrag">any text</span>                       // citation marker [n]; "a,b" cites several
+Deck.referencesSlide({ section: "close" })                      // slide(s) from the list; perRow (3), maxRows (3) per slide
+```
+
+List shape (`references/<slug>.js`; text is a string or `{ en, hu }`):
+`{ title, categories: [{ id, label, icon?, items: [{ id, title, desc, url, placeholder? }] }] }`. Category ids with an icon: `sources readings videos repos tools other`. The number of an item is its position in the list. Long lists continue on numbered slides, and a category continues on the next slide with "(continued)". Entries marked `placeholder: true` show a "Placeholder" tag and log a console warning until you replace them.
+
+The overlay opens with **Shift+R**, the right-click menu, a click on a marker or the "Links" button on the slide. It lists every item by category and shows the items cited on the current slide first ("This slide"). Each item shows the slides that cite it, and a click jumps there. *Copy all links* and *Export Markdown* are in the bar. It is a real responsive page, so it works on a phone. API: `Deck.references.open(id?) / close() / toggle() / markdown() / items`. The list is public once the deck is published.
