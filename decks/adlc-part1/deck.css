@@ -649,3 +649,31 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1d-dev[data-dev="nvidia-gpu"] { --r: 2deg; left: 24px; top: 400px; width: 370px; height: 217px; }
 .p1d-dev[data-dev="mini-pc"] { --r: -2deg; right: 6px; top: 575px; width: 220px; height: 220px; }
 .p1d-dev[data-dev="dgx-spark"] figcaption { left: auto; right: 12px; }
+
+/* Slide 15 — bottleneck: typewriter statement, practitioner claims, in / near / out of the loop ladder. */
+.p1b-root { display: flex; flex-direction: column; gap: 14px; height: 100%; }
+.p1b-tw { flex: none; margin-bottom: 6px; }
+.p1b-lab, .p1b-proofs, .p1b-ladder { transition: opacity .5s var(--deck-ease), transform .5s var(--deck-ease); }
+.p1b-snap .p1b-lab, .p1b-snap .p1b-proofs, .p1b-snap .p1b-ladder, .p1b-snap .p1b-st { transition: none !important; }
+.p1b-lab { font-family: var(--deck-font-mono); font-size: 18px; color: var(--deck-muted); letter-spacing: .04em; text-transform: uppercase; }
+.p1b-proofs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.p1b-proof { background: var(--deck-raised); border: 2px solid var(--deck-border); border-radius: var(--deck-radius-lg); padding: 12px 18px; display: flex; flex-direction: column; gap: 4px; }
+.p1b-proof b { font-family: var(--deck-font-display); font-size: 26px; color: var(--deck-accent); }
+.p1b-proof span { font-size: 21px; line-height: 1.25; color: var(--deck-text-2); }
+.p1b-ladder { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.p1b-st { position: relative; background: var(--deck-raised); border: 2px solid var(--deck-border); border-radius: var(--deck-radius-lg); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; --c: var(--deck-accent); transition: opacity .5s var(--deck-ease), transform .5s var(--deck-ease), border-color .5s, box-shadow .5s; }
+.p1b-st[data-st="near"] { --c: var(--deck-wait); } .p1b-st[data-st="out"] { --c: var(--deck-ok); }
+.p1b-st::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; border-radius: var(--deck-radius-lg) 0 0 var(--deck-radius-lg); background: var(--c); }
+.p1b-st header { display: flex; flex-direction: column; gap: 2px; padding-left: 8px; }
+.p1b-verb { font-family: var(--deck-font-mono); font-size: 22px; font-weight: 700; color: var(--c); text-transform: uppercase; letter-spacing: .08em; }
+.p1b-st h3 { margin: 0; font-family: var(--deck-font-display); font-size: 38px; color: var(--deck-text); }
+.p1b-st dl { margin: 0; padding-left: 8px; display: flex; flex-direction: column; gap: 4px; flex: 1; justify-content: space-evenly; }
+.p1b-st dt { font-size: 18px; font-family: var(--deck-font-mono); color: var(--deck-muted); text-transform: uppercase; letter-spacing: .05em; margin-top: 8px; }
+.p1b-st dd { margin: 0; font-size: 30px; line-height: 1.22; color: var(--deck-text); }
+.p1b-tag { position: absolute; right: 16px; top: 16px; padding: 3px 14px; border-radius: var(--deck-radius-pill); font-size: 17px; font-weight: 700; background: color-mix(in srgb, var(--c) 18%, var(--deck-bg)); color: var(--deck-text); border: 2px solid var(--c); }
+/* states: 0 = statement only, 1 = + claims, 2 = + ladder with "near the loop" emphasised */
+.p1b-root[data-s="0"] .p1b-lab, .p1b-root[data-s="0"] .p1b-proofs { opacity: 0; transform: translateY(14px); }
+.p1b-root[data-s="0"] .p1b-ladder, .p1b-root[data-s="1"] .p1b-ladder { opacity: 0; transform: translateY(18px); }
+.p1b-root[data-s="2"] .p1b-proofs, .p1b-root[data-s="2"] .p1b-lab { opacity: .45; }
+.p1b-root[data-s="2"] .p1b-st { opacity: .7; }
+.p1b-root[data-s="2"] .p1b-st[data-st="near"] { opacity: 1; border-color: var(--deck-wait); box-shadow: 0 0 0 5px color-mix(in srgb, var(--deck-wait) 25%, transparent), 0 10px 28px rgba(0,0,0,.12); transform: translateY(-4px); }
