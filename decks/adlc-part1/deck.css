@@ -619,3 +619,32 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(3) { animation-delay: 6s; }
 .p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(4) { animation-delay: 8.5s; }
 @media (prefers-reduced-motion: reduce) { .p1h-root .p1h-col.is-open::after, .p1h-root .p1h-col.is-open .p1h-card { animation: none !important; } }
+
+/* Slide 13 — device photo collage (right column). Photos live in assets/devices/*.jpg; a dashed placeholder shows until a file exists. */
+.p1d-root { display: grid; grid-template-columns: 1fr 420px; gap: 24px; }
+.p1d-main { min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.p1d-nums { grid-template-columns: 170px repeat(3, 1fr); gap: 12px; }
+.p1d-nums h3 { font-size: 24px; }
+.p1d-num { padding: 8px 14px; } .p1d-num b { font-size: 22px; } .p1d-num span { font-size: 17px; }
+.p1d-rung { grid-template-columns: 175px 210px 1fr 340px; gap: 14px; padding: 6px 18px; }
+.p1d-bar s { min-width: 96px; }
+.p1d-det p { font-size: 19px; line-height: 1.2; }
+.p1d-mach li { font-size: 18px; grid-template-columns: 46px 1fr; }
+.p1d-mach em { font-size: 17px; }
+.p1d-id { gap: 10px; } .p1d-id b { font-size: 32px; } .p1d-id h3 { font-size: 22px; }
+.p1d-mem small { font-size: 16px; }
+.p1d-stage { position: relative; min-height: 0; }
+.p1d-dev { position: absolute; margin: 0; border-radius: var(--deck-radius-lg); overflow: hidden; background: var(--deck-sunken); border: 3px solid var(--deck-raised); box-shadow: 0 10px 30px rgba(0,0,0,.18); transition: opacity .6s var(--deck-ease), transform .6s var(--deck-ease), filter .6s, box-shadow .6s; }
+.p1d-dev img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.p1d-dev figcaption { position: absolute; left: 12px; bottom: 12px; padding: 3px 14px; border-radius: var(--deck-radius-pill); background: var(--deck-bg); color: var(--deck-text); font-size: 20px; font-weight: 700; }
+.p1d-ph { display: none; position: absolute; inset: 0; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border: 3px dashed var(--deck-border-strong); border-radius: calc(var(--deck-radius-lg) - 3px); font-size: 21px; font-weight: 700; color: var(--deck-text-2); text-align: center; }
+.p1d-ph small { font-size: 16px; font-weight: 400; font-family: var(--deck-font-mono); color: var(--deck-muted); }
+.p1d-dev[data-miss] .p1d-ph { display: flex; }
+.p1d-dev[data-hot="0"] { opacity: .32; filter: grayscale(1); transform: scale(.94) rotate(var(--r)); }
+.p1d-dev[data-hot="1"] { transform: rotate(var(--r)); }
+.p1d-dev[data-hot="1"][data-hot]:not([data-steps=""]) { z-index: 2; }
+.p1d-dev[data-dev="mac-studio"] { --r: -2deg; left: 10px; top: 0; width: 350px; height: 205px; }
+.p1d-dev[data-dev="dgx-spark"] { --r: 3deg; right: 0; top: 170px; width: 260px; height: 175px; }
+.p1d-dev[data-dev="mac-mini"] { --r: -3deg; left: 0; top: 235px; width: 225px; height: 185px; }
+.p1d-dev[data-dev="nvidia-gpu"] { --r: 2deg; left: 20px; top: 430px; width: 370px; height: 135px; }
+.p1d-dev[data-dev="amd-gpu"] { --r: -2deg; right: 0; top: 585px; width: 370px; height: 135px; }
