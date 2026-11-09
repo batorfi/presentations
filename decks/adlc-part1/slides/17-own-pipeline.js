@@ -1,4 +1,4 @@
-// Slide 18 — skeleton. Content, visuals and animation are designed in a working session.
+// Slide 17 — skeleton. Content, visuals and animation are designed in a working session.
 Deck.slide({
   id: "own-pipeline",
   section: "building",
@@ -7,7 +7,7 @@ Deck.slide({
   html: `
     <h2 class="s-title">What does it take to build your own ADLC pipeline?</h2>
     <div class="s-placeholder">
-      <b>Slide 18 · content to be designed together</b>
+      <b>Slide 17 · content to be designed together</b>
       <span class="p1-outline">Outline in the speaker notes.</span>
     </div>
   `,

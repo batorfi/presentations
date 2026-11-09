@@ -1,4 +1,4 @@
-// Slide 19 — skeleton. Content, visuals and animation are designed in a working session.
+// Slide 18 — skeleton. Content, visuals and animation are designed in a working session.
 Deck.slide({
   id: "brown-green",
   section: "building",
@@ -7,7 +7,7 @@ Deck.slide({
   html: `
     <h2 class="s-title">ADLC in brownfield and greenfield scenarios</h2>
     <div class="s-placeholder">
-      <b>Slide 19 · content to be designed together</b>
+      <b>Slide 18 · content to be designed together</b>
       <span class="p1-outline">ADLC in brownfield and greenfield scenarios.</span>
     </div>
   `,
