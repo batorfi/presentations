@@ -643,8 +643,9 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1d-dev[data-hot="0"] { opacity: .32; filter: grayscale(1); transform: scale(.94) rotate(var(--r)); }
 .p1d-dev[data-hot="1"] { transform: rotate(var(--r)); }
 .p1d-dev[data-hot="1"][data-hot]:not([data-steps=""]) { z-index: 2; }
-.p1d-dev[data-dev="mac-studio"] { --r: -2deg; left: 10px; top: 0; width: 350px; height: 205px; }
-.p1d-dev[data-dev="dgx-spark"] { --r: 3deg; right: 0; top: 170px; width: 260px; height: 175px; }
-.p1d-dev[data-dev="mac-mini"] { --r: -3deg; left: 0; top: 235px; width: 225px; height: 185px; }
-.p1d-dev[data-dev="nvidia-gpu"] { --r: 2deg; left: 20px; top: 430px; width: 370px; height: 135px; }
-.p1d-dev[data-dev="amd-gpu"] { --r: -2deg; right: 0; top: 585px; width: 370px; height: 135px; }
+.p1d-dev[data-dev="mac-studio"] { --r: -2deg; left: 10px; top: 0; width: 350px; height: 211px; }
+.p1d-dev[data-dev="dgx-spark"] { --r: 3deg; right: 0; top: 150px; width: 240px; height: 181px; }
+.p1d-dev[data-dev="mac-mini"] { --r: -3deg; left: 0; top: 250px; width: 250px; height: 131px; }
+.p1d-dev[data-dev="nvidia-gpu"] { --r: 2deg; left: 24px; top: 400px; width: 370px; height: 217px; }
+.p1d-dev[data-dev="mini-pc"] { --r: -2deg; right: 6px; top: 575px; width: 220px; height: 220px; }
+.p1d-dev[data-dev="dgx-spark"] figcaption { left: auto; right: 12px; }
