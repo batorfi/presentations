@@ -12,7 +12,7 @@ const SIDES = [
   { id: "open", name: "Open harnesses", lead: "Open-source frameworks; light cores, growing as embedded infrastructure", cards: [
     { n: "OpenHands", o: "MIT", h: "Sandbox built in (Docker)", s: ["Full MCP", "Hosted option"] },
     { n: "Goose", o: "Apache-2.0 · Linux Foundation", h: "Neutral governance", s: ["MCP at the core", "Self-enabling extensions"] },
-    { n: "DeepSeek Harness", o: "MIT · DeepSeek-AI", h: "Everything is a plugin", s: ["Sub-agents", "Auto-approval reviewer"] },
+    { n: "DeepSeek Harness", o: "MIT · DeepSeek-AI", h: "Plugin system: everything is a plugin", s: ["Sub-agents", "Auto-approval reviewer"] },
     { n: "pi harness", o: "MIT · pi.dev", h: "Minimal core: four tools", s: ["Opt-in extensions", "Embeds in other tools"] },
   ] },
 ];
