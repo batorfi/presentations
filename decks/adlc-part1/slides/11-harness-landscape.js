@@ -9,7 +9,7 @@ const SIDES = [
     { n: "GitHub Copilot agent", o: "Microsoft / GitHub", h: "Safe by design: own branches only", s: ["Async draft PRs", "Claude and Codex backends"] },
     { n: "OpenAI Codex", o: "OpenAI · CLI is open source", h: "Clear sandbox and approval modes", s: ["Open-source CLI", "Long autonomous runs"] },
   ] },
-  { id: "open", name: "Open harnesses", lead: "Open-source frameworks; light cores, growing as embedded infrastructure", cards: [
+  { id: "open", name: "Open harnesses", lead: "Open-source frameworks and light, embeddable cores", cards: [
     { n: "OpenHands", o: "MIT", h: "Sandbox built in (Docker)", s: ["Full MCP", "Hosted option"] },
     { n: "Goose", o: "Apache-2.0 · Linux Foundation", h: "Neutral governance", s: ["MCP at the core", "Self-enabling extensions"] },
     { n: "DeepSeek Harness", o: "MIT · DeepSeek-AI", h: "Plugin system: everything is a plugin", s: ["Sub-agents", "Auto-approval reviewer"] },

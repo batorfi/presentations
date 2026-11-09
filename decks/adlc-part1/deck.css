@@ -595,3 +595,14 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1h-lp { position: absolute; transform: translate(-50%, -50%); padding: 3px 14px; border-radius: var(--deck-radius-pill); background: var(--deck-bg); border: 2px solid var(--deck-accent); font-size: 21px; font-weight: 700; color: var(--deck-accent); }
 .p1h-hlab { position: absolute; left: 530px; top: 170px; transform: translate(-50%, -50%); padding: 2px 14px; background: var(--deck-bg); font-size: 20px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--deck-muted); }
 .p1h-cap { position: absolute; transform: translate(-50%, -50%); max-width: 260px; padding: 12px 22px; text-align: center; border: 2px solid var(--deck-border-strong); border-radius: var(--deck-radius-lg); background: var(--deck-raised); font-size: 25px; font-weight: 700; line-height: 1.15; color: var(--deck-text); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+
+/* Slide 11 — closed vs open: no divider, two clearly different colour worlds (closed = warm/amber, open = teal) */
+.p1h-col.is-closed { border-right: 0; }
+.p1h-root .p1h-view.is-cards { gap: 36px; }
+.p1h-col { padding: 22px 26px; border-radius: var(--deck-radius-lg); }
+.p1h-col.is-closed { --side: var(--deck-wait); background: color-mix(in srgb, var(--deck-wait) 14%, var(--deck-bg)); padding-left: 26px; }
+.p1h-col.is-open { --side: var(--deck-accent); background: color-mix(in srgb, var(--deck-accent) 12%, var(--deck-bg)); padding-right: 26px; }
+.p1h-col.is-closed .p1h-ch h2, .p1h-col.is-open .p1h-ch h2 { color: var(--side); }
+.p1h-col .p1h-card { border-color: color-mix(in srgb, var(--side) 45%, var(--deck-border)); border-left-color: var(--side); background: var(--deck-raised); }
+.p1h-col .p1h-head { color: color-mix(in srgb, var(--side) 78%, var(--deck-text)); }
+.p1h-col .p1h-more li { border-color: var(--side); background: color-mix(in srgb, var(--side) 10%, var(--deck-raised)); }
