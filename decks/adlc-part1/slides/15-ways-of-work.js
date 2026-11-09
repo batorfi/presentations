@@ -1,4 +1,4 @@
-// Slide 14 — skeleton. Content, visuals and animation are designed in a working session.
+// Slide 15 — skeleton. Content, visuals and animation are designed in a working session.
 Deck.slide({
   id: "ways-of-work",
   section: "landscape",
@@ -7,7 +7,7 @@ Deck.slide({
   html: `
     <h2 class="s-title">Local-only, hybrid and cloud-only ways of work</h2>
     <div class="s-placeholder">
-      <b>Slide 14 · content to be designed together</b>
+      <b>Slide 15 · content to be designed together</b>
       <span class="p1-outline">Local-only, hybrid and cloud-only ways of work.</span>
     </div>
   `,

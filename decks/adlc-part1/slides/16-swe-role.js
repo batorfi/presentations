@@ -1,4 +1,4 @@
-// Slide 15 — skeleton. Content, visuals and animation are designed in a working session.
+// Slide 16 — skeleton. Content, visuals and animation are designed in a working session.
 Deck.slide({
   id: "swe-role",
   section: "engineer",
@@ -7,7 +7,7 @@ Deck.slide({
   html: `
     <h2 class="s-title">The SWE's role in the ADLC process</h2>
     <div class="s-placeholder">
-      <b>Slide 15 · content to be designed together</b>
+      <b>Slide 16 · content to be designed together</b>
       <span class="p1-outline">In-the-loop, near-the-loop, out-of-loop.</span>
     </div>
   `,
