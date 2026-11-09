@@ -568,8 +568,30 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1h-card { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 8px 26px; border: 2px solid var(--deck-border); border-left: 10px solid var(--deck-border-strong); border-radius: var(--deck-radius-lg); background: var(--deck-raised); overflow: hidden; transition: flex-grow .55s var(--deck-ease), border-color .4s, background .4s, box-shadow .4s; }
 .p1h-col.is-open .p1h-card { border-left-color: var(--deck-accent); }
 .p1h-card header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.p1h-card h3 { margin: 0; font-size: 32px; line-height: 1.1; }
-.p1h-own { font-size: 20px; color: var(--deck-muted); text-align: right; }
-.p1h-head { font-size: 30px; font-weight: 800; line-height: 1.15; color: var(--deck-accent); }
+.p1h-card h3 { margin: 0; font-size: 46px; line-height: 1.1; }
+.p1h-own { font-size: 19px; color: var(--deck-muted); text-align: right; }
+.p1h-head { font-size: 26px; font-weight: 800; line-height: 1.15; color: var(--deck-accent); }
 .p1h-more { list-style: none; margin: 4px 0 0; padding: 0; display: flex; gap: 12px; flex-wrap: wrap; }
-.p1h-more li { padding: 5px 16px; border: 2px solid var(--deck-border-strong); border-radius: var(--deck-radius-pill); background: var(--deck-bg); font-size: 24px; color: var(--deck-text); }
+.p1h-more li { padding: 4px 16px; border: 2px solid var(--deck-border-strong); border-radius: var(--deck-radius-pill); background: var(--deck-bg); font-size: 22px; color: var(--deck-text); }
+
+/* Slide 11 — step 0 anatomy view; step 1 cards view (cross-fade by data-s) */
+.p1h-root { position: relative; display: block; }
+.p1h-view { position: absolute; inset: 0; transition: opacity .6s var(--deck-ease), visibility .6s; }
+.p1h-view.is-cards { display: grid; grid-template-columns: 1fr 1fr; }
+.p1h-root[data-s="0"] .is-cards { opacity: 0; visibility: hidden; }
+.p1h-root:not([data-s="0"]) .is-what { opacity: 0; visibility: hidden; }
+.p1h-what { height: 100%; display: grid; grid-template-columns: 560px 1fr; gap: 20px; align-items: center; }
+.p1h-def h2 { margin: 0 0 26px; font-family: var(--deck-font-display); font-size: 46px; line-height: 1.1; color: var(--deck-accent); }
+.p1h-def p { margin: 0 0 18px; font-size: 28px; line-height: 1.35; color: var(--deck-text); }
+.p1h-def ul { margin: 0 0 22px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 26px; color: var(--deck-text-2); }
+.p1h-note { font-size: 21px; color: var(--deck-muted); padding-top: 14px; border-top: 2px solid var(--deck-border); }
+.p1h-diag { position: relative; width: 1060px; height: 770px; justify-self: end; }
+.p1h-diag svg { position: absolute; inset: 0; }
+.p1h-lines line { stroke: var(--deck-border-strong); stroke-width: 2; stroke-dasharray: 3 7; }
+.p1h-ring { fill: var(--deck-accent-subtle); stroke: var(--deck-accent); stroke-width: 3; }
+.p1h-hring { fill: none; stroke: var(--deck-border-strong); stroke-width: 3; stroke-dasharray: 10 8; }
+.p1h-pulse { fill: var(--deck-wait); }
+.p1h-llm { position: absolute; left: 530px; top: 385px; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; background: var(--deck-accent); color: var(--deck-on-accent); display: flex; align-items: center; justify-content: center; font-family: var(--deck-font-display); font-size: 40px; font-weight: 800; }
+.p1h-lp { position: absolute; transform: translate(-50%, -50%); padding: 3px 14px; border-radius: var(--deck-radius-pill); background: var(--deck-bg); border: 2px solid var(--deck-accent); font-size: 21px; font-weight: 700; color: var(--deck-accent); }
+.p1h-hlab { position: absolute; left: 530px; top: 170px; transform: translate(-50%, -50%); padding: 2px 14px; background: var(--deck-bg); font-size: 20px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--deck-muted); }
+.p1h-cap { position: absolute; transform: translate(-50%, -50%); max-width: 260px; padding: 12px 22px; text-align: center; border: 2px solid var(--deck-border-strong); border-radius: var(--deck-radius-lg); background: var(--deck-raised); font-size: 25px; font-weight: 700; line-height: 1.15; color: var(--deck-text); box-shadow: 0 4px 14px rgba(0,0,0,.06); }
