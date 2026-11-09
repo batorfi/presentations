@@ -606,3 +606,16 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1h-col .p1h-card { border-color: color-mix(in srgb, var(--side) 45%, var(--deck-border)); border-left-color: var(--side); background: var(--deck-raised); }
 .p1h-col .p1h-head { color: color-mix(in srgb, var(--side) 78%, var(--deck-text)); }
 .p1h-col .p1h-more li { border-color: var(--side); background: color-mix(in srgb, var(--side) 10%, var(--deck-raised)); }
+
+/* Slide 11 — light ambient loop on the open side (only while the cards view is shown): a soft light band sweeps the panel, cards glow in turn */
+.p1h-col.is-open { position: relative; overflow: hidden; }
+.p1h-col.is-open::after { content: ""; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; pointer-events: none; opacity: 0; background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--deck-accent) 9%, transparent), transparent); transform: skewX(-12deg); }
+@keyframes p1h-sweep { 0% { left: -40%; opacity: 0; } 8% { opacity: 1; } 40% { left: 110%; opacity: 1; } 48%, 100% { left: 110%; opacity: 0; } }
+@keyframes p1h-glow { 0%, 100% { box-shadow: 0 0 0 0 transparent; transform: translateX(0); } 8%, 20% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--deck-accent) 28%, transparent), 0 8px 24px rgba(0,0,0,.08); transform: translateX(6px); } 30% { box-shadow: 0 0 0 0 transparent; transform: translateX(0); } }
+.p1h-root[data-s="1"] .p1h-col.is-open::after { animation: p1h-sweep 10s ease-in-out infinite; }
+.p1h-root[data-s="1"] .p1h-col.is-open .p1h-card { animation: p1h-glow 10s ease-in-out infinite; }
+.p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(1) { animation-delay: 1s; }
+.p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(2) { animation-delay: 3.5s; }
+.p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(3) { animation-delay: 6s; }
+.p1h-root[data-s="1"] .p1h-col.is-open .p1h-card:nth-child(4) { animation-delay: 8.5s; }
+@media (prefers-reduced-motion: reduce) { .p1h-root .p1h-col.is-open::after, .p1h-root .p1h-col.is-open .p1h-card { animation: none !important; } }
