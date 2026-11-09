@@ -662,7 +662,6 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 @keyframes p1b-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 /* the staircase: columns share a floor, each tread is taller than the last */
 .p1b-ladder { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: end; position: relative; padding-top: 40px; }
-.p1b-ladder::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; border-radius: 3px; background: var(--deck-border-strong); }
 .p1b-st { position: relative; height: var(--h); background: var(--deck-raised); border: 2px solid var(--deck-border); border-top: 8px solid var(--c); border-radius: var(--deck-radius-lg) var(--deck-radius-lg) 0 0; padding: 16px 22px 18px; display: flex; flex-direction: column; gap: 8px; --c: var(--deck-accent); transition: opacity .6s var(--deck-ease), transform .6s var(--deck-ease), box-shadow .5s, filter .5s; }
 .p1b-st[data-st="near"] { --c: var(--deck-wait); } .p1b-st[data-st="out"] { --c: var(--deck-ok); }
 .p1b-n { position: absolute; left: 20px; top: -34px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: var(--deck-on-accent); font-family: var(--deck-font-display); font-size: 30px; font-weight: 700; border: 4px solid var(--deck-bg); }
