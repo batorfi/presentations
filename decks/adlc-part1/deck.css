@@ -476,3 +476,7 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1m-root[data-s="1"] .p1m-chip, .p1m-root[data-s="3"] .p1m-chip { font-size: 25px; padding: 8px 20px; }
 .p1m-root[data-s="2"] .p1m-chip { font-size: 22px; }
 .p1m-root[data-s="1"] .p1m-row > b, .p1m-root[data-s="3"] .p1m-row > b { line-height: 56px; }
+
+.p1m-code { margin: 6px 0 0; font-size: 21px; line-height: 1.25; padding-left: 12px; border-left: 4px solid var(--deck-border-strong); }
+.p1m-code b { color: var(--deck-accent); }
+.p1m-root[data-s="1"] .p1m-band.is-f .p1m-code, .p1m-root[data-s="2"] .p1m-band.is-w .p1m-code, .p1m-root[data-s="3"] .p1m-band.is-l .p1m-code { margin-top: 10px; font-size: 23px; }
