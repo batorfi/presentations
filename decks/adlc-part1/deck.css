@@ -552,3 +552,26 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1l-m-lev { background: var(--deck-accent); }
 .p1l-m-ctl { background: var(--deck-ok); }
 .p1l-foot { margin: 6px 0 0; font-size: 21px; line-height: 1.3; color: var(--deck-muted); }
+
+/* Slide 11 — harness landscape: closed | open, four cards each; step n expands card n */
+.p1h-s { gap: 10px; }
+.p1h-snap, .p1h-snap * { transition: none !important; }
+.p1h-root { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.p1h-col { min-height: 0; display: flex; flex-direction: column; gap: 12px; padding: 0 28px; }
+.p1h-col.is-closed { border-right: 3px solid var(--deck-border-strong); padding-left: 0; }
+.p1h-col.is-open { padding-right: 0; }
+.p1h-ch h2 { margin: 0; font-family: var(--deck-font-display); font-size: 40px; line-height: 1.1; }
+.p1h-col.is-closed .p1h-ch h2 { color: var(--deck-text); }
+.p1h-col.is-open .p1h-ch h2 { color: var(--deck-accent); }
+.p1h-ch p { margin: 8px 0 0; font-size: 22px; color: var(--deck-muted); }
+.p1h-cards { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.p1h-card { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 8px 26px; border: 2px solid var(--deck-border); border-left: 10px solid var(--deck-border-strong); border-radius: var(--deck-radius-lg); background: var(--deck-raised); overflow: hidden; transition: flex-grow .55s var(--deck-ease), border-color .4s, background .4s, box-shadow .4s; }
+.p1h-col.is-open .p1h-card { border-left-color: var(--deck-accent); }
+.p1h-card[data-on="1"] { flex-grow: 2.1; border-color: var(--deck-accent); background: var(--deck-accent-subtle); box-shadow: 0 6px 22px rgba(0,0,0,.08); }
+.p1h-card header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.p1h-card h3 { margin: 0; font-size: 32px; line-height: 1.1; }
+.p1h-own { font-size: 20px; color: var(--deck-muted); text-align: right; }
+.p1h-head { font-size: 30px; font-weight: 800; line-height: 1.15; color: var(--deck-accent); }
+.p1h-more { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; flex-wrap: wrap; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .55s var(--deck-ease), opacity .45s .12s; }
+.p1h-card[data-on="1"] .p1h-more { max-height: 90px; opacity: 1; margin-top: 6px; }
+.p1h-more li { padding: 5px 16px; border: 2px solid var(--deck-border-strong); border-radius: var(--deck-radius-pill); background: var(--deck-bg); font-size: 24px; color: var(--deck-text); }
