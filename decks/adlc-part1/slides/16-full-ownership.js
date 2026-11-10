@@ -21,10 +21,10 @@ const flat = [];
 GROUPS.forEach((g, gi) => g.roles.forEach((r) => flat.push({ ...r, g: gi })));
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 const pos = flat.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / flat.length; return { x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a) }; });
-const spokes = pos.map((p, i) => `<line class="p1o-sp" data-g="${flat[i].g}" x1="${CX}" y1="${CY}" x2="${p.x.toFixed(0)}" y2="${p.y.toFixed(0)}"/>`).join("");
+const spokes = pos.map((p, i) => `<line class="p1o-sp" data-g="${flat[i].g}" data-r="${i}" x1="${CX}" y1="${CY}" x2="${p.x.toFixed(0)}" y2="${p.y.toFixed(0)}"/>`).join("");
 // light loop: a dot runs out along each spoke and back (the loop between the SWE and the role)
-const dots = pos.map((p, i) => `<circle class="p1o-dot" data-g="${flat[i].g}" r="8"><animateMotion dur="3.6s" begin="-${(i * 0.5).toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;.5;1" path="M ${CX} ${CY} L ${p.x.toFixed(0)} ${p.y.toFixed(0)}"/></circle>`).join("");
-const cards = flat.map((r, i) => `<article class="p1o-role" data-g="${r.g}" style="left:${(pos[i].x - W / 2).toFixed(0)}px;top:${(pos[i].y - H / 2).toFixed(0)}px;width:${W}px;height:${H}px">
+const dots = pos.map((p, i) => `<circle class="p1o-dot" data-g="${flat[i].g}" data-r="${i}" r="8"><animateMotion dur="3.6s" begin="-${(i * 0.5).toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;.5;1" path="M ${CX} ${CY} L ${p.x.toFixed(0)} ${p.y.toFixed(0)}"/></circle>`).join("");
+const cards = flat.map((r, i) => `<article class="p1o-role" data-g="${r.g}" data-r="${i}" style="left:${(pos[i].x - W / 2).toFixed(0)}px;top:${(pos[i].y - H / 2).toFixed(0)}px;width:${W}px;height:${H}px">
   <h3>${esc(r.n)}</h3><p>${esc(r.d)}</p><small>${esc(r.a)}</small></article>`).join("");
 const html = `<div class="p1o-root" data-s="3">
   <svg class="p1o-svg" viewBox="0 0 1680 848" width="1680" height="848" aria-hidden="true">

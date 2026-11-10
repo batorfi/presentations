@@ -719,4 +719,14 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1o-root[data-s="2"] .p1o-dot[data-g="1"], .p1o-root[data-s="3"] .p1o-dot[data-g="1"], .p1o-root[data-s="3"] .p1o-dot[data-g="2"] { opacity: .95; }
 .p1o-root:not([data-s="0"]) .p1o-core { animation: p1o-pulse 4s ease-in-out infinite; }
 @keyframes p1o-pulse { 0%, 100% { box-shadow: 0 0 0 14px color-mix(in srgb, var(--deck-accent) 14%, transparent); } 50% { box-shadow: 0 0 0 26px color-mix(in srgb, var(--deck-accent) 6%, transparent); } }
-@media (prefers-reduced-motion: reduce) { .p1o-dot, 
+@media (prefers-reduced-motion: reduce) { .p1o-dot { display: none; } .p1o-core { animation: none; } }
+/* Slide 16 — every role gets its own colour from the theme's status tokens; the panel background is a light tint of it */
+.p1o-role[data-r="0"], .p1o-sp[data-r="0"], .p1o-dot[data-r="0"] { --c: var(--deck-accent); }
+.p1o-role[data-r="1"], .p1o-sp[data-r="1"], .p1o-dot[data-r="1"] { --c: var(--deck-info); }
+.p1o-role[data-r="2"], .p1o-sp[data-r="2"], .p1o-dot[data-r="2"] { --c: var(--deck-delegated); }
+.p1o-role[data-r="3"], .p1o-sp[data-r="3"], .p1o-dot[data-r="3"] { --c: var(--deck-wait); }
+.p1o-role[data-r="4"], .p1o-sp[data-r="4"], .p1o-dot[data-r="4"] { --c: var(--deck-danger); }
+.p1o-role[data-r="5"], .p1o-sp[data-r="5"], .p1o-dot[data-r="5"] { --c: var(--deck-ok); }
+.p1o-role[data-r="6"], .p1o-sp[data-r="6"], .p1o-dot[data-r="6"] { --c: color-mix(in srgb, var(--deck-delegated) 50%, var(--deck-danger)); }
+.p1o-role { background: color-mix(in srgb, var(--c) 15%, var(--deck-raised)); border-color: color-mix(in srgb, var(--c) 45%, var(--deck-border)); }
+.p1o-role small { color: color-mix(in srgb, var(--c) 75%, var(--deck-text)); }
