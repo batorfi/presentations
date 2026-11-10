@@ -25,7 +25,7 @@ const spokes = pos.map((p, i) => `<line class="p1o-sp" data-g="${flat[i].g}" x1=
 // light loop: a dot runs out along each spoke and back (the loop between the SWE and the role)
 const dots = pos.map((p, i) => `<circle class="p1o-dot" data-g="${flat[i].g}" r="8"><animateMotion dur="3.6s" begin="-${(i * 0.5).toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;.5;1" path="M ${CX} ${CY} L ${p.x.toFixed(0)} ${p.y.toFixed(0)}"/></circle>`).join("");
 const cards = flat.map((r, i) => `<article class="p1o-role" data-g="${r.g}" style="left:${(pos[i].x - W / 2).toFixed(0)}px;top:${(pos[i].y - H / 2).toFixed(0)}px;width:${W}px;height:${H}px">
-  <span class="p1o-n">${i + 1}</span><h3>${esc(r.n)}</h3><p>${esc(r.d)}</p><small>${esc(r.a)}</small></article>`).join("");
+  <h3>${esc(r.n)}</h3><p>${esc(r.d)}</p><small>${esc(r.a)}</small></article>`).join("");
 const html = `<div class="p1o-root" data-s="3">
   <svg class="p1o-svg" viewBox="0 0 1680 848" width="1680" height="848" aria-hidden="true">
     <ellipse class="p1o-orbit" cx="${CX}" cy="${CY}" rx="${RX}" ry="${RY}"/>${spokes}${dots}
