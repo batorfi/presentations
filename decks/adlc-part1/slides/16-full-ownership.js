@@ -16,7 +16,7 @@ const GROUPS = [
     { n: "Mentor", k: ["Pairing", "Teaching", "Documentation"], c: ["Coaching", "Empathy", "Patience"], d: "Grows judgement in the next engineers", a: "The team" },
   ] },
 ];
-const CX = 840, CY = 420, RX = 600, RY = 305, W = 460, H = 206;
+const CX = 840, CY = 418, RX = 620, RY = 318, W = 460, H = 190;
 const flat = [];
 GROUPS.forEach((g, gi) => g.roles.forEach((r) => flat.push({ ...r, g: gi })));
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
