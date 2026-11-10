@@ -715,3 +715,12 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1o-root[data-s="1"] .p1o-role[data-g="0"], .p1o-root[data-s="2"] .p1o-role[data-g="1"], .p1o-root[data-s="3"] .p1o-role[data-g="2"] { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 25%, transparent), 0 10px 26px rgba(0,0,0,.12); }
 @keyframes p1o-flow { to { stroke-dashoffset: -36; } }
 @media (prefers-reduced-motion: reduce) { .p1o-sp { animation: none !important; } }
+.p1o-dot { fill: var(--c, var(--deck-accent)); opacity: 0; transition: opacity .6s var(--deck-ease); filter: drop-shadow(0 0 6px var(--c, var(--deck-accent))); }
+.p1o-dot[data-g="0"] { --c: var(--deck-accent); } .p1o-dot[data-g="1"] { --c: var(--deck-wait); } .p1o-dot[data-g="2"] { --c: var(--deck-ok); }
+.p1o-root[data-s="1"] .p1o-dot[data-g="0"], .p1o-root[data-s="2"] .p1o-dot[data-g="0"], .p1o-root[data-s="3"] .p1o-dot[data-g="0"],
+.p1o-root[data-s="2"] .p1o-dot[data-g="1"], .p1o-root[data-s="3"] .p1o-dot[data-g="1"], .p1o-root[data-s="3"] .p1o-dot[data-g="2"] { opacity: .95; }
+.p1o-orb { fill: var(--deck-accent); opacity: 0; transition: opacity .6s var(--deck-ease); filter: drop-shadow(0 0 8px var(--deck-accent)); }
+.p1o-root:not([data-s="0"]) .p1o-orb { opacity: .5; }
+.p1o-core { animation: p1o-pulse 4s ease-in-out infinite; }
+@keyframes p1o-pulse { 0%, 100% { box-shadow: 0 0 0 14px color-mix(in srgb, var(--deck-accent) 14%, transparent); } 50% { box-shadow: 0 0 0 26px color-mix(in srgb, var(--deck-accent) 6%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .p1o-dot, .p1o-orb { display: none; } .p1o-core { animation: none; } }

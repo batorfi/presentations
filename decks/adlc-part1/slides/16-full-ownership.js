@@ -22,11 +22,14 @@ GROUPS.forEach((g, gi) => g.roles.forEach((r) => flat.push({ ...r, g: gi })));
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 const pos = flat.map((_, i) => { const a = -Math.PI / 2 + (i * 2 * Math.PI) / flat.length; return { x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a) }; });
 const spokes = pos.map((p, i) => `<line class="p1o-sp" data-g="${flat[i].g}" x1="${CX}" y1="${CY}" x2="${p.x.toFixed(0)}" y2="${p.y.toFixed(0)}"/>`).join("");
+// light loop: a dot runs out along each spoke and back (the loop between the SWE and the role), plus one slow dot around the ring
+const dots = pos.map((p, i) => `<circle class="p1o-dot" data-g="${flat[i].g}" r="8"><animateMotion dur="3.6s" begin="${(i * 0.5).toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;0" keyTimes="0;.5;1" path="M ${CX} ${CY} L ${p.x.toFixed(0)} ${p.y.toFixed(0)}"/></circle>`).join("");
+const orbitDot = `<circle class="p1o-orb" r="9"><animateMotion dur="16s" repeatCount="indefinite" path="M ${CX - RX} ${CY} a ${RX} ${RY} 0 1 1 ${2 * RX} 0 a ${RX} ${RY} 0 1 1 ${-2 * RX} 0"/></circle>`;
 const cards = flat.map((r, i) => `<article class="p1o-role" data-g="${r.g}" style="left:${(pos[i].x - W / 2).toFixed(0)}px;top:${(pos[i].y - H / 2).toFixed(0)}px;width:${W}px;height:${H}px">
   <span class="p1o-n">${i + 1}</span><h3>${esc(r.n)}</h3><p>${esc(r.d)}</p><small>${esc(r.a)}</small></article>`).join("");
 const html = `<div class="p1o-root" data-s="0">
   <svg class="p1o-svg" viewBox="0 0 1680 848" width="1680" height="848" aria-hidden="true">
-    <ellipse class="p1o-orbit" cx="${CX}" cy="${CY}" rx="${RX}" ry="${RY}"/>${spokes}
+    <ellipse class="p1o-orbit" cx="${CX}" cy="${CY}" rx="${RX}" ry="${RY}"/>${spokes}${dots}${orbitDot}
   </svg>
   <div class="p1o-core"><svg viewBox="0 0 40 48" width="64" height="77" aria-hidden="true"><circle cx="20" cy="13" r="9" fill="currentColor"/><path d="M3 47C3 31 11 26 20 26s17 5 17 21z" fill="currentColor"/></svg><b>The SWE</b><span class="p1o-cap">Owns the delivery</span></div>
   ${cards}
