@@ -680,3 +680,12 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1b-root[data-s="2"] .p1b-st[data-i="0"], .p1b-root[data-s="3"] .p1b-st[data-i="0"], .p1b-root[data-s="3"] .p1b-st[data-i="2"] { filter: saturate(.7); }
 .p1b-root[data-s="1"] .p1b-st[data-i="0"], .p1b-root[data-s="2"] .p1b-st[data-i="1"], .p1b-root[data-s="3"] .p1b-st[data-i="2"] { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 25%, transparent), 0 10px 28px rgba(0,0,0,.12); filter: none; }
 @media (prefers-reduced-motion: reduce) { .p1b-lab, .p1b-proof { animation: none !important; } }
+
+/* Slide 11 — five closed cards: a tighter scale so every card fits */
+.p1h-col.is-closed .p1h-cards { gap: 8px; }
+.p1h-col.is-closed .p1h-card { gap: 3px; padding: 4px 24px; }
+.p1h-col.is-closed .p1h-card h3 { font-size: 36px; }
+.p1h-col.is-closed .p1h-own { font-size: 17px; }
+.p1h-col.is-closed .p1h-head { font-size: 22px; }
+.p1h-col.is-closed .p1h-more { margin-top: 2px; gap: 10px; }
+.p1h-col.is-closed .p1h-more li { padding: 1px 14px; font-size: 19px; }
