@@ -4,7 +4,7 @@
 const COMPS = ["Spec-driven development", "Harness engineering", "Context engineering", "Building and operating hybrid agentic pipelines"];
 const MODES = ["Full local", "Hybrid", "Cloud"];
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-const html = `<div class="p1r-root" data-s="0">
+const html = `<div class="p1r-root" data-s="4">
   <section class="p1r-card p1r-ing" data-st="1"><div class="p1r-lab"><b>01</b>Ingredients</div><h3>Core competencies the R&amp;D team builds</h3>
     <ul>${COMPS.map((c, i) => `<li style="--d:${i * 220}ms"><i></i><span>${esc(c)}</span></li>`).join("")}</ul></section>
   <section class="p1r-card p1r-met" data-st="2"><div class="p1r-lab"><b>02</b>Method</div><h3>Customise the ADLC workflow</h3>
@@ -18,23 +18,13 @@ const html = `<div class="p1r-root" data-s="0">
     <div class="p1r-modes">${MODES.map((m, i) => `<span style="--i:${i}">${esc(m)}</span>`).join("")}</div></section>
 </div>`;
 
-const apply = (ctx, step, snap) => {
-  const r = ctx.$(".p1r-root"); if (!r) return;
-  if (snap) r.classList.add("p1r-snap");
-  r.dataset.s = step;
-  if (snap) { void r.offsetWidth; requestAnimationFrame(() => r.classList.remove("p1r-snap")); }
-};
-
 Deck.slide({
   id: "own-pipeline",
   section: "building",
   title: "What does it take to build your own ADLC pipeline?",
   navTitle: "Building your own pipeline",
   className: "p1r-s",
-  steps: 4,
   html,
-  onEnter(ctx) { apply(ctx, ctx.step, true); },
-  onStep(step, dir, ctx) { apply(ctx, step, false); },
-  notes: "What does it take to build your own ADLC pipeline? A recipe card in four parts, one per step. 1 Ingredients: R&D teams need to build four core competencies: spec-driven development, harness engineering, context engineering, and how to build and operate hybrid agentic pipelines. 2 Method: start from blueprints and a golden set of agent skills, and customise the ADLC workflow so it fits the way the team works today. 3 Crew: set up a dedicated AI Factory team that is responsible for designing, building and operating the ADLC workflows and the infrastructure. 4 Kitchen: invest in AI-ready dev machines and shared LLM inference infrastructure that support full local, hybrid and cloud configurations (see slide 13 for the machines). The three modes light up in turn: the same workflow runs in all three. Wording is the author's from the Notion page (typos fixed). Which blueprints and which golden skills, the size of the team and any budget are not stated yet, so nothing on the slide claims them. Earlier outline notes for this slide (ADLC principles): Humans decide; models work. No model approves its own work, and no missing person ever counts as a yes. Independent judges hold the line. Architecture, code review and verification are judged by separate agents on the strongest available model. You decide where your models run. Local by default; private or cloud models only for the roles you choose, under a policy that records everything that leaves. Work is durable. A crash, a reboot or a closed laptop interrupts work; it never loses it — and never approves anything. Everything is explainable. Every decision, model swap and gate has a recorded cause and actor. Calm, sequential work. One feature at a time per factory, in an order that keeps the right model loaded; parallelism happens between factories. Your workshop is yours; the team works in the open. Teams coordinate by making work visible — never by deciding for each other.",
+  notes: "What does it take to build your own ADLC pipeline? A recipe card in four parts, all shown at once. 1 Ingredients: R&D teams need to build four core competencies: spec-driven development, harness engineering, context engineering, and how to build and operate hybrid agentic pipelines. 2 Method: start from blueprints and a golden set of agent skills, and customise the ADLC workflow so it fits the way the team works today. 3 Crew: set up a dedicated AI Factory team that is responsible for designing, building and operating the ADLC workflows and the infrastructure. 4 Kitchen: invest in AI-ready dev machines and shared LLM inference infrastructure that support full local, hybrid and cloud configurations (see slide 13 for the machines). The three modes light up in turn: the same workflow runs in all three. Wording is the author's from the Notion page (typos fixed). Which blueprints and which golden skills, the size of the team and any budget are not stated yet, so nothing on the slide claims them. Earlier outline notes for this slide (ADLC principles): Humans decide; models work. No model approves its own work, and no missing person ever counts as a yes. Independent judges hold the line. Architecture, code review and verification are judged by separate agents on the strongest available model. You decide where your models run. Local by default; private or cloud models only for the roles you choose, under a policy that records everything that leaves. Work is durable. A crash, a reboot or a closed laptop interrupts work; it never loses it — and never approves anything. Everything is explainable. Every decision, model swap and gate has a recorded cause and actor. Calm, sequential work. One feature at a time per factory, in an order that keeps the right model loaded; parallelism happens between factories. Your workshop is yours; the team works in the open. Teams coordinate by making work visible — never by deciding for each other.",
 });
 })();

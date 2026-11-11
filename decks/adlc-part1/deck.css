@@ -782,3 +782,11 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1r-met .p1r-arrow { margin: 18px auto; }
 .p1r-met .p1r-out { padding: 38px 18px; }
 .p1r-met p { margin-top: 20px; font-size: 28px; }
+
+/* slide 17 update: solid borders, tinted panel backgrounds, everything visible at once */
+.p1r-card { border-style: solid; background: color-mix(in srgb, var(--c) 14%, var(--deck-raised)); opacity: 1; transform: none; }
+.p1r-ing li { background: color-mix(in srgb, var(--c) 18%, var(--deck-raised)); }
+.p1r-box { background: color-mix(in srgb, var(--c) 10%, var(--deck-raised)); }
+.p1r-ing li i::after { transform: rotate(40deg) scale(1); transition: none; }
+.p1r-box.p1r-out { background: var(--c); }
+.p1r-card { border-color: var(--c); }
