@@ -737,3 +737,48 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1o-skill li { padding: 0 9px; white-space: nowrap; border-radius: var(--deck-radius-sm); background: var(--deck-raised); border: 2px solid color-mix(in srgb, var(--c) 55%, transparent); font-family: var(--deck-font-mono); font-size: 15px; font-weight: 700; color: color-mix(in srgb, var(--c) 75%, var(--deck-text)); }
 .p1o-role { gap: 3px; padding-top: 6px; padding-bottom: 6px; }
 .p1o-comp { margin-top: 3px; }
+
+/* Slide 17 — recipe card: four cards (ingredients, method, crew, kitchen) uncovered one step at a time. */
+.p1r-root { display: grid; grid-template-columns: 1.05fr 1.15fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px; height: 100%; }
+.p1r-card { position: relative; background: var(--deck-raised); border: 3px dashed color-mix(in srgb, var(--c) 55%, var(--deck-border)); border-radius: var(--deck-radius-lg); padding: 22px 28px; display: flex; flex-direction: column; gap: 12px; --c: var(--deck-accent); opacity: 0; transform: translateY(26px) rotate(-.4deg); transition: opacity .6s var(--deck-ease), transform .6s var(--deck-ease); }
+.p1r-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 10px; border-radius: var(--deck-radius-lg) var(--deck-radius-lg) 0 0; background: var(--c); }
+.p1r-ing { grid-column: 1; grid-row: 1 / 3; --c: var(--deck-accent); }
+.p1r-met { grid-column: 2; grid-row: 1 / 3; --c: var(--deck-wait); }
+.p1r-crew { grid-column: 3; grid-row: 1; --c: var(--deck-ok); }
+.p1r-kit { grid-column: 3; grid-row: 2; --c: var(--deck-info); }
+.p1r-lab { display: flex; align-items: center; gap: 12px; font-family: var(--deck-font-mono); font-size: 22px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c); margin-top: 8px; }
+.p1r-lab b { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--c); color: var(--deck-on-accent); font-size: 22px; letter-spacing: 0; }
+.p1r-card h3 { margin: 0; font-family: var(--deck-font-display); font-size: 38px; line-height: 1.1; color: var(--deck-text); }
+.p1r-card p { margin: 0; font-size: 26px; line-height: 1.25; color: var(--deck-text-2); }
+.p1r-ing ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: space-evenly; }
+.p1r-ing li { display: flex; align-items: center; gap: 16px; font-size: 32px; line-height: 1.15; color: var(--deck-text); background: color-mix(in srgb, var(--c) 10%, var(--deck-raised)); border-radius: var(--deck-radius); padding: 14px 18px; }
+.p1r-ing li i { flex: none; width: 34px; height: 34px; border-radius: 8px; border: 3px solid var(--c); position: relative; }
+.p1r-ing li i::after { content: ""; position: absolute; left: 9px; top: 1px; width: 9px; height: 18px; border: solid var(--c); border-width: 0 5px 5px 0; transform: rotate(40deg) scale(0); transition: transform .35s var(--deck-ease-out); }
+.p1r-root:not([data-s="0"]) .p1r-ing li i::after { transform: rotate(40deg) scale(1); transition-delay: calc(var(--d) + .5s); }
+.p1r-flow { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 8px; }
+.p1r-box { width: 100%; text-align: center; padding: 16px 18px; font-size: 32px; font-weight: 700; color: var(--deck-text); background: color-mix(in srgb, var(--c) 14%, var(--deck-raised)); border: 3px solid var(--c); border-radius: var(--deck-radius); }
+.p1r-plus { font-family: var(--deck-font-display); font-size: 40px; font-weight: 700; color: var(--c); line-height: 1; }
+.p1r-arrow { align-self: center; color: var(--c); animation: p1r-drop 2.4s ease-in-out infinite; }
+.p1r-out { background: var(--c); color: var(--deck-on-accent); font-size: 36px; padding: 22px 18px; }
+.p1r-met p { text-align: center; margin-top: 4px; }
+.p1r-verbs { display: flex; gap: 10px; flex-wrap: wrap; }
+.p1r-verbs span { padding: 6px 18px; border-radius: var(--deck-radius-pill); border: 3px solid var(--c); background: color-mix(in srgb, var(--c) 14%, var(--deck-raised)); font-size: 28px; font-weight: 700; color: var(--deck-text); }
+.p1r-inv { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.p1r-inv li { font-size: 27px; line-height: 1.2; color: var(--deck-text); padding-left: 22px; position: relative; }
+.p1r-inv li::before { content: ""; position: absolute; left: 0; top: .55em; width: 11px; height: 11px; border-radius: 50%; background: var(--c); }
+.p1r-modes { display: flex; gap: 8px; margin-top: auto; }
+.p1r-modes span { flex: 1; text-align: center; padding: 6px 0; border-radius: var(--deck-radius-sm); border: 3px solid var(--c); font-family: var(--deck-font-mono); font-size: 22px; font-weight: 700; color: var(--c); animation: p1r-mode 6s ease-in-out infinite; animation-delay: calc(var(--i) * 2s); }
+@keyframes p1r-mode { 0%, 30%, 100% { background: transparent; color: var(--c); } 8%, 22% { background: var(--c); color: var(--deck-on-accent); } }
+@keyframes p1r-drop { 0%, 100% { transform: translateY(-3px); opacity: .6; } 50% { transform: translateY(5px); opacity: 1; } }
+.p1r-snap .p1r-card, .p1r-snap .p1r-ing li i::after { transition: none !important; }
+.p1r-root[data-s="1"] .p1r-ing, .p1r-root[data-s="2"] .p1r-ing, .p1r-root[data-s="3"] .p1r-ing, .p1r-root[data-s="4"] .p1r-ing,
+.p1r-root[data-s="2"] .p1r-met, .p1r-root[data-s="3"] .p1r-met, .p1r-root[data-s="4"] .p1r-met,
+.p1r-root[data-s="3"] .p1r-crew, .p1r-root[data-s="4"] .p1r-crew, .p1r-root[data-s="4"] .p1r-kit { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .p1r-modes span, .p1r-arrow { animation: none !important; } }
+.p1r-verbs { flex-wrap: nowrap; gap: 8px; }
+.p1r-verbs span { font-size: 24px; padding: 5px 14px; }
+.p1r-met .p1r-box { padding: 26px 18px; }
+.p1r-met .p1r-flow { gap: 12px; margin-top: 14px; }
+.p1r-met .p1r-arrow { margin: 18px auto; }
+.p1r-met .p1r-out { padding: 38px 18px; }
+.p1r-met p { margin-top: 20px; font-size: 28px; }
