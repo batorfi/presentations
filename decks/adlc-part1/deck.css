@@ -790,3 +790,39 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1r-ing li i::after { transform: rotate(40deg) scale(1); transition: none; }
 .p1r-box.p1r-out { background: var(--c); }
 .p1r-card { border-color: var(--c); }
+
+/* Slide 3 update: static lead line, four coloured problem panels with looping icons, bare bottom panel */
+.p1-lead { margin: 6px 0 0; font-family: var(--deck-font-display); font-size: 48px; line-height: 1.25; color: var(--deck-text); }
+.p1-prob { --c: var(--deck-accent); border-left-color: var(--c); background: color-mix(in srgb, var(--c) 13%, var(--deck-raised)); }
+.p1-prob1 { --c: var(--deck-info); } .p1-prob2 { --c: var(--deck-wait); } .p1-prob3 { --c: var(--deck-delegated); } .p1-prob4 { --c: var(--deck-ok); }
+.p1-prob b { color: var(--c); }
+.p1-prob-h { display: flex; align-items: center; gap: 18px; }
+.p1-ico { flex: none; width: 56px; height: 56px; color: var(--c); }
+.p1-ico svg { width: 56px; height: 56px; display: block; fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.p1-need { border: 0; background: none; padding-left: 0; padding-right: 0; border-radius: 0; }
+/* trust: shield pulses, check draws */
+.i-shield { fill: color-mix(in srgb, currentColor 14%, transparent); transform-origin: 32px 32px; animation: p1i-pulse 3.2s ease-in-out infinite; }
+.i-check { stroke-dasharray: 44; animation: p1i-draw 3.2s ease-in-out infinite; }
+@keyframes p1i-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes p1i-draw { 0%, 15% { stroke-dashoffset: 44; } 45%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 44; } }
+/* control: gate arm lifts and drops while a person waits */
+.i-arm { transform-origin: 14px 30px; animation: p1i-arm 4s ease-in-out infinite; }
+.i-who { fill: currentColor; animation: p1i-who 4s ease-in-out infinite; }
+@keyframes p1i-arm { 0%, 35% { transform: rotate(0); } 50%, 80% { transform: rotate(-55deg); } 95%, 100% { transform: rotate(0); } }
+@keyframes p1i-who { 0%, 35% { transform: translateX(0); } 55%, 80% { transform: translateX(-22px); } 100% { transform: translateX(0); } }
+/* ownership: data leaves upward to the cloud */
+.i-cloud { fill: color-mix(in srgb, currentColor 14%, transparent); }
+.i-up { fill: currentColor; stroke: none; opacity: 0; animation: p1i-up 2.4s ease-in infinite; }
+.i-u2 { animation-delay: .8s; } .i-u3 { animation-delay: 1.6s; }
+@keyframes p1i-up { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(-26px); opacity: 0; } }
+/* collaboration: three nodes pulse in turn along flowing links */
+.i-link { stroke-dasharray: 6 6; animation: p1i-flow 1.6s linear infinite; }
+.i-n { fill: color-mix(in srgb, currentColor 18%, var(--deck-raised)); transform-box: fill-box; transform-origin: center; animation: p1i-node 3s ease-in-out infinite; }
+.i-n2 { animation-delay: 1s; } .i-n3 { animation-delay: 2s; }
+@keyframes p1i-flow { to { stroke-dashoffset: -24; } }
+@keyframes p1i-node { 0%, 100% { transform: scale(1); fill: color-mix(in srgb, currentColor 18%, var(--deck-raised)); } 20% { transform: scale(1.25); fill: currentColor; } 40% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .p1-ico *, .p1-ico { animation: none !important; } .i-up { opacity: 0; } }
+.p1-lead { font-size: 40px; margin: 10px 0 0; }
+.p1-s3 .p1-probgrid { margin-top: 18px; }
+.p1-ico, .p1-ico svg { width: 64px; height: 64px; }
+.p1-prob .p1-ico { color: var(--c); font-size: 0; }
