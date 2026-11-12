@@ -6,7 +6,7 @@
 
   // The vibe loop: five steps, a return path along the bottom, and a ghost "Review" node the dot passes straight through.
   const NODES = ["Describe", "Generate", "Run", "Paste the error", "Accept"];
-  const loopSvg = `<svg viewBox="0 100 1680 320" class="p1-bv-loopsvg" aria-hidden="true">
+  const loopSvg = `<svg viewBox="0 112 1680 294" class="p1-bv-loopsvg" aria-hidden="true">
     <defs><marker id="p1bvA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="p1-bv-ah"/></marker></defs>
     <path id="p1bvPath" class="p1-bv-ret" d="M1520 170 V350 H160 V170" marker-end="url(#p1bvA)"/>
     ${NODES.map((n, i) => `<g transform="translate(${30 + i * 340} 122)"><rect width="260" height="96" rx="16" class="p1-bv-node"/><text x="130" y="58" text-anchor="middle" class="p1-bv-nt">${n}</text></g>

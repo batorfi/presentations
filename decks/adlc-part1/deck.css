@@ -826,3 +826,29 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1-s3 .p1-probgrid { margin-top: 18px; }
 .p1-ico, .p1-ico svg { width: 64px; height: 64px; }
 .p1-prob .p1-ico { color: var(--c); font-size: 0; }
+
+/* Slide 7 spacing pass: wider loop, tighter vertical rhythm in the vibe coding beat, even distribution in the spec-driven beat */
+.p1-bv-stage { top: 112px; height: 880px; }
+.p1-bv-loop { top: 8px; }
+.p1-bv-loopsvg { width: 1240px; }
+.p1-bv-loopcap { margin-top: 0; }
+.p1-bv-cols { top: 276px; }
+.p1-bv-vcin { grid-template-columns: minmax(0, 0.95fr) minmax(0, 2.4fr); column-gap: 48px; }
+.p1-bv-vctag { margin-bottom: 8px; }
+.p1-bv-vc h4 { margin-bottom: 10px; }
+.p1-bv-vc li { padding: 6px 0 6px 44px; }
+.p1-bv-pros li::before, .p1-bv-plain li::before { top: 17px; }
+.p1-bv-tiles { gap: 14px; margin-bottom: 10px; }
+.p1-bv.is-s3 .p1-bv-rc { gap: 0; justify-content: space-between; padding: 14px 0 0; }
+.p1-bv-sum { max-width: 1680px; }
+.p1-bv.is-s2 .p1-bv-cols { top: 24px; }
+
+/* Slide 3: the rest of the content appears by itself once the typewriter headline has finished typing */
+.p1-s3 .p1-lead, .p1-s3 .p1-prob, .p1-s3 .p1-need { opacity: 0; transform: translate3d(0, 22px, 0); transition: opacity 600ms var(--deck-ease-out), transform 600ms var(--deck-ease-out); }
+.p1-s3 .p1-quote.is-done ~ .p1-lead, .p1-s3 .p1-quote.is-done ~ .p1-probgrid .p1-prob, .p1-s3 .p1-quote.is-done ~ .p1-need { opacity: 1; transform: none; }
+.p1-s3 .p1-quote.is-done ~ .p1-probgrid .p1-prob1 { transition-delay: 500ms; }
+.p1-s3 .p1-quote.is-done ~ .p1-probgrid .p1-prob2 { transition-delay: 800ms; }
+.p1-s3 .p1-quote.is-done ~ .p1-probgrid .p1-prob3 { transition-delay: 1100ms; }
+.p1-s3 .p1-quote.is-done ~ .p1-probgrid .p1-prob4 { transition-delay: 1400ms; }
+.p1-s3 .p1-quote.is-done ~ .p1-need { transition-delay: 1900ms; }
+@media (prefers-reduced-motion: reduce) { .p1-s3 .p1-lead, .p1-s3 .p1-prob, .p1-s3 .p1-need { transition: none; } }

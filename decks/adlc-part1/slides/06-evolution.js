@@ -16,15 +16,16 @@
       [2024, 11.8, "MCP"], [2025, 4.5, "Codex CLI"], [2025, 7, "Qwen Code"], [2025, 8.3, "Pi · AGENTS.md"],
       [2026, 1, "Kimi Code"], [2026, 4, "Goose → Linux Fdn"], [2026, 7.5, "Grok Build open"], [2026, 8.4, "DeepSeek Harness"], [2026, 10, "Pi 1.0"] ] },
     { id: "deal", name: "Deals and signals", items: [
-      [2024, 4, "Cognition $2B"], [2025, 2.1, "“vibe coding”"], [2025, 7, "Windsurf split"], [2025, 11.4, "Cursor $29.3B"],
+      [2021, 11, "Kite closes"], [2022, 6, "Copilot GA"], [2022, 11, "ChatGPT"], [2023, 11, "Copilot Chat GPT-4"],
+      [2024, 1, "Cognition $350M"], [2024, 4, "Cognition $2B"], [2024, 8, "Cursor $400M"], [2024, 10, "Alphabet: 25% AI code"], [2024, 11.5, "Cursor buys Supermaven"], [2025, 2.1, "“vibe coding”"], [2025, 7, "Windsurf split"], [2025, 11.4, "Cursor $29.3B"],
       [2025, 12.1, "Anthropic buys Bun"], [2026, 3.6, "OpenAI buys Astral"], [2026, 4.3, "Earendil buys Pi"], [2026, 4.7, "SpaceX–Cursor option"], [2026, 8.5, "SpaceX closes Cursor"] ] },
   ];
   const ERAS = [
-    { name: "Autocomplete", from: 2019, to: 2023, w: 170 },
-    { name: "Chat", from: 2023, to: 2024, w: 110 },
-    { name: "Agents enter the IDE", from: 2024, to: 2025, w: 210 },
-    { name: "Terminal agents everywhere", from: 2025, to: 2026, w: 540 },
-    { name: "Consolidation · command centers", from: 2026, to: 2026.9, w: 440 },
+    { name: "Autocomplete", from: 2019, to: 2023, w: 230 },
+    { name: "Chat", from: 2023, to: 2024, w: 130 },
+    { name: "Agents enter the IDE", from: 2024, to: 2025, w: 300 },
+    { name: "Terminal agents everywhere", from: 2025, to: 2026, w: 450 },
+    { name: "Consolidation · command centers", from: 2026, to: 2026.9, w: 370 },
   ];
   const X0 = 210, TODAY = 2026 + 10.1 / 12 - 0.0;
   const year = (y, m) => y + (m - 1) / 12;
@@ -47,7 +48,7 @@
     html: `
     <div class="p1-ev-chart" data-anim="up" data-delay="150"></div>`,
     onStep(step) { sync(step); },
-    notes: "Big-picture timeline in four lanes: IDE assistants, closed harnesses, open harnesses, and deals and signals. Revealed era by era, earlier eras fade. Eras: autocomplete (to 2022), chat (2023), agents enter the IDE (2024), terminal agents everywhere (2025), consolidation and command centers (2026). Highlights: Copilot preview 2021-06; Cursor 2023-03; Windsurf Cascade 2024-11; MCP 2024-11; Claude Code 2025-02; Codex CLI 2025-04; Kiro 2025-07; Cursor 2.0 and Composer 2025-10; Antigravity 2025-11; Cursor valued at 29.3B 2025-11; Anthropic buys Bun 2025-12; Antigravity 2.0 and CLI 2026-05/06; Grok Build beta 2026-05 and open source 2026-07; Windsurf becomes Devin Desktop 2026-06; SpaceX closes Cursor at 60B 2026-08; DeepSeek harness 2026-08; Pi 1.0 2026-10.",
+    notes: "Big-picture timeline in four lanes: IDE assistants, closed harnesses, open harnesses, and deals and signals. Revealed era by era, earlier eras fade. Eras: autocomplete (to 2022), chat (2023), agents enter the IDE (2024), terminal agents everywhere (2025), consolidation and command centers (2026). Added to deals and signals from the Notion page (11 Nov 2026): Kite shuts down 2021-11, Copilot GA at $10/month 2022-06, ChatGPT 2022-11, Copilot Chat on GPT-4 2023-11, Cognition at $350M 2024-01, Cursor at $400M 2024-08, Alphabet saying over 25% of new code is AI-generated 2024-10, Cursor acquires Supermaven 2024-11. Highlights: Copilot preview 2021-06; Cursor 2023-03; Windsurf Cascade 2024-11; MCP 2024-11; Claude Code 2025-02; Codex CLI 2025-04; Kiro 2025-07; Cursor 2.0 and Composer 2025-10; Antigravity 2025-11; Cursor valued at 29.3B 2025-11; Anthropic buys Bun 2025-12; Antigravity 2.0 and CLI 2026-05/06; Grok Build beta 2026-05 and open source 2026-07; Windsurf becomes Devin Desktop 2026-06; SpaceX closes Cursor at 60B 2026-08; DeepSeek harness 2026-08; Pi 1.0 2026-10.",
   });
 
   let built = false;
@@ -59,7 +60,7 @@
     built = true;
     const ctx = document.createElement("canvas").getContext("2d");
     ctx.font = `600 20px ${getComputedStyle(root).fontFamily}`;
-    const RIGHT = 1680, ROW = 37;
+    const RIGHT = 1680, ROW = 35;
     let html = "";
     // era chips and year labels
     let acc = X0;
@@ -72,7 +73,7 @@
       html += `<div class="p1-ev-yr" data-era="${era}" style="left:${xOf(y) + 4}px">${l}</div><div class="p1-ev-vline" data-era="${era}" style="left:${xOf(y)}px"></div>`;
     });
     // lane layout: each pill goes into the nearest free row above or below the lane line, on the right or left of its dot
-    let top = 106;
+    let top = 102;
     const lanes = LANES.map((lane) => {
       const placed = [], stems = [];
       const out = lane.items.map(([y, m, label]) => {
@@ -91,7 +92,10 @@
             const rect = { l: c.left, r: c.left + w, t: c.y0, b: c.y0 + 34 };
             const stem = { l: px - 1, r: px + 1, t: c.dir === 1 ? 0 : rect.b, b: c.dir === 1 ? rect.t : 0 };
             if (placed.some((q) => overlap(q, rect, pad))) continue;
-            placed.push(rect); stems.push(stem);
+            // a stem may not run through another pill, and a pill may not sit on another stem
+            const ns = { l: stem.l, r: stem.r, t: Math.min(stem.t, stem.b), b: Math.max(stem.t, stem.b) };
+            if (pad > 3 && (placed.some((q) => overlap(q, ns, 0)) || stems.some((q) => overlap(q, rect, 0)))) continue;
+            placed.push(rect); stems.push(ns);
             return { px, w, label, c, rect, era: eraOf(y), stem };
           }
         }
