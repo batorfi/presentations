@@ -24,7 +24,7 @@ const bands = GROUPS.map((g, gi) => {
   const rows = g.levels.map((l) => `<li class="p1l-lv" data-k="${k++}" data-g="${gi}"><span class="p1l-dot"></span><span class="p1l-name">${esc(l)}</span></li>`).join("");
   return `<section class="p1l-band" data-g="${gi}" style="--p1l-mix:${g.mix}%"><h3 class="p1l-gname">${esc(g.name)}</h3><ul class="p1l-lvs">${rows}</ul></section>`;
 }).join("");
-const html = `<div class="p1l-root" data-g="0" data-k="0">
+const html = `<div class="p1l-root" data-g="4" data-k="19">
   <div class="p1l-board">
     <div class="p1l-axis" aria-hidden="true"><b class="p1l-ax-top">System leverage</b><i class="p1l-ax-bar"><u class="p1l-ax-mark"></u></i><b class="p1l-ax-bot">Direct control</b></div>
     <div class="p1l-bands">${bands}</div>
@@ -69,18 +69,18 @@ Deck.slide({
   className: "p1l-s",
   html,
   onEnter(ctx) {
-    setPos(ctx, 0);
+    setPos(ctx, N - 1); // the loop starts at the bottom (direct control) and climbs
     if (ctx.reduced()) return;
-    let k = 0, dir = 1, hold = 2;
+    let k = N - 1, dir = -1, hold = 1;
     const id = setInterval(() => {
       if (hold > 0) { hold--; return; }
       k += dir;
-      if (k >= N - 1) { k = N - 1; dir = -1; hold = 2; }
-      else if (k <= 0) { k = 0; dir = 1; hold = 2; }
+      if (k >= N - 1) { k = N - 1; dir = -1; hold = 1; }
+      else if (k <= 0) { k = 0; dir = 1; hold = 1; }
       setPos(ctx, k);
-    }, 950);
+    }, 650);
     ctx.cleanup(() => clearInterval(id));
   },
-  notes: "What does an agentic engineer actually work on? The levels spectrum runs from system leverage at the top (software factory, AI developer workflow, agent, product) to direct control at the bottom (class, type, function, block, line), in five groups: agentic system, delivery and intent, data and execution, code structure, code primitives. A spotlight loops up and down the whole spectrum: the engineer can work at any level, and the higher the level, the more leverage and the less direct control. That trade is why the ADLC has human gates and independent judges. The one-line description per group is a draft to check. The levels follow the author's 'Most common levels' graphic; its original source is not stated yet, so add it before quoting (see Notion page 15, background material). No steps: the loop runs on its own.",
+  notes: "What does an agentic engineer actually work on? The levels spectrum runs from system leverage at the top (software factory, AI developer workflow, agent, product) to direct control at the bottom (class, type, function, block, line), in five groups: agentic system, delivery and intent, data and execution, code structure, code primitives. A spotlight loops up and down, starting at the bottom (direct control) the whole spectrum: the engineer can work at any level, and the higher the level, the more leverage and the less direct control. That trade is why the ADLC has human gates and independent judges. The one-line description per group is a draft to check. The levels follow the author's 'Most common levels' graphic; its original source is not stated yet, so add it before quoting (see Notion page 15, background material). No steps: the loop runs on its own.",
 });
 })();
