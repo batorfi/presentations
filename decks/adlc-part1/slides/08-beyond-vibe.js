@@ -1,4 +1,4 @@
-// Slide 7 — Why we need to go beyond vibe coding. Content from the Notion page "07 – Why we need to go beyond vibe coding".
+// Slide 8 — Why we need to go beyond vibe coding. Content from the Notion page "08 – Why we need to go beyond vibe coding".
 // One stage, four beats (step n reveals beat n): 0 the Karpathy quote alone (it fades out at the next press), 1 the review-less vibe loop with the pro's and con's of vibe coding,
 // 2 floor vs ceiling (agentic engineering), 3 spec-driven development flow with the closing line. Earlier beats stay, dimmed.
 (function () {

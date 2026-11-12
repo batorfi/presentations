@@ -1,5 +1,5 @@
 (() => {
-// Slide 12 — semantic zoom on the model tier board (pattern: slide-patterns-4 zoom/level-of-detail, state attribute + CSS).
+// Slide 13 — semantic zoom on the model tier board (pattern: slide-patterns-4 zoom/level-of-detail, state attribute + CSS).
 const apply = (ctx, step, snap) => {
   const r = ctx.$(".p1m-root"); if (!r) return;
   if (snap) r.classList.add("p1m-snap");

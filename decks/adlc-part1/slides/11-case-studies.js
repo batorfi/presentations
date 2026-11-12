@@ -1,5 +1,5 @@
-// Slide 10 — Case studies: StrongDM leads (the extreme case), Spotify follows (the pragmatic case). Content and figures from the
-// Notion page "10 – Case studies" (research summary); every figure is company-reported and labelled so. Step 1 reveals Spotify, step 2 the beat "What both cases teach" (cards fade out).
+// Slide 11 — Case studies: StrongDM leads (the extreme case), Spotify follows (the pragmatic case). Content and figures from the
+// Notion page "11 – Case studies" (research summary); every figure is company-reported and labelled so. Step 1 reveals Spotify, step 2 the beat "What both cases teach" (cards fade out).
 (function () {
   const INS = [
     ["Verification is the product", "Both spend their effort on checks the generator cannot game: hidden scenarios at StrongDM, a separate verification runtime at Spotify."],

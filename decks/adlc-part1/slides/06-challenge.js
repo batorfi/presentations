@@ -1,5 +1,5 @@
-// Slide 5 — five challenges for R&D teams building their own AI software factory, each with what we learned.
-// Content from the Notion page "05 – The Challenge" (light grammar fixes only). Layout: a rail of the five challenges on the left
+// Slide 6 — five challenges for R&D teams building their own AI software factory, each with what we learned.
+// Content from the Notion page "06 – The Challenge" (light grammar fixes only). Layout: a rail of the five challenges on the left
 // (revealed one per press, passed ones fade) and a stage on the right that shows the current challenge in detail.
 (function () {
   const ICONS = {

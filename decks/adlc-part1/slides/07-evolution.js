@@ -1,6 +1,6 @@
-// Slide 6 — Evolution of AI coding tools: a big-picture timeline with four lanes (IDE assistants, closed harnesses, open harnesses,
+// Slide 7 — Evolution of AI coding tools: a big-picture timeline with four lanes (IDE assistants, closed harnesses, open harnesses,
 // deals and signals). Elastic time axis (2019–2022 compressed, 2025–2026 get the room). Revealed era by era: step n shows era n+1,
-// earlier eras fade. Content from the Notion page "06 – Evolution of AI coding tools". Dates are approximate (month level); the
+// earlier eras fade. Content from the Notion page "07 – Evolution of AI coding tools". Dates are approximate (month level); the
 // layout of the pills is computed once, the first time the slide is shown.
 (function () {
   // [year, month, day?] -> label. Era is derived from the year.

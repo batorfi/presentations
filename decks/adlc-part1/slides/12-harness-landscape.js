@@ -1,6 +1,6 @@
 (() => {
-// Slide 11 — AI coding harness landscape: vertical split, closed (left) and open (right), four cards each.
-// Step 0: what a harness is (anatomy: LLM, agent loop, harness capabilities for factory builders). Step 1: the landscape, all eight cards in full. Content: Notion page "11 – AI coding harness landscape"
+// Slide 12 — AI coding harness landscape: vertical split, closed (left) and open (right), four cards each.
+// Step 0: what a harness is (anatomy: LLM, agent loop, harness capabilities for factory builders). Step 1: the landscape, all eight cards in full. Content: Notion page "12 – AI coding harness landscape"
 // (background material from the harness landscape report, 9 Nov 2026). Strengths only, no numbers on the slide; evidence and caveats in the notes.
 const SIDES = [
   { id: "closed", name: "Closed harnesses", lead: "Commercial products; platforms competing on distribution", cards: [

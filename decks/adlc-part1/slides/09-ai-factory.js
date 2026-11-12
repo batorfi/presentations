@@ -1,7 +1,7 @@
-// Slide 8 — What is an AI software factory? One living picture in six beats (step n reveals beat n):
+// Slide 9 — What is an AI software factory? One living picture in six beats (step n reveals beat n):
 // 0 the definition, 1 one factory (the 12-gate line, agents, independent judges), 2 people decide at every gate + the orchestrator,
 // 3 the engine room (knowledge base, specs, record, durable store, models, control room), 4 the factory on many hosts (local, on-prem, cloud),
-// 5 many factories per engineer and many engineers per product. Content from the Notion page "08 – What is an AI software factory?".
+// 5 many factories per engineer and many engineers per product. Content from the Notion page "09 – What is an AI software factory?".
 // All art is inline SVG (SMIL + CSS keyframes), no libraries, offline-safe. Colours come from --deck-* tokens in deck.css (p1-af-*).
 (function () {
   // ---------- geometry of the line ----------

@@ -1,5 +1,5 @@
 (() => {
-// Slide 13 — dev machines for a full local pipeline (pattern: budget ladder; state attributes + CSS, like slide-patterns-4 scale ladder).
+// Slide 14 — dev machines for a full local pipeline (pattern: budget ladder; state attributes + CSS, like slide-patterns-4 scale ladder).
 const apply = (ctx, step, snap) => {
   const r = ctx.$(".p1d-root"); if (!r) return;
   if (snap) r.classList.add("p1d-snap");

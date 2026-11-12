@@ -898,3 +898,27 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1c-i h4 { margin: 0 0 10px; font-size: 34px; line-height: 1.15; color: var(--deck-text); }
 .p1c-i p { margin: 0; font-size: 27px; line-height: 1.32; color: var(--deck-text-2); }
 @media (prefers-reduced-motion: reduce) { .p1c-grid, .p1c-ins, .p1c-i { transition: none; } }
+
+/* Slide 5 — staircase of Shapiro's levels */
+.p1s-root { position: relative; height: 848px; }
+.p1s-cap { position: absolute; left: 0; top: 4px; width: 760px; margin: 0; font-family: var(--deck-font-display); font-size: 40px; line-height: 1.22; color: var(--deck-text-2); }
+.p1s-steps { position: absolute; left: 0; right: 0; bottom: 36px; height: 760px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; align-items: end; }
+.p1s-col { --c: color-mix(in srgb, var(--deck-wait) calc(100% - var(--i) * 20%), var(--deck-accent)); position: relative; height: var(--h); display: flex; flex-direction: column; gap: 14px; padding: 22px 20px 20px; border: 3px solid var(--c); border-radius: var(--deck-radius-lg); background: color-mix(in srgb, var(--c) 13%, var(--deck-raised)); opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 600ms var(--deck-ease-out), transform 600ms var(--deck-ease-out); }
+.p1s-col::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; border-radius: var(--deck-radius-lg) var(--deck-radius-lg) 0 0; background: var(--c); }
+.p1s-col.is-on { opacity: 1; transform: none; }
+.p1s-lv { margin-top: 8px; font-family: var(--deck-font-mono); font-size: 22px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.p1s-col h3 { margin: 0; font-family: var(--deck-font-display); font-size: 36px; line-height: 1.12; color: var(--deck-text); }
+.p1s-r { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; border-top: 2px solid color-mix(in srgb, var(--c) 40%, transparent); }
+.p1s-r i { font-style: normal; font-family: var(--deck-font-mono); font-size: 19px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-muted); }
+.p1s-r span { font-size: 26px; line-height: 1.25; color: var(--deck-text); }
+.p1s-r.is-hu { margin-top: auto; }
+.p1s-pin { position: absolute; left: -3px; right: -3px; top: -78px; display: flex; justify-content: center; animation: p1s-bob 2.4s ease-in-out infinite; opacity: 0; transition: opacity 500ms var(--deck-ease-out); }
+.p1s-pin b { position: relative; padding: 10px 20px; border-radius: var(--deck-radius-pill); background: var(--deck-accent); color: var(--deck-on-accent); font-size: 26px; white-space: nowrap; }
+.p1s-pin b::after { content: ""; position: absolute; left: 50%; bottom: -11px; width: 20px; height: 20px; margin-left: -10px; background: var(--deck-accent); transform: rotate(45deg); border-radius: 3px; }
+.p1s-root[data-s="6"] .p1s-pin { opacity: 1; }
+.p1s-root[data-s="6"] .p1s-col:not(.is-adlc) { opacity: .5; }
+.p1s-root[data-s="6"] .p1s-col.is-adlc { box-shadow: 0 10px 30px -12px var(--c); }
+.p1s-src { position: absolute; left: 0; bottom: 0; margin: 0; font-size: 21px; color: var(--deck-muted); }
+.p1s-snap .p1s-col, .p1s-snap .p1s-pin { transition: none !important; }
+@keyframes p1s-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .p1s-pin { animation: none; } .p1s-col, .p1s-pin { transition: none; } }
