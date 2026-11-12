@@ -1027,5 +1027,5 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1nx-box.is-next { border-color: var(--deck-text); border-left-color: var(--deck-wait); background: var(--deck-text); }
 .p1nx-box h2 { margin: 0 0 18px; font-family: var(--deck-font-mono); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-accent); }
 .p1nx-box.is-next h2 { color: var(--deck-wait); }
-.p1nx-box p { margin: 0; font-family: var(--deck-font-display); font-size: 42px; line-height: 1.38; color: var(--deck-text); }
+.p1nx-box p { margin: 0; font-family: var(--deck-font-display); font-size: 52px; line-height: 1.32; color: var(--deck-text); }
 .p1nx-box.is-next p { color: var(--deck-bg); }
