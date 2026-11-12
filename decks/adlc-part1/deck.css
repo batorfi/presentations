@@ -874,3 +874,13 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1c-stat { gap: 10px; padding: 16px 16px 14px; }
 .p1c-what { min-height: 117px; }
 .p1c-stats { align-items: stretch; }
+.p1c-id { display: inline-flex; align-items: center; gap: 20px; }
+.p1c-logo { display: inline-flex; align-items: center; height: 56px; }
+.p1c-logo img { height: 56px; width: auto; max-width: 200px; display: block; }
+.p1c-what { min-height: 0; }
+.p1c-q { margin: 0; padding: 4px 0 4px 22px; border-left: 6px solid var(--c); }
+.p1c-q p { margin: 0; font-family: var(--deck-font-display); font-style: italic; font-weight: 700; font-size: 31px; line-height: 1.25; color: var(--deck-text); }
+.p1c-q cite { display: block; margin-top: 8px; font-style: normal; font-size: 21px; line-height: 1.3; color: var(--deck-muted); }
+.p1c-card { gap: 18px; padding: 26px 34px 22px; }
+.p1c-take { margin-top: 22px; }
+.p1c-q { min-height: 146px; box-sizing: border-box; }
