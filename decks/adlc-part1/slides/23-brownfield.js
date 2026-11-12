@@ -1,12 +1,13 @@
 // Slide 23 — ADLC in a brownfield project. Content from the Notion page "23 – ADLC in a brownfield project" (author decisions 2026-11-12:
 // tool neutral, Rehearse shown as a recommended step, no attribution to a specific implementation).
+// Scenario to picture (author, 2026-11-12): a large legacy SaaS built as a huge collection of cloud-native microservices.
 // States: 0 learn before you touch · 1-4 the four stages of trust appear one by one · 5 challenges and how the pipeline answers them.
 (function () {
   const PRE = [
     ["Profile", "Shape, build and test commands, conventions, history and risk areas. Read-only, in minutes."],
     ["Full scan", "The whole code base and its history, written into cited knowledge pages and labelled measured or inferred."],
     ["Baseline", "What already fails or is flaky, recorded before the first change."],
-    ["Territory", "The paths the agents may change. Everything else is read-only."],
+    ["Territory", "The services and paths the agents may change, to start with one. Everything else is read-only."],
   ];
   const STAGES = [
     ["Observe", "", "Reads the code and answers questions. Changes no file.", "The team reads what it learned and corrects it."],
@@ -17,7 +18,7 @@
   const RISKS = [
     ["Missing or flaky tests", "Record a baseline. Pin today's behaviour with tests before changing it, and state what must not change."],
     ["Knowledge only in people's heads", "Knowledge pages say what they rest on: code, history or a person. Open questions go to the people who know."],
-    ["Hidden dependencies and drift", "A territory limits where agents write. Shared files such as lock files and CI configuration stay outside it. Drift is shown before it becomes a conflict."],
+    ["Hidden dependencies between services, and drift", "A territory limits where agents write. Shared files such as lock files and CI configuration stay outside it. Drift is shown before it becomes a conflict."],
     ["The team's existing process", "Ordinary pull requests, the team's review, CI and merge queue. The factory adds gates and bypasses none."],
   ];
   const pre = PRE.map(([h, t], i) => `<div class="p1bf-pre"><b>${h}</b><span>${t}</span></div>`).join("");
@@ -27,6 +28,7 @@
   const rk = RISKS.map(([c, a], i) => `<div class="p1bf-rk" style="--i:${i}"><h3>${c}</h3><p>${a}</p></div>`).join("");
   const html = `<div class="p1bf-root" data-s="0">
     <div class="p1bf-main">
+      <p class="p1bf-pic"><i>Picture it</i>a large legacy SaaS: a huge collection of cloud-native microservices.</p>
       <p class="p1bf-lead">Join as a careful newcomer: <b>read first, change nothing until a person admits a feature.</b></p>
       <div class="p1bf-pres"><div class="p1bf-prelab">Learn before you touch</div>${pre}</div>
       <div class="p1bf-stairs">${st}</div>
@@ -51,6 +53,6 @@
     html,
     onEnter(ctx) { apply(ctx, ctx.step, true); },
     onStep(step, dir, ctx) { apply(ctx, step, false); },
-    notes: "Most software is not new, so most teams start the ADLC on an existing code base. The way in is to join as a careful newcomer: read first, change nothing until a person admits a feature, and work inside the team's own process. Learn before you touch: a read-only profile of the code base (shape, build and test commands, conventions, history, risk areas), a full scan of the code and its history written into cited knowledge pages labelled measured or inferred, a baseline of what already fails or is flaky, and a territory, the paths the agents may change. Then earn trust in four stages, each with exit evidence the team can read. 1 Observe: reads and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull requests; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, and still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Last step: where it gets hard and what answers it. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, and state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write, shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
+    notes: "Most software is not new, so most teams start the ADLC on an existing code base. The way in is to join as a careful newcomer: read first, change nothing until a person admits a feature, and work inside the team's own process. Learn before you touch: a read-only profile of the code base (shape, build and test commands, conventions, history, risk areas), a full scan of the code and its history written into cited knowledge pages labelled measured or inferred, a baseline of what already fails or is flaky, and a territory, the paths the agents may change. Then earn trust in four stages, each with exit evidence the team can read. 1 Observe: reads and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull requests; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, and still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Last step: where it gets hard and what answers it. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, and state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write, shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. The scenario to picture, set by the author: a large legacy SaaS, a huge collection of cloud-native microservices; a typical brownfield case. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
   });
 })();
