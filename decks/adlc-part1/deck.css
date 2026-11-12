@@ -951,7 +951,7 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1bf-svg .hub-t { font-family: var(--deck-font-display); font-size: 40px; font-weight: 700; fill: var(--deck-accent); text-anchor: middle; }
 .p1bf-svg .hub-s { font-size: 20px; fill: var(--deck-text-2); text-anchor: middle; }
 .p1bf-svg .chip { fill: var(--deck-raised); stroke: color-mix(in srgb, var(--deck-accent) 55%, var(--deck-border)); stroke-width: 2; }
-.p1bf-svg .chip-t { font-family: var(--deck-font-mono); font-size: 21px; font-weight: 700; fill: var(--deck-text); text-anchor: middle; dominant-baseline: central; }
+.p1bf-svg .chip-t { font-family: var(--deck-font-mono); font-size: 19px; font-weight: 700; fill: var(--deck-text); text-anchor: middle; dominant-baseline: central; }
 .p1bf-svg .kg-l { stroke: var(--deck-accent); stroke-width: 2; opacity: .35; fill: none; }
 .p1bf-svg .kg-n { fill: var(--deck-accent); opacity: .55; }
 .p1bf-svg .tile { fill: color-mix(in srgb, var(--deck-info) 16%, var(--deck-raised)); stroke: var(--deck-info); stroke-width: 2.5; }
@@ -996,3 +996,19 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1bf-rk p { margin: 0; font-size: 33px; line-height: 1.32; color: var(--deck-text); }
 .p1bf-snap, .p1bf-snap * { transition: none !important; }
 @media (prefers-reduced-motion: reduce) { .p1bf-st, .p1bf-v0, .p1bf-v1, .p1bf-risks, .p1bf-lead, .p1bf-fill, .p1bf-mark { transition: none; animation: none; } .p1bf-root .rev, .p1bf-root .sp, .p1bf-root .wl, .p1bf-root .kg-n { animation: none !important; } }
+
+/* slide 23: the loop through the workflows (a hint): faint ring, a token, and each pill lights up when the token arrives */
+.p1bf-svg .wf-ring { fill: none; stroke: var(--deck-wait); stroke-width: 3; stroke-dasharray: 2 12; stroke-linecap: round; opacity: .55; }
+.p1bf-svg .wf-glow { fill: var(--deck-wait); opacity: .3; } .p1bf-svg .wf-dot { fill: var(--deck-wait); }
+.p1bf-root[data-s="0"].p1bf-play .pill.pw { animation: p1bf-pw 9s ease-in-out var(--pd) infinite; }
+@keyframes p1bf-pw { 0% { fill: color-mix(in srgb, var(--deck-wait) 13%, var(--deck-raised)); } 5%, 12% { fill: color-mix(in srgb, var(--deck-wait) 42%, var(--deck-raised)); stroke-width: 5; } 22%, 100% { fill: color-mix(in srgb, var(--deck-wait) 13%, var(--deck-raised)); stroke-width: 3; } }
+@media (prefers-reduced-motion: reduce) { .p1bf-svg .wf-tok { display: none; } .p1bf-root .pill.pw { animation: none !important; } }
+
+/* slide 23: graph of markdown files and JSON graph files inside the context-services hub */
+.p1bf-svg .fe { stroke: var(--deck-accent); stroke-width: 2.5; stroke-dasharray: 4 7; fill: none; opacity: .55; }
+.p1bf-svg .fn-d { fill: var(--deck-raised); stroke-width: 3; } .p1bf-svg .fn-c { fill: none; stroke-width: 3; }
+.p1bf-svg .fn-md .fn-d, .p1bf-svg .fn-md .fn-c { stroke: var(--deck-accent); } .p1bf-svg .fn-md .fn-d { fill: color-mix(in srgb, var(--deck-accent) 10%, var(--deck-raised)); }
+.p1bf-svg .fn-json .fn-d, .p1bf-svg .fn-json .fn-c { stroke: var(--deck-delegated); } .p1bf-svg .fn-json .fn-d { fill: color-mix(in srgb, var(--deck-delegated) 12%, var(--deck-raised)); }
+.p1bf-svg .fn-t { font-family: var(--deck-font-mono); font-size: 17px; font-weight: 700; text-anchor: middle; }
+.p1bf-svg .fn-md .fn-t { fill: var(--deck-accent); } .p1bf-svg .fn-json .fn-t { fill: var(--deck-delegated); }
+.p1bf-root[data-s="0"].p1bf-play .fe { animation: p1bf-in .6s var(--deck-ease-out) var(--d, 0ms) both, p1bf-flow 2.2s linear calc(var(--d, 0ms) + 600ms) infinite; }

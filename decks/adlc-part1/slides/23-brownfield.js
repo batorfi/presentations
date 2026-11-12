@@ -18,6 +18,7 @@
   ];
   const WORKFLOWS = ["Issues", "Branches and commits", "Pull requests", "CI", "Code review", "Merge queue"];
   const CHIPS = ["Profile", "Full scan", "Baseline", "Territory"];
+  const T = 9; // seconds for one lap of the workflow loop
 
   // ---- hub and spokes (SVG, 1680 x 744) ----
   const CX = 840, CY = 372, rad = (d) => d * Math.PI / 180;
@@ -35,21 +36,33 @@
   WORKFLOWS.forEach((t, i) => {
     const a = rad(-90 + i * 60), x = CX + 790 * Math.cos(a), y = CY + 330 * Math.sin(a), w = Math.max(190, t.length * 15 + 56), d = 3000 + i * 250;
     wl += `<path class="wl rev" style="--d:${d}ms" d="M${CX} ${CY} L${f(x)} ${f(y)}"/>`;
-    pills += `<g class="rev" style="--d:${d}ms"><rect class="pill" x="${f(x - w / 2)}" y="${f(y - 24)}" width="${w}" height="48" rx="24"/><text class="pill-t" x="${f(x)}" y="${f(y)}">${t}</text></g>`;
+    pills += `<g class="rev" style="--d:${d}ms"><rect class="pill pw" style="--pd:${(4.6 + i * T / 6).toFixed(2)}s"  x="${f(x - w / 2)}" y="${f(y - 24)}" width="${w}" height="48" rx="24"/><text class="pill-t" x="${f(x)}" y="${f(y)}">${t}</text></g>`;
   });
-  // decorative knowledge graph inside the hub (deterministic)
-  const KN = [[590, 262], [680, 258], [790, 262], [890, 258], [1000, 262], [1090, 258], [1112, 340], [1114, 420], [1092, 496], [1000, 502], [890, 498], [790, 502], [680, 498], [588, 496], [566, 420], [568, 340]];
-  const KE = KN.map((_, i) => [i, (i + 1) % KN.length]).concat([[1, 3], [4, 6], [8, 10], [11, 13], [14, 0], [2, 5], [9, 12]]);
-  const PX = (x) => Math.round(840 + (x - 840) * 640 / 580);
-  KE.forEach(([a, b]) => { kg += `<path class="kg-l" d="M${PX(KN[a][0])} ${KN[a][1]} L${PX(KN[b][0])} ${KN[b][1]}"/>`; });
-  KN.forEach(([x0, y], i) => { const x = Math.round(840 + (x0 - 840) * 640 / 580); kg += `<circle class="kg-n" style="--d:${1700 + i * 60}ms" cx="${x}" cy="${y}" r="6"/>`; });
-  const chips = CHIPS.map((t, i) => { const x = 540 + (i % 2) * 300, y = 374 + Math.floor(i / 2) * 56;
-    return `<g><rect class="chip" x="${x}" y="${y}" width="280" height="44" rx="22"/><text class="chip-t" x="${x + 140}" y="${y + 22}">${t}</text></g>`; }).join("");
+  // a faint loop through the workflows with a token that visits each one in turn (a hint of the flow, not a full diagram)
+  const RX = 790, RY = 330, SAMPLES = 720;
+  const seg = (t) => Math.hypot(RX * Math.sin(t), RY * Math.cos(t));
+  const cum = [0]; for (let k = 1; k <= SAMPLES; k++) cum.push(cum[k - 1] + seg(-Math.PI / 2 + (k - 0.5) * 2 * Math.PI / SAMPLES) * 2 * Math.PI / SAMPLES);
+  const frac = WORKFLOWS.map((_, i) => cum[Math.round(i * SAMPLES / 6)] / cum[SAMPLES]);
+  const kp = frac.concat([1]).map((v) => v.toFixed(4)).join(";"), kt = WORKFLOWS.map((_, i) => (i / 6).toFixed(4)).concat(["1"]).join(";");
+  const ring = `M${CX} ${CY - RY} A${RX} ${RY} 0 1 1 ${CX} ${CY + RY} A${RX} ${RY} 0 1 1 ${CX} ${CY - RY}`;
+  const loop = `<path class="wf-ring rev" style="--d:3400ms" d="${ring}"/>
+    <g class="wf-tok rev" style="--d:4600ms"><circle r="16" class="wf-glow"/><circle r="8" class="wf-dot"/>
+      <animateMotion dur="${T}s" repeatCount="indefinite" begin="4.6s" calcMode="linear" keyPoints="${kp}" keyTimes="${kt}" path="${ring}"/></g>`;
+  // graph of markdown files and JSON graph files inside the hub
+  const FN = [["md", 580, 352], ["md", 690, 330], ["json", 702, 420], ["md", 812, 376], ["json", 922, 330], ["md", 936, 424], ["md", 1046, 356], ["json", 1102, 424]];
+  const FE = [[0, 1], [0, 2], [1, 3], [2, 3], [3, 4], [3, 5], [4, 6], [5, 6], [6, 7], [5, 7], [1, 2], [4, 5]];
+
+  FE.forEach(([a, b], i) => { kg += `<path class="fe rev" style="--d:${2000 + i * 60}ms" d="M${FN[a][1]} ${FN[a][2]} L${FN[b][1]} ${FN[b][2]}"/>`; });
+  FN.forEach(([t, x, y], i) => {
+    kg += `<g class="fn fn-${t} rev" style="--d:${2000 + i * 90}ms" transform="translate(${x - 26} ${y - 32})"><path class="fn-d" d="M6 0 H34 L52 18 V56 Q52 64 44 64 H6 Q0 64 0 58 V6 Q0 0 6 0 Z"/><path class="fn-c" d="M34 0 V14 Q34 18 38 18 H52"/><text class="fn-t" x="26" y="44">${t === "md" ? ".md" : "{ }"}</text></g>`;
+  });
+  const chips = CHIPS.map((t, i) => { const x = 520 + i * 162, y = 482;
+    return `<g><rect class="chip" x="${x}" y="${y}" width="150" height="40" rx="20"/><text class="chip-t" x="${x + 75}" y="${y + 20}">${t}</text></g>`; }).join("");
   const svg = `<svg class="p1bf-svg" viewBox="0 0 1680 744" role="img" aria-label="Many codebases feed knowledge graphs that serve as context services for the existing workflows">
-    ${links}${wl}
-    <g class="rev" style="--d:1600ms"><rect class="hub" x="520" y="236" width="640" height="272" rx="40"/>${kg}
-      <text class="hub-t" x="840" y="302">Context services</text>
-      <text class="hub-s" x="840" y="338">Knowledge graphs over the codebases and operations</text>${chips}</g>
+    ${links}${wl}${loop}
+    <g class="rev" style="--d:1600ms"><rect class="hub" x="490" y="200" width="700" height="344" rx="42"/>${kg}
+      <text class="hub-t" x="840" y="250">Context services</text>
+      <text class="hub-s" x="840" y="284">Knowledge graphs: markdown files linked with JSON graph files</text>${chips}</g>
     ${tiles}${pills}
     <g class="rev" style="--d:3800ms"><circle cx="8" cy="26" r="8" fill="var(--deck-info)"/><text class="lg-t lg-c" x="26" y="33">Many codebases</text>
       <circle cx="8" cy="62" r="8" fill="var(--deck-accent)"/><text class="lg-t lg-h" x="26" y="69">Context services</text>
