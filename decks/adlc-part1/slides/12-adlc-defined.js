@@ -35,7 +35,7 @@
       <div class="p1ad-blk ba"><i>Assets</i><div class="p1ad-ch">${chips(g.a)}</div></div>
       <div class="p1ad-blk bh"><i>A person decides</i>${g.m.map(([v, t]) => `<div class="p1ad-m ${MV[v.split(" ")[0]] || "re"}"><b>${v}</b><span>${t}</span></div>`).join("")}</div></div>`;
   const cols = PHASES.map((p) => `<section class="p1ad-ph ${p.cls}"><h3>${p.name}</h3><div class="p1ad-gates">${p.gates.map(gate).join("")}</div></section>`).join("");
-  const STOPS = ["0", "2a", "5", "8"]; // the gate each state brings to the left edge
+  const STOPS = ["0", "2a", "5", "7", "8"]; // the gate each state brings to the left edge
   const apply = (ctx, step, snap) => {
     const view = ctx.$(".p1ad-view"), strip = ctx.$(".p1ad-strip");
     if (!view || !strip) return;
@@ -58,13 +58,13 @@
     section: "what",
     title: "ADLC defined",
     className: "p1ad-s",
-    steps: 4,
+    steps: 5,
     onEnter: (ctx) => apply(ctx, 0, true),
     onStep: (step, dir, ctx) => apply(ctx, step, false),
     html: `<div class="p1ad">
       <div class="p1ad-lead"><h2>ADLC pipeline blueprint</h2><p>A feature crosses twelve gates in four phases, from the roadmap to the merge. At each gate workers prepare the work, independent judges check it where it matters, and a person decides.</p></div>
       <div class="p1ad-view"><div class="p1ad-strip">${cols}</div></div>
     </div>`,
-    notes: "ADLC defined: the lifecycle that runs inside the factory. Twelve gates in four phases, and a person decides at every gate. The slide opens on the whole pipeline, then zooms in and pans left to right. Click 1, Program: the roadmap gate is person only. It decides which feature comes next and admits one feature at a time, and it re-opens after every merge. Click 2, Contract, what to build: concept, architecture (with an architecture critic), experience design for interface work (design critic), specification, work plan. Click 3, Build and prove: implementation from a safe, restorable point, code review (code reviewer), UI review for interface work (UI reviewer), verification (verifier, up to two automatic fix rounds first). Click 4, Release: documentation, then merge, the only place ship it is authorised. Each gate card shows the context it reads, its workers, its independent judge if it has one (a judge never decides and never edits), the key assets it produces (concept, design, spec, plan, tasks and so on), and the moves a person can make there.",
+    notes: "ADLC defined: the lifecycle that runs inside the factory. Twelve gates in four phases, and a person decides at every gate. The slide opens on the whole pipeline, then zooms in and pans left to right. Click 1, Program: the roadmap gate is person only. It decides which feature comes next and admits one feature at a time, and it re-opens after every merge. Click 2, Contract, what to build: concept, architecture (with an architecture critic), experience design for interface work (design critic), specification, work plan. Click 3, Build and prove: implementation from a safe, restorable point, code review (code reviewer), UI review for interface work (UI reviewer). Click 4, Verification gate on its own: the verifier proves each requirement by running it, after up to two automatic fix rounds; a person can approve or reject. Click 5, Release: documentation, then merge, the only place ship it is authorised. Each gate card shows the context it reads, its workers, its independent judge if it has one (a judge never decides and never edits), the key assets it produces (concept, design, spec, plan, tasks and so on), and the moves a person can make there.",
   });
 })();
