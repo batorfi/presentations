@@ -884,3 +884,17 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1c-card { gap: 18px; padding: 26px 34px 22px; }
 .p1c-take { margin-top: 22px; }
 .p1c-q { min-height: 146px; box-sizing: border-box; }
+/* Slide 10 — third beat: the insights panel replaces the two cards */
+.p1c-root { position: relative; }
+.p1c-grid { transition: opacity 500ms var(--deck-ease-out), transform 500ms var(--deck-ease-out); }
+.p1c-root[data-s="2"] .p1c-grid { opacity: 0; transform: translate3d(0, -14px, 0); pointer-events: none; }
+.p1c-ins { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 34px; opacity: 0; pointer-events: none; transition: opacity 500ms var(--deck-ease-out); }
+.p1c-root[data-s="2"] .p1c-ins { opacity: 1; transition-delay: 250ms; }
+.p1c-ins h3 { margin: 0; font-family: var(--deck-font-display); font-size: 60px; line-height: 1.1; color: var(--deck-accent); }
+.p1c-ig { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.p1c-i { position: relative; padding: 26px 32px 28px 112px; border-radius: var(--deck-radius-lg); background: var(--deck-accent-subtle); border: 3px solid var(--deck-accent); opacity: 0; transform: translate3d(0, 18px, 0); transition: opacity 500ms var(--deck-ease-out), transform 500ms var(--deck-ease-out); }
+.p1c-root[data-s="2"] .p1c-i { opacity: 1; transform: none; transition-delay: calc(450ms + var(--d)); }
+.p1c-i b { position: absolute; left: 30px; top: 28px; display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%; background: var(--deck-accent); color: var(--deck-on-accent); font-size: 30px; }
+.p1c-i h4 { margin: 0 0 10px; font-size: 34px; line-height: 1.15; color: var(--deck-text); }
+.p1c-i p { margin: 0; font-size: 27px; line-height: 1.32; color: var(--deck-text-2); }
+@media (prefers-reduced-motion: reduce) { .p1c-grid, .p1c-ins, .p1c-i { transition: none; } }
