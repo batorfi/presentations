@@ -1032,9 +1032,9 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 
 /* slide 25: FAQ, a quiet waiting loop */
 .p1q { display: grid; grid-template-columns: 1fr 640px; gap: 40px; align-items: center; height: 100%; }
-.p1q-text h2 { margin: 0 0 56px; font-family: var(--deck-font-display); font-size: 150px; line-height: 1; color: var(--deck-accent); }
+.p1q-text h2 { margin: 0 0 40px; font-family: var(--deck-font-display); font-size: 150px; line-height: 1; color: var(--deck-accent); }
 .p1q-lead { margin: 0 0 26px; font-family: var(--deck-font-display); font-size: 48px; line-height: 1.28; color: var(--deck-text); }
-.p1q-how { margin: 0; font-size: 36px; line-height: 1.3; color: var(--deck-text-2); }
+.p1q-how { margin: 0; font-size: 48px; line-height: 1.3; color: var(--deck-text-2); }
 .p1q-art { position: relative; height: 640px; }
 .p1q-ring { position: absolute; left: 50%; top: 50%; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; border: 5px solid var(--deck-accent); opacity: 0; animation: p1q-ring 3.6s ease-out infinite; }
 .p1q-ring.r2 { animation-delay: 1.8s; }
