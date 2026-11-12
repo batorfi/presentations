@@ -64,13 +64,13 @@
   Deck.slide({
     id: "adlc-defined",
     section: "what",
-    title: "ADLC pipeline blueprint",
+    title: "ADLC defined",
     className: "p1ad-s",
     steps: 5,
     onEnter: (ctx) => apply(ctx, 0, true),
     onStep: (step, dir, ctx) => apply(ctx, step, false),
     html: `<div class="p1ad">
-      <div class="p1ad-lead"><p>The default flow: twelve gates in four phases. A person decides at every gate.</p><div class="p1ad-leg"><span class="lw">Workers do the work</span><span class="lj">Judges check it, and never decide</span><span class="lc">Context it reads</span><span class="la">Assets it produces</span><span class="lh">People decide</span></div></div>
+      <div class="p1ad-lead"><h2>ADLC pipeline blueprint</h2><p>A feature crosses twelve gates in four phases, from the roadmap to the merge. At each gate workers prepare the work, independent judges check it where it matters, and a person decides.</p></div>
       <div class="p1ad-view"><div class="p1ad-strip">${cols}<section class="p1ad-vp"><h3>At any gate, a person can</h3><div class="p1ad-vs">${verdicts}</div></section></div></div>
     </div>`,
     notes: "ADLC defined: the lifecycle that runs inside the factory. Twelve gates in four phases, and a person decides at every gate. The slide opens on the whole pipeline, then zooms in and pans left to right. Click 1, Program: the roadmap gate is person only. It decides which feature comes next and admits one feature at a time, and it re-opens after every merge. Click 2, Contract, what to build: concept, architecture (with an architecture critic), experience design for interface work (design critic), specification, work plan. Click 3, Build and prove: implementation from a safe, restorable point, code review (code reviewer), UI review for interface work (UI reviewer), verification (verifier, up to two automatic fix rounds first). Click 4, Release: documentation, then merge, the only place ship it is authorised. Click 5: at any gate the person can approve, revise, reject, restart or split and revise. Each gate card shows the context it reads, its workers, its independent judge if it has one (a judge never decides and never edits), the key assets it produces (concept, design, spec, plan, tasks and so on), and the moves a person can make there.",
