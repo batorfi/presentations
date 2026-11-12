@@ -919,3 +919,12 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .i5-gear { animation: p1s-spin 6s linear infinite; }
 @keyframes p1s-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .p1s-ico svg * { animation: none !important; } }
+
+/* Slide 12: each tier gets its own colour (frontier = accent, workhorse = wait, lightweight = ok) */
+.p1m-band.is-f { --c: var(--deck-accent); } .p1m-band.is-w { --c: var(--deck-wait); } .p1m-band.is-l { --c: var(--deck-ok); }
+.p1m-band { border-color: color-mix(in srgb, var(--c) 45%, var(--deck-border)); border-left-color: var(--c); background: color-mix(in srgb, var(--c) 12%, var(--deck-raised)); }
+.p1m-bh h3, .p1m-tag, .p1m-n { color: var(--c); }
+.p1m-when small, .p1m-row > b { color: color-mix(in srgb, var(--c) 80%, var(--deck-text)); }
+.p1m-chip { border-color: color-mix(in srgb, var(--c) 55%, var(--deck-border)); background: color-mix(in srgb, var(--c) 6%, var(--deck-bg)); }
+.p1m-root[data-s="1"] .p1m-band.is-f, .p1m-root[data-s="2"] .p1m-band.is-w, .p1m-root[data-s="3"] .p1m-band.is-l { border-top-color: var(--c); border-right-color: var(--c); border-bottom-color: var(--c); }
+.p1m-code { border-left-color: var(--c); } .p1m-code b { color: var(--c); }
