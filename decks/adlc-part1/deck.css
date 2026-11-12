@@ -1022,10 +1022,10 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 @media (prefers-reduced-motion: reduce) { .p1bf-lc { transition: none; } .p1bf-root .wfi-d, .p1bf-root .wfi-n2 { animation: none !important; } }
 
 /* slide 24: wrap-up (what we covered) and transition (what is coming) */
-.p1nx { display: flex; flex-direction: column; gap: 36px; padding-top: 24px; }
-.p1nx-box { padding: 40px 54px; border: 3px solid var(--deck-border); border-left: 12px solid var(--deck-accent); border-radius: var(--deck-radius-lg); background: var(--deck-raised); }
+.p1nx { display: flex; flex-direction: column; justify-content: center; gap: 48px; height: 100%; }
+.p1nx-box { padding: 52px 64px; border: 3px solid var(--deck-border); border-left: 12px solid var(--deck-accent); border-radius: var(--deck-radius-lg); background: var(--deck-raised); }
 .p1nx-box.is-next { border-color: var(--deck-text); border-left-color: var(--deck-wait); background: var(--deck-text); }
-.p1nx-box h2 { margin: 0 0 18px; font-family: var(--deck-font-mono); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-accent); }
+.p1nx-box h2 { margin: 0 0 26px; font-family: var(--deck-font-mono); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-accent); }
 .p1nx-box.is-next h2 { color: var(--deck-wait); }
 .p1nx-box p { margin: 0; font-family: var(--deck-font-display); font-size: 52px; line-height: 1.32; color: var(--deck-text); }
 .p1nx-box.is-next p { color: var(--deck-bg); }
