@@ -1,8 +1,8 @@
 // Slide 23 — ADLC in a brownfield project. Content from the Notion page "23 – ADLC in a brownfield project".
 // Author decisions 2026-11-12: tool neutral; Rehearse shown as a recommended step; no attribution to a specific implementation;
 // scenario to picture: a large legacy SaaS built as a huge collection of cloud-native microservices.
-// States: 0 hub and spokes (many codebases, knowledge graphs as context services, existing workflows) · 1-4 autonomy track
-// (Observe, Rehearse, Contribute, Own) · 5 challenges and what answers them.
+// States: 0 hub and spokes (many codebases, context services = LLM Wiki + Codebases Graphified, existing workflows with looping workflow icons) ·
+// 1 learn before you touch (Profile, Full scan, Baseline, Territory with descriptions) · 2-5 autonomy track (Observe, Rehearse, Contribute, Own).
 (function () {
   const STAGES = [
     ["Observe", "", "Reads the code base and answers questions.", "Changes a file.", "The team reads what it learned and corrects it."],
@@ -10,15 +10,14 @@
     ["Contribute", "", "Runs real features in its territory as ordinary pull requests.", "Merges on its own, or touches paths outside its territory.", "Review outcomes, CI results and post-merge defects, counted."],
     ["Own", "", "For a well-bounded area, may get the team's merge path, still under the code host's rules.", "Changes its own territory or the team's rules.", "A recorded team decision."],
   ];
-  const RISKS = [
-    ["Missing or flaky tests", "Record a baseline. Pin today's behaviour with tests before changing it, and state what must not change."],
-    ["Knowledge only in people's heads", "Knowledge pages say what they rest on: code, history or a person. Open questions go to the people who know."],
-    ["Hidden dependencies and drift", "A territory limits where agents write, to start with one service. Shared files such as lock files and CI configuration stay outside it. Drift is shown before it becomes a conflict."],
-    ["The team's existing process", "Ordinary pull requests, the team's review, CI and merge queue. The factory adds gates and bypasses none."],
+  const LEARN = [
+    ["Profile", "A quick, read-only look at the code base: its shape, build and test commands, conventions, history and risk areas. It takes minutes."],
+    ["Full scan", "The whole code base and its history, read module by module and written into the LLM Wiki and Codebases Graphified. Every claim cited and labelled measured or inferred."],
+    ["Baseline", "What the build and tests do today: what passes, what fails, what is flaky. Recorded before the first change, so old failures are never blamed on new work."],
+    ["Territory", "The services and paths the agents may change, to start with one. Everything else stays read-only context."],
   ];
   const WORKFLOWS = ["Issues", "Branches and commits", "Pull requests", "CI", "Code review", "Merge queue"];
   const CHIPS = ["Profile", "Full scan", "Baseline", "Territory"];
-  const T = 9; // seconds for one lap of the workflow loop
 
   // ---- hub and spokes (SVG, 1680 x 744) ----
   const CX = 840, CY = 372, rad = (d) => d * Math.PI / 180;
@@ -34,35 +33,33 @@
     tiles += `<g class="rev" style="--d:${d}ms"><rect class="tile" x="${f(x - 28)}" y="${f(y - 19)}" width="56" height="38" rx="8"/><circle class="tile-d" cx="${f(x - 14)}" cy="${f(y)}" r="3.5"/><path d="M${f(x - 2)} ${f(y)} h14" stroke="var(--deck-info)" stroke-width="3" stroke-linecap="round" opacity=".7"/></g>`;
   }
   WORKFLOWS.forEach((t, i) => {
-    const a = rad(-90 + i * 60), x = CX + 790 * Math.cos(a), y = CY + 330 * Math.sin(a), w = Math.max(190, t.length * 15 + 56), d = 3000 + i * 250;
+    const a = rad(-90 + i * 60), x = CX + 790 * Math.cos(a), y = CY + 330 * Math.sin(a), w = Math.max(240, t.length * 15 + 112), d = 3000 + i * 250;
+    const x0 = x - w / 2 + 22; // generic workflow icon: start, step, end, with a token that runs through it in a loop
     wl += `<path class="wl rev" style="--d:${d}ms" d="M${CX} ${CY} L${f(x)} ${f(y)}"/>`;
-    pills += `<g class="rev" style="--d:${d}ms"><rect class="pill pw" style="--pd:${(4.6 + i * T / 6).toFixed(2)}s"  x="${f(x - w / 2)}" y="${f(y - 24)}" width="${w}" height="48" rx="24"/><text class="pill-t" x="${f(x)}" y="${f(y)}">${t}</text></g>`;
+    pills += `<g class="rev" style="--d:${d}ms"><rect class="pill" x="${f(x - w / 2)}" y="${f(y - 27)}" width="${w}" height="54" rx="27"/>
+      <g transform="translate(${f(x0)} ${f(y)})" style="--wd:${(i * 0.45).toFixed(2)}s"><path class="wfi-l" d="M0 0 H34"/><circle class="wfi-n" cx="0" cy="0" r="5"/><rect class="wfi-n wfi-n2" x="12" y="-6" width="12" height="12" rx="3"/><circle class="wfi-n" cx="34" cy="0" r="5"/><circle class="wfi-d" cx="0" cy="0" r="4"/></g>
+      <text class="pill-t" x="${f(x + 24)}" y="${f(y)}">${t}</text></g>`;
   });
-  // a faint loop through the workflows with a token that visits each one in turn (a hint of the flow, not a full diagram)
-  const RX = 790, RY = 330, SAMPLES = 720;
-  const seg = (t) => Math.hypot(RX * Math.sin(t), RY * Math.cos(t));
-  const cum = [0]; for (let k = 1; k <= SAMPLES; k++) cum.push(cum[k - 1] + seg(-Math.PI / 2 + (k - 0.5) * 2 * Math.PI / SAMPLES) * 2 * Math.PI / SAMPLES);
-  const frac = WORKFLOWS.map((_, i) => cum[Math.round(i * SAMPLES / 6)] / cum[SAMPLES]);
-  const kp = frac.concat([1]).map((v) => v.toFixed(4)).join(";"), kt = WORKFLOWS.map((_, i) => (i / 6).toFixed(4)).concat(["1"]).join(";");
-  const ring = `M${CX} ${CY - RY} A${RX} ${RY} 0 1 1 ${CX} ${CY + RY} A${RX} ${RY} 0 1 1 ${CX} ${CY - RY}`;
-  const loop = `<path class="wf-ring rev" style="--d:3400ms" d="${ring}"/>
-    <g class="wf-tok rev" style="--d:4600ms"><circle r="16" class="wf-glow"/><circle r="8" class="wf-dot"/>
-      <animateMotion dur="${T}s" repeatCount="indefinite" begin="4.6s" calcMode="linear" keyPoints="${kp}" keyTimes="${kt}" path="${ring}"/></g>`;
-  // graph of markdown files and JSON graph files inside the hub
-  const FN = [["md", 580, 352], ["md", 690, 330], ["json", 702, 420], ["md", 812, 376], ["json", 922, 330], ["md", 936, 424], ["md", 1046, 356], ["json", 1102, 424]];
-  const FE = [[0, 1], [0, 2], [1, 3], [2, 3], [3, 4], [3, 5], [4, 6], [5, 6], [6, 7], [5, 7], [1, 2], [4, 5]];
-
-  FE.forEach(([a, b], i) => { kg += `<path class="fe rev" style="--d:${2000 + i * 60}ms" d="M${FN[a][1]} ${FN[a][2]} L${FN[b][1]} ${FN[b][2]}"/>`; });
-  FN.forEach(([t, x, y], i) => {
-    kg += `<g class="fn fn-${t} rev" style="--d:${2000 + i * 90}ms" transform="translate(${x - 26} ${y - 32})"><path class="fn-d" d="M6 0 H34 L52 18 V56 Q52 64 44 64 H6 Q0 64 0 58 V6 Q0 0 6 0 Z"/><path class="fn-c" d="M34 0 V14 Q34 18 38 18 H52"/><text class="fn-t" x="26" y="44">${t === "md" ? ".md" : "{ }"}</text></g>`;
-  });
-  const chips = CHIPS.map((t, i) => { const x = 520 + i * 162, y = 482;
+  // two graphs inside the hub: LLM Wiki (markdown files) and Codebases Graphified (JSON files holding semantic graphs)
+  const doc = (x, y, inner) => `<g transform="translate(${x - 22} ${y - 27}) scale(.85)"><path class="fn-d" d="M6 0 H34 L52 18 V56 Q52 64 44 64 H6 Q0 64 0 58 V6 Q0 0 6 0 Z"/><path class="fn-c" d="M34 0 V14 Q34 18 38 18 H52"/>${inner}</g>`;
+  const MD = [[578, 392], [664, 372], [752, 400], [616, 448], [712, 452]];
+  const MDE = [[0, 1], [1, 2], [0, 3], [1, 3], [1, 4], [2, 4], [3, 4]];
+  const JS = [[918, 382], [1008, 368], [1098, 388], [934, 448], [1022, 452], [1110, 446]];
+  const JSE = [[0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [3, 4], [4, 5]];
+  const glyph = `<circle class="fn-gd" cx="14" cy="46" r="4"/><circle class="fn-gd" cx="38" cy="40" r="4"/><circle class="fn-gd" cx="26" cy="26" r="4"/><path class="fn-gl" d="M14 46 L26 26 L38 40 M14 46 L38 40"/>`;
+  kg += `<rect class="gp gp-w rev" style="--d:1900ms" x="512" y="290" width="316" height="190" rx="22"/><text class="gp-h rev" style="--d:1900ms" x="670" y="322">LLM Wiki</text>
+    <rect class="gp gp-j rev" style="--d:1900ms" x="852" y="290" width="326" height="190" rx="22"/><text class="gp-h rev" style="--d:1900ms" x="1015" y="322">Codebases Graphified</text>`;
+  MDE.forEach(([a, b], i) => { kg += `<path class="fe fe-w rev" style="--d:${2100 + i * 60}ms" d="M${MD[a][0]} ${MD[a][1]} L${MD[b][0]} ${MD[b][1]}"/>`; });
+  JSE.forEach(([a, b], i) => { kg += `<path class="fe fe-j rev" style="--d:${2300 + i * 60}ms" d="M${JS[a][0]} ${JS[a][1]} L${JS[b][0]} ${JS[b][1]}"/>`; });
+  MD.forEach(([x, y], i) => { kg += `<g class="fn fn-md rev" style="--d:${2100 + i * 90}ms">${doc(x, y, '<text class="fn-t" x="26" y="42">.md</text>')}</g>`; });
+  JS.forEach(([x, y], i) => { kg += `<g class="fn fn-json rev" style="--d:${2300 + i * 90}ms">${doc(x, y, glyph)}</g>`; });
+  const chips = CHIPS.map((t, i) => { const x = 520 + i * 162, y = 486;
     return `<g><rect class="chip" x="${x}" y="${y}" width="150" height="40" rx="20"/><text class="chip-t" x="${x + 75}" y="${y + 20}">${t}</text></g>`; }).join("");
   const svg = `<svg class="p1bf-svg" viewBox="0 0 1680 744" role="img" aria-label="Many codebases feed knowledge graphs that serve as context services for the existing workflows">
-    ${links}${wl}${loop}
-    <g class="rev" style="--d:1600ms"><rect class="hub" x="490" y="200" width="700" height="344" rx="42"/>${kg}
-      <text class="hub-t" x="840" y="250">Context services</text>
-      <text class="hub-s" x="840" y="284">Knowledge graphs: markdown files linked with JSON graph files</text>${chips}</g>
+    ${links}${wl}
+    <g class="rev" style="--d:1600ms"><rect class="hub" x="490" y="200" width="700" height="344" rx="42"/>
+      <text class="hub-t" x="840" y="258">Context services</text>${kg}
+      ${chips}</g>
     ${tiles}${pills}
     <g class="rev" style="--d:3800ms"><circle cx="8" cy="26" r="8" fill="var(--deck-info)"/><text class="lg-t lg-c" x="26" y="33">Many codebases</text>
       <circle cx="8" cy="62" r="8" fill="var(--deck-accent)"/><text class="lg-t lg-h" x="26" y="69">Context services</text>
@@ -74,16 +71,17 @@
   const cols = STAGES.map(([n, tag, does, never, ex], i) => `<div class="p1bf-col"><div class="p1bf-st" data-n="${i + 1}" style="--i:${i}">
       <div class="p1bf-sn"><i>Stage ${i + 1}</i>${tag ? `<em>${tag}</em>` : ""}</div><h3>${n}</h3>
       <div class="p1bf-b"><i>Does</i>${does}</div><div class="p1bf-b"><i>Never</i>${never}</div><div class="p1bf-b is-x"><i>Exit evidence</i>${ex}</div></div></div>`).join("");
-  const rk = RISKS.map(([c, a]) => `<div class="p1bf-rk"><h3>${c}</h3><p>${a}</p></div>`).join("");
+  const lc = LEARN.map(([h, t], i) => `<div class="p1bf-lc" style="--i:${i}"><h3>${h}</h3><p>${t}</p></div>`).join("");
 
   const html = `<div class="p1bf-root" data-s="0" style="--k:1">
     <p class="p1bf-lead is-a"><b>Introduce ADLC pipelines incrementally:</b> explore and discover how the team works today, and build a strong context layer over the existing codebases and operations.</p>
+    <p class="p1bf-lead is-d"><b>Learn before you touch.</b> Build the context layer first; nothing changes until a person admits a feature.</p>
     <p class="p1bf-lead is-b"><b>Earn trust in four stages.</b> Each one has evidence the team can read.</p>
     <div class="p1bf-v0">${svg}</div>
+    <div class="p1bf-v2"><div class="p1bf-learn">${lc}</div></div>
     <div class="p1bf-v1"><div class="p1bf-ends"><span>Less autonomy</span><span>More autonomy</span></div>
       <div class="p1bf-rail"><div class="p1bf-fill"></div></div>${nodes}<span class="p1bf-mark"></span>
       <div class="p1bf-cols">${cols}</div><p class="p1bf-note">Any stage can be the last one. Going back is always allowed.</p></div>
-    <div class="p1bf-risks"><p class="p1bf-lead is-c">Where it gets hard, and what answers it</p><div class="p1bf-rgrid">${rk}</div></div>
   </div>`;
 
   const apply = (ctx, step, snap) => {
@@ -91,9 +89,10 @@
     const prev = +r.dataset.s;
     if (snap) r.classList.add("p1bf-snap");
     r.dataset.s = step;
-    r.style.setProperty("--k", Math.min(Math.max(step, 1), 4));
-    r.querySelectorAll(".p1bf-st").forEach((c) => { const n = +c.dataset.n; c.classList.toggle("is-on", n <= Math.min(step, 4) || (step === 5 && n <= 4)); c.classList.toggle("is-cur", n === step); });
-    r.querySelectorAll(".p1bf-node").forEach((c) => c.classList.toggle("is-on", +c.dataset.n <= Math.min(step, 4)));
+    const k = Math.min(Math.max(step - 1, 1), 4);
+    r.style.setProperty("--k", k);
+    r.querySelectorAll(".p1bf-st").forEach((c) => { const n = +c.dataset.n; c.classList.toggle("is-on", step >= 2 && n <= Math.min(step - 1, 4)); c.classList.toggle("is-cur", n === step - 1); });
+    r.querySelectorAll(".p1bf-node").forEach((c) => c.classList.toggle("is-on", step >= 2 && +c.dataset.n <= Math.min(step - 1, 4)));
     if (step === 0 && (snap || prev !== 0)) { r.classList.remove("p1bf-play"); void r.offsetWidth; r.classList.add("p1bf-play"); }
     if (snap) { void r.offsetWidth; requestAnimationFrame(() => r.classList.remove("p1bf-snap")); }
   };
@@ -107,6 +106,6 @@
     html,
     onEnter(ctx) { apply(ctx, ctx.step, true); },
     onStep(step, dir, ctx) { apply(ctx, step, false); },
-    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into knowledge graphs that serve as context services in the middle (a profile of the code base, a full scan of the code and its history, a baseline of what already fails or is flaky, and a territory the agents may change); the team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue) draw on that context and stay in charge. Nothing changes until a person admits a feature: read first. Then earn trust along an autonomy track in four stages, each with exit evidence the team can read. 1 Observe: reads the code base and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull request; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own or touching paths outside the territory; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Last step: where it gets hard and what answers it. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write (to start with one service), shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
+    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into the context services in the middle: the LLM Wiki, a graph of markdown files, and Codebases Graphified, a collection of JSON files that represent semantic graphs of the codebases. The team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue, each with a small looping workflow icon) draw on that context and stay in charge. Next click, learn before you touch: a profile (a quick read-only look at the shape, build and test commands, conventions, history and risk areas), a full scan (the whole code base and its history written into the wiki and the graphs, every claim cited and labelled measured or inferred), a baseline (what passes, fails or is flaky today, recorded before the first change) and a territory (the services and paths the agents may change, to start with one). Nothing changes until a person admits a feature: read first. Then earn trust along an autonomy track in four stages, each with exit evidence the team can read. 1 Observe: reads the code base and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull request; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own or touching paths outside the territory; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write (to start with one service), shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
   });
 })();
