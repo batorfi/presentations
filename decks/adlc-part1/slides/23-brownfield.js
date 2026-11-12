@@ -1,15 +1,9 @@
 // Slide 23 — ADLC in a brownfield project. Content from the Notion page "23 – ADLC in a brownfield project".
-// Author decisions 2026-11-12: tool neutral; Rehearse shown as a recommended step; no attribution to a specific implementation;
+// Author decisions 2026-11-12: tool neutral; no attribution to a specific implementation;
 // scenario to picture: a large legacy SaaS built as a huge collection of cloud-native microservices.
 // States: 0 hub and spokes (many codebases, context services = LLM Wiki + Codebases Graphified, existing workflows with looping workflow icons) ·
-// 1 learn before you touch (Profile, Full scan, Baseline, Territory with descriptions) · 2-5 autonomy track (Observe, Rehearse, Contribute, Own).
+// 1 learn before you touch (Profile, Full scan, Baseline, Territory with descriptions).
 (function () {
-  const STAGES = [
-    ["Observe", "", "Reads the code base and answers questions.", "Changes a file.", "The team reads what it learned and corrects it."],
-    ["Rehearse", "Recommended", "Replays a change the team already solved, in a scratch copy.", "Opens a pull request.", "Its findings compared with the team's own reviews and later fixes."],
-    ["Contribute", "", "Runs real features in its territory as ordinary pull requests.", "Merges on its own, or touches paths outside its territory.", "Review outcomes, CI results and post-merge defects, counted."],
-    ["Own", "", "For a well-bounded area, may get the team's merge path, still under the code host's rules.", "Changes its own territory or the team's rules.", "A recorded team decision."],
-  ];
   const LEARN = [
     ["Profile", "A quick, read-only look at the code base: its shape, build and test commands, conventions, history and risk areas. It takes minutes."],
     ["Full scan", "The whole code base and its history, read module by module and written into the LLM Wiki and Codebases Graphified. Every claim cited and labelled measured or inferred."],
@@ -66,22 +60,13 @@
       <circle cx="8" cy="98" r="8" fill="var(--deck-wait)"/><text class="lg-t lg-w" x="26" y="105">Existing workflows</text></g>
   </svg>`;
 
-  // ---- autonomy track ----
-  const nodes = STAGES.map((s, i) => `<span class="p1bf-node" data-n="${i + 1}" style="--c:color-mix(in srgb, var(--deck-info) ${100 - i * 30}%, var(--deck-ok));left:${210 + i * 420}px">${i + 1}</span>`).join("");
-  const cols = STAGES.map(([n, tag, does, never, ex], i) => `<div class="p1bf-col"><div class="p1bf-st" data-n="${i + 1}" style="--i:${i}">
-      <div class="p1bf-sn"><i>Stage ${i + 1}</i>${tag ? `<em>${tag}</em>` : ""}</div><h3>${n}</h3>
-      <div class="p1bf-b"><i>Does</i>${does}</div><div class="p1bf-b"><i>Never</i>${never}</div><div class="p1bf-b is-x"><i>Exit evidence</i>${ex}</div></div></div>`).join("");
   const lc = LEARN.map(([h, t], i) => `<div class="p1bf-lc" style="--i:${i}"><h3>${h}</h3><p>${t}</p></div>`).join("");
 
-  const html = `<div class="p1bf-root" data-s="0" style="--k:1">
+  const html = `<div class="p1bf-root" data-s="0">
     <p class="p1bf-lead is-a"><b>Introduce ADLC pipelines incrementally:</b> explore and discover how the team works today, and build a strong context layer over the existing codebases and operations.</p>
     <p class="p1bf-lead is-d"><b>Learn before you touch.</b> Build the context layer first; nothing changes until a person admits a feature.</p>
-    <p class="p1bf-lead is-b"><b>Earn trust in four stages.</b> Each one has evidence the team can read.</p>
     <div class="p1bf-v0">${svg}</div>
     <div class="p1bf-v2"><div class="p1bf-learn">${lc}</div></div>
-    <div class="p1bf-v1"><div class="p1bf-ends"><span>Less autonomy</span><span>More autonomy</span></div>
-      <div class="p1bf-rail"><div class="p1bf-fill"></div></div>${nodes}<span class="p1bf-mark"></span>
-      <div class="p1bf-cols">${cols}</div><p class="p1bf-note">Any stage can be the last one. Going back is always allowed.</p></div>
   </div>`;
 
   const apply = (ctx, step, snap) => {
@@ -89,10 +74,6 @@
     const prev = +r.dataset.s;
     if (snap) r.classList.add("p1bf-snap");
     r.dataset.s = step;
-    const k = Math.min(Math.max(step - 1, 1), 4);
-    r.style.setProperty("--k", k);
-    r.querySelectorAll(".p1bf-st").forEach((c) => { const n = +c.dataset.n; c.classList.toggle("is-on", step >= 2 && n <= Math.min(step - 1, 4)); c.classList.toggle("is-cur", n === step - 1); });
-    r.querySelectorAll(".p1bf-node").forEach((c) => c.classList.toggle("is-on", step >= 2 && +c.dataset.n <= Math.min(step - 1, 4)));
     if (step === 0 && (snap || prev !== 0)) { r.classList.remove("p1bf-play"); void r.offsetWidth; r.classList.add("p1bf-play"); }
     if (snap) { void r.offsetWidth; requestAnimationFrame(() => r.classList.remove("p1bf-snap")); }
   };
@@ -102,10 +83,10 @@
     title: "ADLC in a brownfield project",
     navTitle: "Brownfield",
     className: "p1bf-s",
-    steps: 5,
+    steps: 1,
     html,
     onEnter(ctx) { apply(ctx, ctx.step, true); },
     onStep(step, dir, ctx) { apply(ctx, step, false); },
-    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into the context services in the middle: the LLM Wiki, a graph of markdown files, and Codebases Graphified, a collection of JSON files that represent semantic graphs of the codebases. The team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue, each with a small looping workflow icon) draw on that context and stay in charge. Next click, learn before you touch: a profile (a quick read-only look at the shape, build and test commands, conventions, history and risk areas), a full scan (the whole code base and its history written into the wiki and the graphs, every claim cited and labelled measured or inferred), a baseline (what passes, fails or is flaky today, recorded before the first change) and a territory (the services and paths the agents may change, to start with one). Nothing changes until a person admits a feature: read first. Then earn trust along an autonomy track in four stages, each with exit evidence the team can read. 1 Observe: reads the code base and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull request; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own or touching paths outside the territory; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write (to start with one service), shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
+    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into the context services in the middle: the LLM Wiki, a graph of markdown files, and Codebases Graphified, a collection of JSON files that represent semantic graphs of the codebases. The team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue, each with a small looping workflow icon) draw on that context and stay in charge. Next click, learn before you touch: a profile (a quick read-only look at the shape, build and test commands, conventions, history and risk areas), a full scan (the whole code base and its history written into the wiki and the graphs, every claim cited and labelled measured or inferred), a baseline (what passes, fails or is flaky today, recorded before the first change) and a territory (the services and paths the agents may change, to start with one). Nothing changes until a person admits a feature: read first.",
   });
 })();
