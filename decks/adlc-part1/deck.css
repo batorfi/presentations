@@ -922,3 +922,46 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1s-snap .p1s-col, .p1s-snap .p1s-pin { transition: none !important; }
 @keyframes p1s-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { .p1s-pin { animation: none; } .p1s-col, .p1s-pin { transition: none; } }
+
+/* Slide 5: levels come in by themselves, each with its own looping icon that starts when its column appears */
+.p1s-top { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+.p1s-top .p1s-lv { margin-top: 0; }
+.p1s-ico, .p1s-ico svg { display: block; width: 64px; height: 64px; }
+.p1s-ico { color: var(--c); }
+.p1s-ico svg { fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.p1s-ico svg * { animation-play-state: paused; }
+.p1s-col.is-on .p1s-ico svg * { animation-play-state: running; }
+.p1s-ico svg [class*="i0-"], .p1s-ico svg [class*="i1-"], .p1s-ico svg [class*="i2-"], .p1s-ico svg [class*="i3-"], .p1s-ico svg [class*="i4-"], .p1s-ico svg [class*="i5-"] { transform-box: fill-box; transform-origin: center; }
+/* 0 autocomplete: caret blinks, ghost suggestions fade in and out */
+.i0-caret { animation: p1s-blink 1s steps(2, start) infinite; }
+.i0-sug { stroke-dasharray: 3 7; animation: p1s-sug 3.2s ease-in-out infinite; }
+.i0-b { animation-delay: .6s; }
+@keyframes p1s-blink { to { opacity: 0; } }
+@keyframes p1s-sug { 0%, 15% { opacity: 0; } 40%, 80% { opacity: 1; } 100% { opacity: 0; } }
+/* 1 intern: a small snippet slides into the page, the human's check follows */
+.i1-snip { animation: p1s-snip 3.4s ease-in-out infinite; }
+.i1-ck { stroke-dasharray: 22; animation: p1s-ck 3.4s ease-in-out infinite; }
+@keyframes p1s-snip { 0%, 10% { transform: translateX(26px); opacity: 0; } 35%, 85% { transform: translateX(0); opacity: 1; } 100% { transform: translateX(0); opacity: 0; } }
+@keyframes p1s-ck { 0%, 45% { stroke-dashoffset: 22; } 65%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 22; } }
+/* 2 junior: human and AI take turns */
+.i2-a { animation: p1s-turn 3s ease-in-out infinite; }
+.i2-b { animation: p1s-turn 3s ease-in-out 1.5s infinite; }
+.i2-link { stroke-dasharray: 3 5; animation: p1s-flow 1.2s linear infinite; }
+@keyframes p1s-turn { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.18); } 50% { transform: scale(1); } }
+@keyframes p1s-flow { to { stroke-dashoffset: -16; } }
+/* 3 developer: code lines are written fast while the human scans down them */
+.i3-l { stroke-dasharray: 30; animation: p1s-line 4s ease-in-out infinite; }
+.i3-l2 { animation-delay: .3s; } .i3-l3 { animation-delay: .6s; } .i3-l4 { animation-delay: .9s; }
+.i3-scan { animation: p1s-scan 4s ease-in-out infinite; }
+@keyframes p1s-line { 0% { stroke-dashoffset: 30; } 20%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 30; } }
+@keyframes p1s-scan { 0%, 20% { transform: translateY(0); } 70%, 80% { transform: translateY(28px); } 100% { transform: translateY(0); } }
+/* 4 team: manager on top, three agent nodes pulse along flowing links */
+.i4-link { stroke-dasharray: 6 6; animation: p1s-flow 1.6s linear infinite; }
+.i4-n { fill: color-mix(in srgb, currentColor 18%, var(--deck-raised)); animation: p1s-node 3s ease-in-out infinite; }
+.i4-n1 { animation-delay: .5s; } .i4-n2 { animation-delay: 1s; } .i4-n3 { animation-delay: 1.5s; }
+@keyframes p1s-node { 0%, 100% { transform: scale(1); } 20% { transform: scale(1.25); fill: currentColor; } 40% { transform: scale(1); } }
+/* 5 dark factory: a closed box with a turning gear */
+.i5-box { fill: color-mix(in srgb, currentColor 22%, transparent); }
+.i5-gear { animation: p1s-spin 6s linear infinite; }
+@keyframes p1s-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .p1s-ico svg * { animation: none !important; } }
