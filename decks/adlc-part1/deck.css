@@ -944,7 +944,7 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1bf-root[data-s="0"] .p1bf-lead.is-a, .p1bf-root[data-s="1"] .p1bf-lead.is-d, .p1bf-root:is([data-s="2"], [data-s="3"], [data-s="4"], [data-s="5"]) .p1bf-lead.is-b { opacity: 1; }
 .p1bf-v0, .p1bf-v1, .p1bf-v2 { position: absolute; left: 0; right: 0; opacity: 0; pointer-events: none; transition: opacity 500ms var(--deck-ease-out); }
 .p1bf-v0 { top: 104px; height: 744px; } .p1bf-v1 { top: 110px; bottom: 0; } .p1bf-v2 { top: 130px; bottom: 0; } .p1bf-risks { top: 0; bottom: 0; }
-.p1bf-root[data-s="0"] .p1bf-v0, .p1bf-root[data-s="1"] .p1bf-v2 { opacity: 1; }
+.p1bf-root[data-s="0"] .p1bf-v0, .p1bf-root[data-s="1"] .p1bf-v2, .p1bf-root:is([data-s="2"], [data-s="3"], [data-s="4"], [data-s="5"]) .p1bf-v1 { opacity: 1; }
 /* hub and spokes */
 .p1bf-svg { display: block; width: 1680px; height: 744px; overflow: visible; font-family: var(--deck-font-sans, inherit); }
 .p1bf-svg .hub { fill: color-mix(in srgb, var(--deck-accent) 12%, var(--deck-raised)); stroke: var(--deck-accent); stroke-width: 3; }
