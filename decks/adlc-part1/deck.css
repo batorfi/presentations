@@ -1012,3 +1012,6 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p11-c p { margin: 0; font: 600 23px/1.3 var(--deck-font-sans); color: var(--deck-text); }
 .p11-c p span { display: block; margin-top: 4px; font: 400 19px/1.3 var(--deck-font-sans); color: var(--deck-text-2); }
 @media (prefers-reduced-motion: reduce) { .p11-v { transition: none; } }
+
+/* references slides: keep card titles from being clipped (descenders) when rows are tight */
+.ref-card .ref-t{flex:none;padding-bottom:8px;margin-bottom:-8px}
