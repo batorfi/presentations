@@ -862,14 +862,30 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1bf-lc p { margin: 0; font-size: 32px; line-height: 1.32; color: var(--deck-text); }
 @media (prefers-reduced-motion: reduce) { .p1bf-lc { transition: none; } .p1bf-root .wfi-d, .p1bf-root .wfi-n2 { animation: none !important; } }
 
-/* slide 24: wrap-up (what we covered) and transition (what is coming) */
-.p1nx { display: flex; flex-direction: column; justify-content: center; gap: 48px; height: 100%; }
-.p1nx-box { padding: 52px 64px; border: 3px solid var(--deck-border); border-left: 12px solid var(--deck-accent); border-radius: var(--deck-radius-lg); background: var(--deck-raised); }
-.p1nx-box.is-next { border-color: var(--deck-wait); background: color-mix(in srgb, var(--deck-wait) 14%, var(--deck-raised)); }
-.p1nx-box h2 { margin: 0 0 26px; font-family: var(--deck-font-mono); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-accent); }
-.p1nx-box.is-next h2 { color: var(--deck-wait); }
-.p1nx-box p { margin: 0; font-family: var(--deck-font-display); font-size: 52px; line-height: 1.32; color: var(--deck-text); }
-.p1nx-box.is-next p { color: var(--deck-text); }
+/* slide 24: key takeaways (six cards with looping icons) and what is coming */
+.p1tk { display: flex; flex-direction: column; gap: 30px; height: 100%; }
+.p1tk-h { margin: 0; font-family: var(--deck-font-mono); font-size: 26px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-accent); }
+.p1tk-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 28px; }
+.p1tk-c { display: flex; align-items: center; gap: 24px; padding: 32px 34px; border: 3px solid var(--deck-border); border-top: 10px solid var(--c); border-radius: var(--deck-radius-lg); background: var(--deck-raised); }
+.p1tk-c svg { flex: none; width: 88px; height: 88px; overflow: visible; }
+.p1tk-c h3 { margin: 0 0 12px; font-family: var(--deck-font-display); font-size: 34px; line-height: 1.1; color: var(--deck-text); }
+.p1tk-c p { margin: 0; font-size: 24px; line-height: 1.36; color: var(--deck-text-2); }
+.p1tk-ln, .p1tk-ok, .p1tk-mut, .p1tk-mut2, .p1tk-pip, .p1tk-rip { fill: none; stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; }
+.p1tk-ln { stroke: var(--c); } .p1tk-ok { stroke: var(--c); stroke-width: 5; }
+.p1tk-mut, .p1tk-mut2 { stroke: var(--deck-border-strong); } .p1tk-pip { stroke: var(--c); fill: var(--deck-raised); }
+.p1tk-rip { stroke: var(--c); }
+.p1tk-scan, .p1tk-dot, .p1tk-hub { fill: var(--c); } .p1tk-pip2 { fill: var(--deck-border-strong); }
+.p1tk-step { fill: color-mix(in srgb, var(--c) 28%, var(--deck-raised)); stroke: var(--c); stroke-width: 3; }
+.p1tk-n { display: flex; align-items: center; gap: 40px; padding: 24px 40px; border: 3px solid var(--deck-wait); border-left: 12px solid var(--deck-wait); border-radius: var(--deck-radius-lg); background: color-mix(in srgb, var(--deck-wait) 14%, var(--deck-raised)); }
+.p1tk-n h2 { margin: 0; flex: none; font-family: var(--deck-font-mono); font-size: 24px; letter-spacing: .1em; text-transform: uppercase; color: var(--deck-wait); }
+.p1tk-x { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.p1tk-x b { font-family: var(--deck-font-mono); font-size: 22px; letter-spacing: .06em; color: var(--deck-text-2); }
+.p1tk-x span { font-family: var(--deck-font-display); font-size: 30px; line-height: 1.2; color: var(--deck-text); white-space: nowrap; }
+.p1tk-chev { flex: none; display: flex; gap: 6px; }
+.p1tk-chev s { width: 14px; height: 14px; border-top: 5px solid var(--deck-wait); border-right: 5px solid var(--deck-wait); transform: rotate(45deg); opacity: .25; animation: p1tk-ch 1.8s ease-in-out infinite; }
+.p1tk-chev s:nth-child(2) { animation-delay: .25s; } .p1tk-chev s:nth-child(3) { animation-delay: .5s; }
+@keyframes p1tk-ch { 0%, 100% { opacity: .2; } 40% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .p1tk-chev s { animation: none; opacity: .7; } }
 
 /* slide 25: FAQ, a quiet waiting loop */
 .p1q { display: grid; grid-template-columns: 1fr 640px; gap: 40px; align-items: center; height: 100%; }
