@@ -12,11 +12,11 @@ Deck.slide({
         <header><span class="p1-pane-no">Part 1</span><span class="p1-pane-dur">60 min</span></header>
         <h3>Foundations: where agentic engineering is heading</h3>
         <ul>
-          <li>How agentic coding tools and services evolved</li>
-          <li>AI development harnesses, by type and by job</li>
-          <li>Frontier cloud and local open models viable today</li>
-          <li>Why vibe coding fails; spec-driven development and dark software factories</li>
-          <li>How the SWE role changes, and one habit to start</li>
+          <li>Why "AI writes the code" is not enough: beyond vibe coding to specs</li>
+          <li>What an AI software factory is, and how the ADLC defines it</li>
+          <li>The landscape: harnesses, closed and open models, local dev machines</li>
+          <li>The engineer's role: leaving the loop and owning delivery</li>
+          <li>Building your own ADLC pipeline, starting from a brownfield code base</li>
         </ul>
         <span class="p1-pane-tag">Today</span>
       </section>
@@ -43,5 +43,5 @@ Deck.slide({
         </ul>
       </section>
     </div>`,
-  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 1 (today, 60 min = 50 talk + 10 Q&A): foundations. Part 2 (90 min): the ADLC process in depth. Part 3 (90 min): live end-to-end demo from concept to merge request.",
+  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 1 (today, 60 min = 50 talk + 10 Q&A): foundations in five chapters: why we must go beyond vibe coding, what an AI software factory and the ADLC are, the landscape of harnesses, models and dev machines, the engineer's role (leaving the loop, owning delivery), and how to build your own pipeline, starting from a brownfield code base. It closes with key takeaways, Q&A and references. Part 2 (90 min): the ADLC process in depth. Part 3 (90 min): live end-to-end demo from concept to merge request.",
 });
