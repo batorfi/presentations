@@ -1043,3 +1043,19 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 @keyframes p24-li { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
 @keyframes p24-dot { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
 @media (prefers-reduced-motion: reduce) { .p24-live, .p24-t1, .p24-t2, .p24-pts li, .p24-pts li::before { animation: none !important; opacity: 1; } }
+
+/* Slide 23 — single graph + four descriptions in the context hub */
+.p1bf-svg .kg-j { fill: var(--deck-delegated); }
+.p1bf-svg .cell { fill: var(--deck-raised); stroke: color-mix(in srgb, var(--deck-accent) 50%, var(--deck-border)); stroke-width: 2; }
+.p1bf-svg .cell-h { font-family: var(--deck-font-display); font-size: 27px; font-weight: 700; fill: var(--deck-accent); }
+.p1bf-svg .cell-t { font-size: 21px; fill: var(--deck-text-2); }
+.p1bf-svg .kg-w, .p1bf-svg .kg-j { opacity: .95; } .p1bf-svg .fe-w, .p1bf-svg .fe-j { opacity: .8; }
+.p1bf-root[data-s="0"].p1bf-play .kg-w, .p1bf-root[data-s="0"].p1bf-play .kg-j { animation: p1bf-in .6s var(--deck-ease-out) var(--d, 0ms) both, p1bf-tw2 3.4s ease-in-out calc(var(--d, 0ms) + 600ms) infinite; }
+@keyframes p1bf-tw2 { 0%, 100% { opacity: .7; } 50% { opacity: 1; } }
+.p1bf-svg .tile-c { font-family: var(--deck-font-mono); font-size: 21px; font-weight: 700; fill: var(--deck-info); text-anchor: middle; dominant-baseline: central; }
+.p1bf-svg .kg-sig { opacity: 0; }
+.p1bf-svg .kg-rip { fill: none; stroke-width: 2.5; transform-box: fill-box; transform-origin: center; }
+.p1bf-svg .kg-rip-w { stroke: var(--deck-accent); } .p1bf-svg .kg-rip-j { stroke: var(--deck-delegated); }
+.p1bf-root[data-s="0"].p1bf-play .kg-rip { animation: p1bf-in .6s var(--deck-ease-out) var(--d, 0ms) both, p1bf-rip 3s ease-out calc(var(--d, 0ms) + var(--rd, 0s)) infinite; }
+@keyframes p1bf-rip { 0% { transform: scale(1); opacity: .8; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .p1bf-svg .kg-sig, .p1bf-svg .kg-rip { display: none; } }

@@ -11,7 +11,12 @@
     ["Own", "", "For a well-bounded area, may get the team's merge path, still under the code host's rules.", "Changes its own territory or the team's rules.", "A recorded team decision."],
   ];
   const WORKFLOWS = ["Issues", "Branches and commits", "Pull requests", "CI", "Code review", "Merge queue"];
-  const CHIPS = ["Profile", "Full scan", "Baseline", "Territory"];
+  const CELLS = [
+    ["Profile", "Read-only look at build, tests, conventions and risks."],
+    ["Full scan", "Reads code and history into cited knowledge pages."],
+    ["Baseline", "Records what passes, fails or is flaky today."],
+    ["Territory", "The paths agents may change; the rest is read-only."],
+  ];
 
   // ---- hub and spokes (SVG, 1680 x 744) ----
   const CX = 840, CY = 372, rad = (d) => d * Math.PI / 180;
@@ -19,13 +24,18 @@
   let links = "", tiles = "", wl = "", pills = "", kg = "";
   const NT = 24;
   const rays = WORKFLOWS.map((_, i) => { const a = rad(-90 + i * 60); return Math.atan2(330 * Math.sin(a), 790 * Math.cos(a)); });
+  const PTS = [];
   for (let i = 0; i < NT; i++) {
-    const a = rad(-90 + 7.5 + i * (360 / NT)), x = CX + 475 * Math.cos(a), y = CY + 268 * Math.sin(a), d = 900 + i * 45;
-    const ta = Math.atan2(y - CY, x - CX);
-    if (rays.some((r) => Math.abs(Math.atan2(Math.sin(ta - r), Math.cos(ta - r))) < rad(7.5))) continue;
-    links += `<path class="sp rev" style="--d:${d}ms" d="M${f(x)} ${f(y)} L${CX} ${CY}"/>`;
-    tiles += `<g class="rev" style="--d:${d}ms"><rect class="tile" x="${f(x - 28)}" y="${f(y - 19)}" width="56" height="38" rx="8"/><circle class="tile-d" cx="${f(x - 14)}" cy="${f(y)}" r="3.5"/><path d="M${f(x - 2)} ${f(y)} h14" stroke="var(--deck-info)" stroke-width="3" stroke-linecap="round" opacity=".7"/></g>`;
+    const a = rad(-90 + 7.5 + i * (360 / NT)), x = CX + 600 * Math.cos(a), y = CY + 285 * Math.sin(a);
+    if (Math.abs(y - CY) > 70) continue; // only the free middle bands left and right; the corners belong to the workflow pills
+    PTS.push([x, y]);
   }
+  [[460, 120], [545, 66], [635, 128], [1220, 120], [1135, 66], [1045, 128], [460, 624], [545, 678], [635, 616], [1220, 624], [1135, 678], [1045, 616]].forEach((q) => PTS.push(q));
+  PTS.forEach(([x, y], i) => {
+    const d = 900 + i * 45;
+    links += `<path class="sp rev" style="--d:${d}ms" d="M${f(x)} ${f(y)} L${CX} ${CY}"/>`;
+    tiles += `<g class="rev" style="--d:${d}ms"><rect class="tile" x="${f(x - 28)}" y="${f(y - 19)}" width="56" height="38" rx="8"/><text class="tile-c" x="${f(x)}" y="${f(y + 1)}">&lt;/&gt;</text></g>`;
+  });
   WORKFLOWS.forEach((t, i) => {
     const a = rad(-90 + i * 60), x = CX + 790 * Math.cos(a), y = CY + 330 * Math.sin(a), w = Math.max(240, t.length * 15 + 112), d = 3000 + i * 250;
     const x0 = x - w / 2 + 22; // generic workflow icon: start, step, end, with a token that runs through it in a loop
@@ -34,26 +44,23 @@
       <g transform="translate(${f(x0)} ${f(y)})" style="--wd:${(i * 0.45).toFixed(2)}s"><path class="wfi-l" d="M0 0 H34"/><circle class="wfi-n" cx="0" cy="0" r="5"/><rect class="wfi-n wfi-n2" x="12" y="-6" width="12" height="12" rx="3"/><circle class="wfi-n" cx="34" cy="0" r="5"/><circle class="wfi-d" cx="0" cy="0" r="4"/></g>
       <text class="pill-t" x="${f(x + 24)}" y="${f(y)}">${t}</text></g>`;
   });
-  // two graphs inside the hub: LLM Wiki (markdown files) and Codebases Graphified (JSON files holding semantic graphs)
-  const doc = (x, y, inner) => `<g transform="translate(${x - 22} ${y - 27}) scale(.85)"><path class="fn-d" d="M6 0 H34 L52 18 V56 Q52 64 44 64 H6 Q0 64 0 58 V6 Q0 0 6 0 Z"/><path class="fn-c" d="M34 0 V14 Q34 18 38 18 H52"/>${inner}</g>`;
-  const MD = [[578, 392], [664, 372], [752, 400], [616, 448], [712, 452]];
-  const MDE = [[0, 1], [1, 2], [0, 3], [1, 3], [1, 4], [2, 4], [3, 4]];
-  const JS = [[918, 382], [1008, 368], [1098, 388], [934, 448], [1022, 452], [1110, 446]];
-  const JSE = [[0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [3, 4], [4, 5]];
-  const glyph = `<circle class="fn-gd" cx="14" cy="46" r="4"/><circle class="fn-gd" cx="38" cy="40" r="4"/><circle class="fn-gd" cx="26" cy="26" r="4"/><path class="fn-gl" d="M14 46 L26 26 L38 40 M14 46 L38 40"/>`;
-  kg += `<rect class="gp gp-w rev" style="--d:1900ms" x="512" y="290" width="316" height="190" rx="22"/><text class="gp-h rev" style="--d:1900ms" x="670" y="322">LLM Wiki</text>
-    <rect class="gp gp-j rev" style="--d:1900ms" x="852" y="290" width="326" height="190" rx="22"/><text class="gp-h rev" style="--d:1900ms" x="1015" y="322">Codebases Graphified</text>`;
-  MDE.forEach(([a, b], i) => { kg += `<path class="fe fe-w rev" style="--d:${2100 + i * 60}ms" d="M${MD[a][0]} ${MD[a][1]} L${MD[b][0]} ${MD[b][1]}"/>`; });
-  JSE.forEach(([a, b], i) => { kg += `<path class="fe fe-j rev" style="--d:${2300 + i * 60}ms" d="M${JS[a][0]} ${JS[a][1]} L${JS[b][0]} ${JS[b][1]}"/>`; });
-  MD.forEach(([x, y], i) => { kg += `<g class="fn fn-md rev" style="--d:${2100 + i * 90}ms">${doc(x, y, '<text class="fn-t" x="26" y="42">.md</text>')}</g>`; });
-  JS.forEach(([x, y], i) => { kg += `<g class="fn fn-json rev" style="--d:${2300 + i * 90}ms">${doc(x, y, glyph)}</g>`; });
-  const chips = CHIPS.map((t, i) => { const x = 520 + i * 162, y = 486;
-    return `<g><rect class="chip" x="${x}" y="${y}" width="150" height="40" rx="20"/><text class="chip-t" x="${x + 75}" y="${y + 20}">${t}</text></g>`; }).join("");
-  const svg = `<svg class="p1bf-svg" viewBox="0 0 1680 744" role="img" aria-label="Many codebases feed knowledge graphs that serve as context services for the existing workflows">
+  // one conceptual graph inside the hub (faint two-tone: teal = wiki side, purple = graph side) and four descriptions
+  const GN = [[470, 305, "w", 7], [555, 290, "w", 12], [625, 335, "j", 7], [510, 375, "w", 8], [590, 400, "j", 13], [450, 430, "j", 8], [540, 470, "j", 7], [620, 490, "w", 9], [470, 515, "w", 7], [580, 535, "j", 7]];
+  const GE = [[0, 1], [1, 2], [0, 3], [1, 3], [1, 4], [2, 4], [3, 4], [3, 5], [4, 6], [5, 6], [5, 8], [6, 7], [4, 7], [6, 8], [7, 9], [6, 9], [3, 6]];
+  GE.forEach(([a, b], i) => { kg += `<path class="fe fe-${GN[a][2]} rev" style="--d:${2000 + i * 50}ms" d="M${GN[a][0]} ${GN[a][1]} L${GN[b][0]} ${GN[b][1]}"/>`; });
+  GN.forEach(([x, y, t, r], i) => { kg += `<circle class="kg-n kg-${t} rev" style="--d:${2000 + i * 80}ms" cx="${x}" cy="${y}" r="${r * 1.35}"/>`; });
+  GN.forEach(([x, y, t, r], i) => { if (r >= 12) kg += `<circle class="kg-rip kg-rip-${t} rev" style="--d:${2600 + i * 80}ms;--rd:${i * 0.5}s" cx="${x}" cy="${y}" r="${r * 1.35}"/>`; });
+  [[1, 4], [0, 3], [4, 7], [3, 6], [5, 8], [2, 4]].forEach(([a, b], i) => {
+    kg += `<circle class="kg-sig" r="4.5" fill="var(--deck-text)"><animateMotion dur="${(2.6 + (i % 3) * 0.5).toFixed(1)}s" begin="${(3.2 + i * 0.55).toFixed(2)}s" repeatCount="indefinite" path="M${GN[a][0]} ${GN[a][1]} L${GN[b][0]} ${GN[b][1]}"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur="${(2.6 + (i % 3) * 0.5).toFixed(1)}s" begin="${(3.2 + i * 0.55).toFixed(2)}s" repeatCount="indefinite"/></circle>`;
+  });
+  const wrap = (t, n) => { const o = []; let l = ""; t.split(" ").forEach((w) => { if ((l + " " + w).trim().length > n) { o.push(l); l = w; } else l = (l + " " + w).trim(); }); o.push(l); return o; };
+  const cells = CELLS.map(([h, t], i) => { const x = 680 + (i % 2) * 298, y = 258 + Math.floor(i / 2) * 152, d = 2500 + i * 350;
+    return `<g class="rev" style="--d:${d}ms"><rect class="cell" x="${x}" y="${y}" width="282" height="136" rx="16"/><text class="cell-h" x="${x + 18}" y="${y + 34}">${h}</text><text class="cell-t" x="${x + 18}" y="${y + 66}">${wrap(t, 24).map((l, j) => `<tspan x="${x + 18}" dy="${j ? 26 : 0}">${l}</tspan>`).join("")}</text></g>`; }).join("");
+  const svg = `<svg class="p1bf-svg" viewBox="0 0 1680 744" role="img" aria-label="Many codebases feed a knowledge graph that serves as the context service for the existing workflows">
     ${links}${wl}
-    <g class="rev" style="--d:1600ms"><rect class="hub" x="490" y="200" width="700" height="344" rx="42"/>
-      <text class="hub-t" x="840" y="258">Context services</text>${kg}
-      ${chips}</g>
+    <g class="rev" style="--d:1600ms"><rect class="hub" x="400" y="162" width="880" height="420" rx="42"/>
+      <text class="hub-t" x="840" y="222">Context services</text></g>${kg}
+      ${cells}
     ${tiles}${pills}
     <g class="rev" style="--d:3800ms"><circle cx="8" cy="26" r="8" fill="var(--deck-info)"/><text class="lg-t lg-c" x="26" y="33">Many codebases</text>
       <circle cx="8" cy="62" r="8" fill="var(--deck-accent)"/><text class="lg-t lg-h" x="26" y="69">Context services</text>
@@ -97,6 +104,6 @@
     html,
     onEnter(ctx) { apply(ctx, ctx.step, true); },
     onStep(step, dir, ctx) { apply(ctx, step, false); },
-    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into the context services in the middle: the LLM Wiki, a graph of markdown files, and Codebases Graphified, a collection of JSON files that represent semantic graphs of the codebases. The team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue, each with a small looping workflow icon) draw on that context and stay in charge. Nothing changes until a person admits a feature: read first. Then earn trust along an autonomy track in four stages, each with exit evidence the team can read. 1 Observe: reads the code base and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull request; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own or touching paths outside the territory; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write (to start with one service), shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
+    notes: "Picture a large legacy SaaS: a huge collection of cloud-native microservices. It is a typical brownfield case. Introduce ADLC pipelines incrementally: explore and discover how the team works today, and build a strong context layer over the existing codebases and operations. The opening picture: many codebases in a ring, each read into the context services in the middle: a graph of knowledge (the two techniques are demoed on the next slide), described by four steps: Profile, a read-only look at build, tests, conventions and risks; Full scan, which reads the code and its history into cited knowledge pages; Baseline, which records what passes, fails or is flaky today; and Territory, the paths agents may change, everything else read-only. The team's existing workflows around the outside (issues, branches and commits, pull requests, CI, code review, merge queue, each with a small looping workflow icon) draw on that context and stay in charge. Nothing changes until a person admits a feature: read first. Then earn trust along an autonomy track in four stages, each with exit evidence the team can read. 1 Observe: reads the code base and answers questions, changes no file; the team reads what it learned and corrects it. 2 Rehearse (recommended): replays a change the team already solved in a scratch copy and opens no pull request; compare its findings with the team's own reviews and later fixes. 3 Contribute: real features inside the territory as ordinary pull requests, never merging on its own or touching paths outside the territory; watch review outcomes, CI results and post-merge defects. 4 Own: for a well-bounded area only, with a recorded team decision, still under the code host's rules. Any stage can be the last one, and going back is always allowed; many teams will stay at Contribute. Missing or flaky tests: record a baseline, pin today's behaviour with tests before changing it, state what must not change; new failures belong to the feature, old ones are shown as old. Knowledge only in people's heads: pages say what they rest on and open questions go to the people who know. Hidden dependencies and drift: the territory limits where agents write (to start with one service), shared files stay outside it and drift is shown before it becomes a conflict. The team's existing process: ordinary pull requests, the team's review, CI and merge queue; the factory adds gates and bypasses none. Greenfield follows on the next slide. Source material: the author's brownfield concept paper (final, 2026-10-21); the slide stays tool neutral and does not name it.",
   });
 })();
