@@ -1059,3 +1059,4 @@ html[data-reduced-motion] .p1-ev-pill, html[data-reduced-motion] .p1-ev-era { tr
 .p1bf-root[data-s="0"].p1bf-play .kg-rip { animation: p1bf-in .6s var(--deck-ease-out) var(--d, 0ms) both, p1bf-rip 3s ease-out calc(var(--d, 0ms) + var(--rd, 0s)) infinite; }
 @keyframes p1bf-rip { 0% { transform: scale(1); opacity: .8; } 70%, 100% { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .p1bf-svg .kg-sig, .p1bf-svg .kg-rip { display: none; } }
+.p1bf-svg .tile-bar { stroke: var(--deck-info); stroke-width: 1.5; opacity: .5; }

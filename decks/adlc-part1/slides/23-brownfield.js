@@ -24,17 +24,34 @@
   let links = "", tiles = "", wl = "", pills = "", kg = "";
   const NT = 24;
   const rays = WORKFLOWS.map((_, i) => { const a = rad(-90 + i * 60); return Math.atan2(330 * Math.sin(a), 790 * Math.cos(a)); });
+  // a small code window: title bar and four lines of colour-coded code
+  const CODE_COL = ["var(--deck-accent)", "var(--deck-delegated)", "var(--deck-wait)", "var(--deck-info)", "var(--deck-text-2)"];
+  const codeTile = (x, y, n, d) => {
+    const W = 88, H = 62, x0 = x - W / 2, y0 = y - H / 2;
+    let g = `<g class="rev" style="--d:${d}ms"><rect class="tile" x="${f(x0)}" y="${f(y0)}" width="${W}" height="${H}" rx="8"/><path class="tile-bar" d="M${f(x0)} ${f(y0 + 14)} H${f(x0 + W)}"/>`;
+    [0, 1, 2].forEach((k) => { g += `<circle class="tile-d" cx="${f(x0 + 10 + k * 9)}" cy="${f(y0 + 7)}" r="2.4"/>`; });
+    for (let r = 0; r < 4; r++) {
+      const ind = [0, 1, 1, 0][(r + n) % 4] * 9, ly = y0 + 24 + r * 9;
+      let cx = x0 + 9 + ind;
+      for (let sgm = 0; sgm < 2; sgm++) {
+        const w = 8 + ((n * 7 + r * 11 + sgm * 5) % 5) * 5, col = CODE_COL[(n + r * 2 + sgm * 3) % 5];
+        g += `<path d="M${f(cx)} ${f(ly)} h${w}" stroke="${col}" stroke-width="3.6" stroke-linecap="round" opacity=".9"/>`;
+        cx += w + 6;
+      }
+    }
+    return g + "</g>";
+  };
   const PTS = [];
   for (let i = 0; i < NT; i++) {
     const a = rad(-90 + 7.5 + i * (360 / NT)), x = CX + 600 * Math.cos(a), y = CY + 285 * Math.sin(a);
     if (Math.abs(y - CY) > 70) continue; // only the free middle bands left and right; the corners belong to the workflow pills
     PTS.push([x, y]);
   }
-  [[460, 120], [545, 66], [635, 128], [1220, 120], [1135, 66], [1045, 128], [460, 624], [545, 678], [635, 616], [1220, 624], [1135, 678], [1045, 616]].forEach((q) => PTS.push(q));
+  [[440, 108], [540, 52], [645, 112], [1240, 108], [1140, 52], [1035, 112], [440, 636], [540, 692], [645, 632], [1240, 636], [1140, 692], [1035, 632]].forEach((q) => PTS.push(q));
   PTS.forEach(([x, y], i) => {
     const d = 900 + i * 45;
     links += `<path class="sp rev" style="--d:${d}ms" d="M${f(x)} ${f(y)} L${CX} ${CY}"/>`;
-    tiles += `<g class="rev" style="--d:${d}ms"><rect class="tile" x="${f(x - 28)}" y="${f(y - 19)}" width="56" height="38" rx="8"/><text class="tile-c" x="${f(x)}" y="${f(y + 1)}">&lt;/&gt;</text></g>`;
+    tiles += codeTile(x, y, i, d);
   });
   WORKFLOWS.forEach((t, i) => {
     const a = rad(-90 + i * 60), x = CX + 790 * Math.cos(a), y = CY + 330 * Math.sin(a), w = Math.max(240, t.length * 15 + 112), d = 3000 + i * 250;
