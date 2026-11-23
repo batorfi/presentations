@@ -8,7 +8,7 @@ Deck.slide({
   className: "p1-title-slide",
   background: "edge-branches",
   html: `
-    <p class="s-kicker" data-anim="fade">ADLC webinar series · Part 1 of 3</p>
+    <p class="s-kicker" data-anim="fade">ADLC webinar series</p>
     <h1 class="s-title p1-title" data-anim="up" data-delay="150">Modern Software Engineering with <span class="p1-title-em">Agentic Development Lifecycle Management</span></h1>
     <div class="p1-title-meta" data-anim="up" data-delay="450">
       <div class="p1-presenter" data-speaker-open><b>Zsolt Bátorfi</b><span>Senior AI architect</span></div>
