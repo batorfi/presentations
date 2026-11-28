@@ -29,3 +29,7 @@
 @keyframes p3-glow { 0%, 100% { opacity: 0.15; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.012); } }
 
 .p3-sub { font-size: 34px; line-height: 1.25; color: var(--deck-text-2); margin: 4px 0 8px; max-width: 32em; }
+
+/* Slide 14 — thanks */
+.p3th { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; height: 100%; }
+.p3th h2 { margin: 0; font-family: var(--deck-font-display); font-size: 140px; line-height: 1.1; color: var(--deck-text); white-space: nowrap; }
