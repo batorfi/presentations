@@ -8,7 +8,7 @@ Deck.slide({
   className: "p3-title-slide",
   background: "edge-branches",
   html: `
-    <p class="s-kicker" data-anim="fade">ADLC webinar series</p>
+    <p class="s-kicker" data-anim="fade">ADLC webinar series · Part 3</p>
     <h1 class="s-title p3-title" data-anim="up" data-delay="150"><span class="p3-title-em">Practical Spec-Driven Development</span></h1>
     <p class="p3-sub" data-anim="up" data-delay="300">Modern Software Engineering with Agentic Development Lifecycle Management</p>
     <div class="p3-title-meta" data-anim="up" data-delay="450">
