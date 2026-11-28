@@ -13,9 +13,9 @@ Deck.slide({
     <p class="p3-sub" data-anim="up" data-delay="300">Modern Software Engineering with Agentic Development Lifecycle Management</p>
     <div class="p3-title-meta" data-anim="up" data-delay="450">
       <div class="p3-presenter" data-speaker-open><b>Zsolt Bátorfi</b><span>Senior AI architect</span></div>
-      <div class="p3-pill">90 minutes</div>
+      <div class="p3-pill">60 minutes</div>
     </div>
     <div class="s-qr p3-title-qr" data-anim="zoom" data-delay="800" data-qr="https://batorfi.github.io/presentations/decks/adlc-part3/" data-label="Scan to follow along" data-caption="" data-size="180" data-layout="side"></div>
   `,
-  notes: "Title page. ADLC webinar series, Part 3: Practical Spec-Driven Development. Presenter: Zsolt Bátorfi, senior AI architect. 90 minutes. The QR code opens the live deck on GitHub Pages.",
+  notes: "Title page. ADLC webinar series, Part 3: Practical Spec-Driven Development. Presenter: Zsolt Bátorfi, senior AI architect. 60 minutes. The QR code opens the live deck on GitHub Pages.",
 });

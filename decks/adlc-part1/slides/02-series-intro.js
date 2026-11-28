@@ -32,7 +32,7 @@ Deck.slide({
         </ul>
       </section>
       <section class="p1-pane" data-anim="up" data-delay="750">
-        <header><span class="p1-pane-no">Part 3</span><span class="p1-pane-dur">90 min</span></header>
+        <header><span class="p1-pane-no">Part 3</span><span class="p1-pane-dur">60 min</span></header>
         <h3>Practical spec-driven development: from concept to merge request</h3>
         <ul>
           <li>Assembling context for spec-driven implementation</li>
@@ -43,5 +43,5 @@ Deck.slide({
         </ul>
       </section>
     </div>`,
-  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 1 (today, 60 min = 50 talk + 10 Q&A): foundations in five chapters: why we must go beyond vibe coding, what an AI software factory and the ADLC are, the landscape of harnesses, models and dev machines, the engineer's role (leaving the loop, owning delivery), and how to build your own pipeline, starting from a brownfield code base. It closes with key takeaways, Q&A and references. Part 2 (90 min): the ADLC process in depth. Part 3 (90 min): practical spec-driven development, a live end-to-end run from concept to merge request.",
+  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 1 (today, 60 min = 50 talk + 10 Q&A): foundations in five chapters: why we must go beyond vibe coding, what an AI software factory and the ADLC are, the landscape of harnesses, models and dev machines, the engineer's role (leaving the loop, owning delivery), and how to build your own pipeline, starting from a brownfield code base. It closes with key takeaways, Q&A and references. Part 2 (90 min): the ADLC process in depth. Part 3 (60 min): practical spec-driven development, a live end-to-end run from concept to merge request.",
 });

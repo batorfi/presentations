@@ -31,7 +31,7 @@ Deck.slide({
         </ul>
       </section>
       <section class="p3-pane is-current" data-anim="up" data-delay="750">
-        <header><span class="p3-pane-no">Part 3</span><span class="p3-pane-dur">90 min</span></header>
+        <header><span class="p3-pane-no">Part 3</span><span class="p3-pane-dur">60 min</span></header>
         <h3>Practical spec-driven development: from concept to merge request</h3>
         <ul>
           <li>Assembling context for spec-driven implementation</li>
@@ -43,5 +43,5 @@ Deck.slide({
         <span class="p3-pane-tag">Today</span>
       </section>
     </div>`,
-  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 3 (today, 90 min): practical spec-driven development, a live end-to-end run that adds a feature to an existing code base, from concept to a merge request. Parts 1 (foundations) and 2 (the ADLC process) are the background. The speaker notes for this slide are a draft; refine them once the Part 3 content is specified.",
+  notes: "Series intro. Three Teams webinars for all SWE roles in Nokia ECE R&D. Part 3 (today, 60 min): practical spec-driven development, a live end-to-end run that adds a feature to an existing code base, from concept to a merge request. Parts 1 (foundations) and 2 (the ADLC process) are the background. The speaker notes for this slide are a draft; refine them once the Part 3 content is specified.",
 });
